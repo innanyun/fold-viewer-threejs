@@ -11,9 +11,9 @@
     "http-server": "^0.12.3"
   },
   "browser": {
-    "path": "path-browserify"
+    "path": "build"
   },
   "scripts": {
-    "build": "esbuild sheet.js --bundle --minify --sourcemap --outfile=app.js"
+    "build": "esbuild sheet.js --bundle --minify --sourcemap --outfile=build/app.js"
   }
 }
