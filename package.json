@@ -4,5 +4,8 @@
 		"gsap": "^3.7.0",
 		"rxjs": "^7.1.0",
 		"three": "^0.129.0"
+	},
+	"devDependencies": {
+		"http-server": "^0.12.3"
 	}
 }
