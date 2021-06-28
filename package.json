@@ -8,7 +8,8 @@
   },
   "devDependencies": {
     "browser-sync": "^2.27.3",
-    "esbuild": "^0.12.9"
+    "esbuild": "^0.12.9",
+    "rxjs-debug": "^1.3.0"
   },
   "browser": {
     "path": "build"
