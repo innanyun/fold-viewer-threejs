@@ -7,13 +7,14 @@
     "three": "^0.129.0"
   },
   "devDependencies": {
-    "esbuild": "^0.12.9",
-    "http-server": "^0.12.3"
+    "browser-sync": "^2.27.3",
+    "esbuild": "^0.12.9"
   },
   "browser": {
     "path": "build"
   },
   "scripts": {
-    "build": "esbuild sheet.js --bundle --minify --sourcemap --outfile=build/app.js"
+    "build": "esbuild sheet.js --bundle --minify --sourcemap --outfile=build/app.js",
+    "dev": "esbuild sheet.js --watch --bundle --sourcemap --outfile=build/app.js & cp sheetview.html build/index.html && browser-sync 'build'"
   }
 }
