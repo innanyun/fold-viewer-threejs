@@ -3,7 +3,7 @@ import * as dat from 'dat.gui'
 import { gsap } from 'gsap'
 
 
-// const gui = new dat.GUI();
+const gui = new dat.GUI();
 
 
 function createSheetGeometry () {
