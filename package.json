@@ -16,6 +16,6 @@
   },
   "scripts": {
     "build": "esbuild sheet.js --bundle --minify --sourcemap --outfile=build/app.js",
-    "dev": "esbuild sheet.js --watch --bundle --sourcemap --outfile=build/app.js & cp sheetview.html build/index.html && browser-sync 'build'"
+    "dev": "esbuild sheet.js --watch --bundle --sourcemap --outfile=build/app.js & browser-sync start --server --files 'build' 'sheetview.html'"
   }
 }
