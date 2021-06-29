@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 
 const gui = new dat.GUI();
 
+// JobKey stuff
 
 function createSheetGeometry () {
   const vertices = [
@@ -22,10 +23,13 @@ function createSheetGeometry () {
 }
 
 
+// Three.JS stuff
+
+
 let scene, camera, renderer, mesh;
 
 
-function init () {
+function initScene () {
   scene = new THREE.Scene();
 
   camera = new THREE.PerspectiveCamera(
@@ -58,19 +62,19 @@ function init () {
 }
 
 
-function animate () {
+function animateScene () {
   renderer.render(scene, camera);
 
-  window.requestAnimationFrame(animate);
+  window.requestAnimationFrame(animateScene);
 }
 
 
-/* window book keeping */
+/* window book-keeping */
 
 
 function onWindowLoad (_unusedEvent = null) {
-  init();
-  animate();
+  initScene();
+  animateScene();
   onWindowResize();
 
   gsap.to(mesh.rotation, {
@@ -86,5 +90,6 @@ function onWindowResize (_unusedEvent = null) {
 }
 
 
+// bind events to handlers
 window.addEventListener('load', onWindowLoad);
 window.addEventListener('resize', onWindowResize);
