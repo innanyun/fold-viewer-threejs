@@ -15,7 +15,7 @@
     "path": "build"
   },
   "scripts": {
-    "build": "esbuild sheet.js --bundle --minify --sourcemap --outfile=build/app.js",
-    "dev": "esbuild sheet.js --watch --bundle --sourcemap --outdir=build & browser-sync start --server --files 'build' '*.html'"
+    "build": "esbuild view.js --bundle --format=esm --minify --outdir=build",
+    "dev": "esbuild view.js --watch --bundle --format=esm --sourcemap --outdir=build & browser-sync start --server --files 'build' '*.html'"
   }
 }
