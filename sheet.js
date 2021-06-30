@@ -32,14 +32,14 @@ function createSheetGeometry () {
 let scene, camera, renderer, mesh;
 
 
-function initScene () {
+function initScene (renderOptions) {
   scene = new THREE.Scene();
 
   camera = new THREE.PerspectiveCamera(
-    75,  // field of view
+    renderOptions.fov,  // field of view
     window.innerWidth / window.innerHeight,  // aspect ratio
-    0.1,  // near plane of viewing frustum
-    1000  // far plane of viewing frustum
+    renderOptions.near,  // near plane of viewing frustum
+    renderOptions.far    // far plane of viewing frustum
   );
   camera.position.z = 5;
 
@@ -54,7 +54,7 @@ function initScene () {
   let light = new THREE.PointLight(0xffffff);
   light.position.set(-10, 40, 10);
 
-  scene.background = new THREE.Color(RENDER_OPTIONS.backgroundColor)
+  scene.background = new THREE.Color(renderOptions.backgroundColor)
   scene.add(mesh);
   scene.add(light);
 
@@ -84,6 +84,9 @@ const
   },
   RENDER_OPTIONS = {
     backgroundColor: '#ceedce',
+    fov: 75,  // field of view
+    near: 0.1,  // near plane of viewing frustum
+    far: 1000  // far plane of viewing frustum
   }
 
 
@@ -114,7 +117,7 @@ function initDatGUI (mesh, camera) {
 
 
 function onWindowLoad (_unusedEvent = null) {
-  initScene();
+  initScene(RENDER_OPTIONS);
   animateScene();
   onWindowResize();
   initDatGUI(mesh, camera)
