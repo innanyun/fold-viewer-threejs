@@ -3,8 +3,6 @@ import * as dat from 'dat.gui'
 import { gsap } from 'gsap'
 
 
-const gui = new dat.GUI();
-
 // JobKey stuff
 
 function createSheetGeometry () {
@@ -69,6 +67,34 @@ function animateScene () {
 }
 
 
+function initDatGUI () {
+  const gui = new dat.GUI({name: 'JobKey II'});
+
+  const
+    sheetOptions = {
+      color: 0x00ff00
+    }
+
+  gui.addFolder('Sheet').addColor(sheetOptions, 'color')
+
+  const
+    renderOptions = {
+      z: 5.0,
+      wireframe: false,
+      FOV: 75,
+      near: 0.1,
+      far: 1000
+    },
+    renderOptionsFolder = gui.addFolder('Render')
+
+  renderOptionsFolder.add(renderOptions, 'z').min(0).max(50).step(5)
+  renderOptionsFolder.add(renderOptions, 'FOV').min(0).max(125).step(25)
+  renderOptionsFolder.add(renderOptions, 'near').min(0).max(1).step(0.1)
+  renderOptionsFolder.add(renderOptions, 'far').min(5).max(100).step(10)
+  renderOptionsFolder.add(renderOptions, 'wireframe')
+}
+
+
 /* window book-keeping */
 
 
@@ -76,6 +102,7 @@ function onWindowLoad (_unusedEvent = null) {
   initScene();
   animateScene();
   onWindowResize();
+  initDatGUI()
 
   gsap.to(mesh.rotation, {
     delay: 1, duration: 2, x: 2, y:-2, z:1, repeat: -1, yoyo: true
