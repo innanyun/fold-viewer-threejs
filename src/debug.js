@@ -3,7 +3,7 @@ import * as dat from 'dat.gui'
 import { SHEET_OPTIONS, RENDER_OPTIONS } from './config'
 
 
-export function initDatGUI (mesh, camera) {
+export function initDatGUI (scene, mesh, camera) {
   const
     gui = new dat.GUI({name: 'FOLD viewer'}),
     sheetOptions = gui.addFolder('Sheet'),
