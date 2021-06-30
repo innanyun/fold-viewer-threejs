@@ -64,7 +64,7 @@ function onWindowLoad (_unusedEvent = null) {
   initScene(RENDER_OPTIONS);
   animateScene();
   onWindowResize();
-  initDatGUI(mesh, camera)
+  initDatGUI(scene, mesh, camera)
 
   gsap.to(mesh.rotation, {
     delay: 1, duration: 2, x: 2, y:-2, z:1, repeat: -1, yoyo: true
