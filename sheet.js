@@ -3,7 +3,10 @@ import * as dat from 'dat.gui'
 import { gsap } from 'gsap'
 
 
+//
 // JobKey stuff
+//
+
 
 function createSheetGeometry () {
   const vertices = [
@@ -21,7 +24,9 @@ function createSheetGeometry () {
 }
 
 
+//
 // Three.JS stuff
+//
 
 
 let scene, camera, renderer, mesh;
@@ -40,8 +45,8 @@ function initScene () {
 
   const
     geometry = createSheetGeometry(),
-    material = new THREE.MeshLambertMaterial(
-      {color: 0x00ff00, side: THREE.DoubleSide}
+    material = new THREE.MeshStandardMaterial(
+      {color: SHEET_OPTIONS.color, side: THREE.DoubleSide}
     );
 
   mesh = new THREE.Mesh(geometry, material);
@@ -49,6 +54,7 @@ function initScene () {
   let light = new THREE.PointLight(0xffffff);
   light.position.set(-10, 40, 10);
 
+  scene.background = new THREE.Color(RENDER_OPTIONS.backgroundColor)
   scene.add(mesh);
   scene.add(light);
 
@@ -67,42 +73,49 @@ function animateScene () {
 }
 
 
-function initDatGUI () {
-  const gui = new dat.GUI({name: 'JobKey II'});
+//
+// debug UI
+//
 
+
+const
+  SHEET_OPTIONS = {
+    color: 0x00ff00
+  },
+  RENDER_OPTIONS = {
+    backgroundColor: '#ceedce',
+  }
+
+
+function initDatGUI (mesh, camera) {
   const
-    sheetOptions = {
-      color: 0x00ff00
-    }
+    gui = new dat.GUI({name: 'JobKey II'}),
+    sheetOptions = gui.addFolder('Sheet'),
+    renderOptions = gui.addFolder('Render')
 
-  gui.addFolder('Sheet').addColor(sheetOptions, 'color')
+  sheetOptions.addColor(SHEET_OPTIONS, 'color').onChange(
+    newColor => mesh.material.color.set(newColor)
+  )
 
-  const
-    renderOptions = {
-      z: 5.0,
-      wireframe: false,
-      FOV: 75,
-      near: 0.1,
-      far: 1000
-    },
-    renderOptionsFolder = gui.addFolder('Render')
-
-  renderOptionsFolder.add(renderOptions, 'z').min(0).max(50).step(5)
-  renderOptionsFolder.add(renderOptions, 'FOV').min(0).max(125).step(25)
-  renderOptionsFolder.add(renderOptions, 'near').min(0).max(1).step(0.1)
-  renderOptionsFolder.add(renderOptions, 'far').min(5).max(100).step(10)
-  renderOptionsFolder.add(renderOptions, 'wireframe')
+  renderOptions.addColor(RENDER_OPTIONS, 'backgroundColor').onChange(
+    newColor => scene.background.set(newColor)
+  )
+  renderOptions.add(camera.position, 'z').min(5).max(30).step(5).listen()
+  // renderOptions.add(camera, 'fov').min(0).max(125).step(25).listen()
+  renderOptions.add(mesh.material, 'wireframe').listen()
 }
 
 
-/* window book-keeping */
+//
+// window book-keeping
+//
 
 
 function onWindowLoad (_unusedEvent = null) {
   initScene();
   animateScene();
   onWindowResize();
-  initDatGUI()
+  initDatGUI(mesh, camera)
 
   gsap.to(mesh.rotation, {
     delay: 1, duration: 2, x: 2, y:-2, z:1, repeat: -1, yoyo: true
@@ -117,6 +130,10 @@ function onWindowResize (_unusedEvent = null) {
 }
 
 
+//
 // bind events to handlers
+//
+
+
 window.addEventListener('load', onWindowLoad);
 window.addEventListener('resize', onWindowResize);
