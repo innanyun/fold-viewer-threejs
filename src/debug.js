@@ -4,7 +4,7 @@ import { SHEET_OPTIONS, RENDER_OPTIONS } from './config'
 
 
 export function initDatGUI (scene, mesh, camera) {
-  const
+  let
     gui = new dat.GUI({name: 'JobKey II'}),
     sheetOptions = gui.addFolder('Sheet'),
     renderOptions = gui.addFolder('Render')
