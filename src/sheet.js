@@ -1,42 +1,26 @@
-import { from } from 'rxjs'
-import { pairwise, map, bufferCount, tap } from 'rxjs/operators'
 import * as THREE from 'three'
 
 
-export const _rawSheetVertex2dCoords = (size) => {
-  return new Float64Array([
-    -size * 0.5, -size * 0.5,
-     size * 0.5, -size * 0.5,
-     size * 0.5,  size * 0.5,
-    -size * 0.5,  size * 0.5,
-  ])
-}
+// 좌표계원점(0, 0)에 중심을 놓은 한변의 길이가 `size`인 정4각형도형의 정점좌표들을 생성한다.
+export const _squareSheetVertexLocations = (size) => [
+  [-0.5, -0.5],
+  [ 0.5, -0.5],
+  [ 0.5,  0.5],
+  [-0.5,  0.5],
+].map(([u, v]) => [size * u, size * v])
 
 
-export const _rawSheetVertex3dCoords = (size=1.0) => {
-  const
-    vertex2dLocations = _rawSheetVertex2dCoords(size)
-  let
-    index = 0,
-    vertex3dPositions = new Float64Array(vertex2dLocations.length / 2 * 3)
 
-  from(vertex2dLocations).pipe(
-    // 👉 [Group Consecutive Values Together with RxJS Operator
-    // buffer](https://egghead.io/lessons/rxjs-group-consecutive-values-together-with-rxjs-operator-buffer)
-    bufferCount(2),
-    map(uv => [...uv, 0.0]),
-    map(xyz => vertex3dPositions.set(xyz, index)),
-    tap(x => index += 3)
-  ).subscribe()
-
-  return vertex3dPositions
-}
+// `_squareSheetVertexLocations()`으로 생성된 정4각형(2차원)의 정점에
+// z성분을 추가하여 3차원도형으로 만든다.
+export const _squareSheetVertexPositions = (size=1.0) =>
+  _squareSheetVertexLocations(size).map(([u, v]) => [u, v, 0.0])
 
 
-export const createSheetGeometry = () => {
+export const createSheetGeometry = (vertexPositions) => {
   return new THREE.ShapeGeometry(
     new THREE.Shape().setFromPoints(
-      _rawSheetVertex3dCoords().map(v => new THREE.Vector2(...v))
+      vertexPositions.map(v => new THREE.Vector2(...v))
     )
   )
 }
