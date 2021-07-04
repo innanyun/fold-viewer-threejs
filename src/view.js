@@ -1,7 +1,7 @@
 import * as THREE from 'three'
-import { gsap } from 'gsap'
 
 import { squareSheetVertexPositions, createSheetGeometry } from './sheet'
+import { specifySheetMotion } from './sheet_motion'
 import { SHEET_OPTIONS, RENDER_OPTIONS } from './config'
 import { initDatGUI } from './debug'
 
@@ -50,7 +50,6 @@ function initScene ({fov, near, far}) {
 
 function animateScene () {
   renderer.render(scene, camera);
-
   window.requestAnimationFrame(animateScene);
 }
 
@@ -65,16 +64,7 @@ function onWindowLoad (_unusedEvent = null) {
   animateScene();
   onWindowResize();
   initDatGUI(scene, mesh, camera)
-
-  // TODO: move out to function `specifyAnimation()` (better name?)
-  gsap.to(mesh.rotation, {
-    delay: 1, duration: 3,
-    x: Math.PI,
-    y: -Math.PI,
-    z: Math.PI,
-    repeat: -1,
-    yoyo: true
-  });
+  specifySheetMotion(mesh)
 }
 
 
