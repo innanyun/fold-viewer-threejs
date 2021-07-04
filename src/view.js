@@ -1,9 +1,14 @@
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 
-import { _squareSheetVertexPositions, createSheetGeometry } from './sheet'
+import { squareSheetVertexPositions, createSheetGeometry } from './sheet'
 import { SHEET_OPTIONS, RENDER_OPTIONS } from './config'
 import { initDatGUI } from './debug'
+
+
+//
+// Three.JS stuff
+//
 
 
 let scene, camera, renderer, mesh;
@@ -21,9 +26,9 @@ function initScene ({fov, near, far}) {
   camera.position.z = 5;
 
   const
-    geometry = createSheetGeometry(_squareSheetVertexPositions()),
+    geometry = createSheetGeometry(squareSheetVertexPositions()),
     material = new THREE.MeshStandardMaterial(
-      {color: SHEET_OPTIONS.color, side: THREE.DoubleSide}
+      { color: SHEET_OPTIONS.color, side: THREE.DoubleSide }
     );
 
   mesh = new THREE.Mesh(geometry, material);
@@ -61,8 +66,14 @@ function onWindowLoad (_unusedEvent = null) {
   onWindowResize();
   initDatGUI(scene, mesh, camera)
 
+  // TODO: move out to function `specifyAnimation()` (better name?)
   gsap.to(mesh.rotation, {
-    delay: 1, duration: 2, x: 2, y:-2, z:1, repeat: -1, yoyo: true
+    delay: 1, duration: 3,
+    x: Math.PI,
+    y: -Math.PI,
+    z: Math.PI,
+    repeat: -1,
+    yoyo: true
   });
 }
 
