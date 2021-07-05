@@ -1,6 +1,6 @@
 import { strict as assert } from 'assert'
 
-import { squareSheetVertexPositions } from './sheet.js'
+import { squareSheetVertexPositions } from './sheet.mjs'
 
 
 const
