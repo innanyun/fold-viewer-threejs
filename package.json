@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "dependencies": {
     "gsap": "^3.7.0",
     "rxjs": "^7.1.0",
