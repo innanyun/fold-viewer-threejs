@@ -15,7 +15,7 @@ const _squareSheetVertexLocations = size => [
 //
 // 3D vertex coords of square sheet from 2D counterparts
 //
-export const squareSheetVertexPositions = (size=1.0) =>
+export const squareSheetVertexPositions = (size = 1.0) =>
   _squareSheetVertexLocations(size).map(([u, v]) => [u, v, 0.0])
 
 
