@@ -1,7 +1,8 @@
+import * as THREE from 'three'
 import { gsap } from 'gsap'
 
 
-export function specifySheetMotion(mesh) {
+export function specifySheetMotion(mesh: THREE.Mesh) {
   gsap.to(mesh.rotation, {
     delay: 1, duration: 3,
     x: Math.PI,

@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 import { squareSheetVertexPositions, createSheetGeometry } from './sheet'
 import { specifySheetMotion } from './sheet_motion'
-import { SHEET_OPTIONS, RENDER_OPTIONS } from './config'
+import { SHEET_OPTIONS, RenderOptions, RENDER_OPTIONS } from './config'
 import { initDatGUI } from './debug'
 
 
@@ -11,10 +11,14 @@ import { initDatGUI } from './debug'
 //
 
 
-let scene, camera, renderer, mesh;
+let
+  scene: THREE.Scene,
+  camera: THREE.PerspectiveCamera,
+  renderer: THREE.Renderer,
+  mesh: THREE.Mesh;
 
 
-function initScene ({fov, near, far}) {
+function initScene ({fov, near, far}: RenderOptions) {
   scene = new THREE.Scene();
 
   camera = new THREE.PerspectiveCamera(
@@ -28,8 +32,7 @@ function initScene ({fov, near, far}) {
   const
     geometry = createSheetGeometry(squareSheetVertexPositions()),
     material = new THREE.MeshStandardMaterial(
-      { color: SHEET_OPTIONS.color, side: THREE.DoubleSide }
-    );
+      { color: SHEET_OPTIONS.color, side: THREE.DoubleSide }     );
 
   mesh = new THREE.Mesh(geometry, material);
 
@@ -59,7 +62,7 @@ function animateScene () {
 //
 
 
-function onWindowLoad (_unusedEvent = null) {
+function onWindowLoad (_?: Event) {
   initScene(RENDER_OPTIONS);
   animateScene();
   onWindowResize();
@@ -68,7 +71,7 @@ function onWindowLoad (_unusedEvent = null) {
 }
 
 
-function onWindowResize (_unusedEvent = null) {
+function onWindowResize (_?: Event) {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
