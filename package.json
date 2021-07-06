@@ -4,10 +4,13 @@
     "three": "^0.129.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.19",
     "@types/dat.gui": "^0.7.6",
+    "@types/mocha": "^8.2.2",
     "@types/node": "^16.0.0",
     "@types/three": "^0.129.2",
     "browser-sync": "^2.27.3",
+    "chai": "^4.3.4",
     "dat.gui": "^0.7.7",
     "esbuild": "^0.12.9",
     "eslint": "^7.30.0",
