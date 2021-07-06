@@ -13,7 +13,7 @@ import { initDatGUI } from './debug'
 
 let
   scene: THREE.Scene,
-  camera: THREE.PerspectiveCamera,
+  camera: THREE.Camera,
   renderer: THREE.Renderer,
   mesh: THREE.Mesh
 
@@ -73,8 +73,9 @@ function onWindowLoad (_?: Event) {
 
 
 function onWindowResize (_?: Event) {
-  camera.aspect = window.innerWidth / window.innerHeight
-  camera.updateProjectionMatrix()
+  (camera as THREE.PerspectiveCamera).aspect =(
+    window.innerWidth / window.innerHeight);
+  (camera as THREE.PerspectiveCamera).updateProjectionMatrix()
   renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
