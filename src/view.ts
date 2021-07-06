@@ -15,45 +15,46 @@ let
   scene: THREE.Scene,
   camera: THREE.PerspectiveCamera,
   renderer: THREE.Renderer,
-  mesh: THREE.Mesh;
+  mesh: THREE.Mesh
 
 
 function initScene ({fov, near, far}: RenderOptions) {
-  scene = new THREE.Scene();
+  scene = new THREE.Scene()
 
   camera = new THREE.PerspectiveCamera(
     fov,  // field of view
     window.innerWidth / window.innerHeight,  // aspect ratio
     near,  // near plane of viewing frustum
     far    // far plane of viewing frustum
-  );
-  camera.position.z = 5;
+  )
+  camera.position.z = 5
 
   const
     geometry = createSheetGeometry(squareSheetVertexPositions()),
     material = new THREE.MeshStandardMaterial(
-      { color: SHEET_OPTIONS.color, side: THREE.DoubleSide }     );
+      { color: SHEET_OPTIONS.color, side: THREE.DoubleSide }
+    )
 
-  mesh = new THREE.Mesh(geometry, material);
+  mesh = new THREE.Mesh(geometry, material)
 
-  let light = new THREE.PointLight(0xffffff);
-  light.position.set(-10, 40, 10);
+  let light = new THREE.PointLight(0xffffff)
+  light.position.set(-10, 40, 10)
 
   scene.background = new THREE.Color(RENDER_OPTIONS.backgroundColor)
-  scene.add(mesh);
-  scene.add(light);
+  scene.add(mesh)
+  scene.add(light)
 
   scene.add(new THREE.AxesHelper())
 
-  renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
+  renderer = new THREE.WebGLRenderer()
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  document.body.appendChild(renderer.domElement)
 }
 
 
 function animateScene () {
-  renderer.render(scene, camera);
-  window.requestAnimationFrame(animateScene);
+  renderer.render(scene, camera)
+  window.requestAnimationFrame(animateScene)
 }
 
 
@@ -63,18 +64,18 @@ function animateScene () {
 
 
 function onWindowLoad (_?: Event) {
-  initScene(RENDER_OPTIONS);
-  animateScene();
-  onWindowResize();
+  initScene(RENDER_OPTIONS)
+  animateScene()
+  onWindowResize()
   initDatGUI(scene, mesh, camera)
   specifySheetMotion(mesh)
 }
 
 
 function onWindowResize (_?: Event) {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+  renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
 
@@ -83,5 +84,5 @@ function onWindowResize (_?: Event) {
 //
 
 
-window.addEventListener('load', onWindowLoad);
-window.addEventListener('resize', onWindowResize);
+window.addEventListener('load', onWindowLoad)
+window.addEventListener('resize', onWindowResize)
