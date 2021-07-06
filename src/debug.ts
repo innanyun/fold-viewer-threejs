@@ -3,7 +3,7 @@ import * as dat from 'dat.gui'
 import { SHEET_OPTIONS, RENDER_OPTIONS } from './config'
 
 
-export function initDatGUI (
+function initDatGUI (
   scene: THREE.Scene, mesh: THREE.Mesh, camera: THREE.Camera
 ): void
 {
@@ -26,4 +26,10 @@ export function initDatGUI (
   // renderOptions.add(camera, 'fov').min(0).max(125).step(25).listen()
   renderOptions.add(mesh.material, 'wireframe').listen()
   renderOptions.open()
+}
+
+
+
+export {
+  initDatGUI
 }

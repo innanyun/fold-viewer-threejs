@@ -1,8 +1,11 @@
 import * as THREE from 'three'
 
-import { squareSheetVertexPositions, createSheetGeometry } from './sheet'
+import { SquareSheet } from './sheet'
+import { createSheetGeometry } from './sheet_geometry'
 import { specifySheetMotion } from './sheet_motion'
+
 import { SHEET_OPTIONS, RenderOptions, RENDER_OPTIONS } from './config'
+
 import { initDatGUI } from './debug'
 
 
@@ -30,7 +33,7 @@ function initScene ({fov, near, far}: RenderOptions) {
   camera.position.z = 5
 
   const
-    geometry = createSheetGeometry(squareSheetVertexPositions()),
+    geometry = createSheetGeometry(new SquareSheet(SHEET_OPTIONS.size)),
     material = new THREE.MeshStandardMaterial(
       { color: SHEET_OPTIONS.color, side: THREE.DoubleSide }
     )
