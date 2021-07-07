@@ -22,7 +22,7 @@ class SquareSheet implements Sheet {
   vertexPositions (): Array<Vector3Coord> { return this.#_vertexPositions }
   faceVertexIndices (): Array<Array<VertexId>> { return this.#_faceVertexIndices}
 
-  constructor(size: number = 1.0) {
+  constructor (size: number = 1.0) {
     this.#_vertexLocations = [
       [-0.5, -0.5],
       [ 0.5, -0.5],
