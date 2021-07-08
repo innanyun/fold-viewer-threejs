@@ -3,7 +3,8 @@ import {assert, expect} from 'chai'
 
 // import { strict as assert } from 'assert'
 
-import { squareSheetVertexPositions } from './sheet'
+import { Vector3Coord } from 'types'
+import { SquareSheet } from './sheet'
 
 
 // const
@@ -17,11 +18,11 @@ describe('sheet geometry', () => {
 
   it('vertex planar locations', () => {
     const
-      SHEET_SIZE/*: number*/ = 5,
-      vertexPositions = squareSheetVertexPositions(SHEET_SIZE)
+      SHEET_SIZE: number = 5,
+      v = new SquareSheet(SHEET_SIZE).vertexPositions()
 
-    expect(vertexPositions).to.have.lengthOf(4)
-    assert(vertexPositions.every(p => expect(p[2]).equals(0)))
+    expect(v).to.have.lengthOf(4)
+    assert(v.every((p: Vector3Coord) => expect(p[2]).equals(0)))
   })
 
 })

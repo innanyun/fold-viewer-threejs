@@ -1,5 +1,5 @@
 interface SheetOptions {
-  size: number,
+  size: number
   color: string | number
 }
 
@@ -10,9 +10,9 @@ const SHEET_OPTIONS: SheetOptions = {
 
 
 interface RenderOptions {
-  backgroundColor: string | number,
-  fov: number,
-  near: number,
+  backgroundColor: string | number
+  fov: number
+  near: number
   far: number
 }
 
