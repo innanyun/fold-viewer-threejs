@@ -1,25 +1,55 @@
 {
-    "file_spec": 1,
-    "file_creator": "text editor",
-    "file_author": "Univan Ahn",
-    "file_title": "Half-folded Sheet",
-    "file_classes": ["singleModel"],
-    "frame_title": "Raw square sheet",
-    "frame_classes": ["foldedForm"],
-    "frame_attributes": ["2D"],
-    "vertices_coords": [
+  "file_spec": 1.1,
+  "file_creator": "text editor",
+  "file_author": "Univan Ahn",
+  "file_title": "Half-folded Sheet",
+  "file_description": "studying FOLD format for integration with JobKey",
+  "file_classes": ["singleModel", "diagrams"],
+
+  "frame_title": "Raw square sheet",
+  "frame_description": "",
+  "frame_classes": ["foldedForm"],
+  "frame_attributes": ["2D"],
+  "frame_unit": "unit",
+  "vertices_coords": [
+    [-1, -1],
+    [ 1, -1],
+    [ 1,  1],
+    [-1,  1]
+  ],
+  "edges_vertices": [
+    [0, 1], [1, 2], [2, 3], [3, 0]
+  ],
+  "edges_faces": [
+    0, 0, 0, 0
+  ],
+  "edges_assignment": [
+    "B", "B", "B", "B"
+  ],
+  "faces_vertices": [
+    [0, 1, 2, 3]
+  ],
+
+  "file_frames": [
+    {
+      "frame_title": "Half-folded sheet",
+      "frame_classes": ["foldedForm"],
+      "frame_attributes": ["3D"],
+      "vertices_coords": [
         [-1, -1],
         [ 1, -1],
         [ 1,  1],
         [-1,  1]
-    ],
-    "faces_vertices": [
+      ],
+      "faces_vertices": [
         [0, 1, 2, 3]
-    ],
-    "edges_vertices": [
+      ],
+      "edges_vertices": [
         [0, 1], [1, 2], [2, 3], [3, 0]
-    ],
-    "edges_assignment": [
+      ],
+      "edges_assignment": [
         "B", "B", "B", "B"
-    ]
+      ]
+    }
+  ]
 }
