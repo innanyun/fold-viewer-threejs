@@ -9,14 +9,16 @@ const SHEET_OPTIONS: SheetOptions = {
   }
 
 
-interface RenderOptions {
+interface ViewOptions {
+  dom: HTMLElement
   backgroundColor: string | number
   fov: number
   near: number
   far: number
 }
 
-const RENDER_OPTIONS: RenderOptions = {
+const VIEW_OPTIONS: ViewOptions = {
+    dom: document.getElementById('container')!,
     // Scene
     backgroundColor: '#ceedce',
     // Camera
@@ -29,5 +31,5 @@ const RENDER_OPTIONS: RenderOptions = {
 
 export {
   SheetOptions, SHEET_OPTIONS,
-  RenderOptions, RENDER_OPTIONS
+  ViewOptions, VIEW_OPTIONS
 }
