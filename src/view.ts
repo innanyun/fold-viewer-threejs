@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-import { specifySheetMotion } from 'sheet_motion'
+import { specifyMeshMotion } from 'mesh_motion'
 import { ISceneBuilder } from 'scene_builder'
 
 import { ViewOptions } from 'config'
@@ -70,7 +70,7 @@ class View {
 
     initDatGUI(this._scene, this._mesh, this._camera)
 
-    specifySheetMotion(this._mesh)
+    specifyMeshMotion(this._mesh)
   }
 
   setupResize(): void {
