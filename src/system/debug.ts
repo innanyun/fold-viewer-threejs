@@ -1,6 +1,7 @@
 import * as dat from 'dat.gui'
 
-import { SHEET_OPTIONS, VIEW_OPTIONS } from './config'
+import { SHEET_OPTIONS } from 'sheet/config'
+import { VIEW_OPTIONS } from 'view/config'
 
 
 function initDatGUI (

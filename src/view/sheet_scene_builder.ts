@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 
 import { ISceneBuilder } from 'scene_builder'
-import { createSheetGeometry } from 'sheet_geometry';
-import { SquareSheet } from 'sheet';
-import { SHEET_OPTIONS } from 'config';
+import { createSheetGeometry } from 'sheet/sheet_geometry';
+import { SquareSheet } from 'sheet/sheet';
+import { SHEET_OPTIONS } from 'sheet/config';
 
 
 class SheetSceneBuilder implements ISceneBuilder {

@@ -1,11 +1,11 @@
 import * as THREE from 'three'
 
-import { specifyMeshMotion } from 'mesh_motion'
+import { specifyMeshMotion } from 'view/mesh_motion'
 import { ISceneBuilder } from 'scene_builder'
 
 import { ViewOptions } from 'config'
 
-import { initDatGUI } from 'debug'
+import { initDatGUI } from 'system/debug'
 
 
 class View {
