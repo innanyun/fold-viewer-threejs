@@ -3,8 +3,8 @@ import {assert, expect} from 'chai'
 
 // import { strict as assert } from 'assert'
 
-import { Vector3Coord } from 'types'
-import { SquareSheet } from './sheet'
+import { Vector3Coord } from 'sheet/types'
+import { SquareSheet } from 'sheet/square_sheet'
 
 
 // const

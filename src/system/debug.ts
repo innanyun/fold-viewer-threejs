@@ -4,7 +4,7 @@ import { SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
 
 
-function initDatGUI (
+export function initDatGUI(
   scene: THREE.Scene, mesh: THREE.Mesh, camera: THREE.Camera
 ): void
 {
@@ -29,8 +29,3 @@ function initDatGUI (
   renderOptions.open()
 }
 
-
-
-export {
-  initDatGUI
-}

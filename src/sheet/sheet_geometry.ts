@@ -1,10 +1,10 @@
 import * as THREE from 'three'
 
-import { Sheet } from 'sheet'
-import { VertexId, Vector3Coord } from 'types'
+import { Sheet } from 'sheet/sheet'
+import { VertexId, Vector3Coord } from 'sheet/types'
 
 
-function createSheetGeometry (s: Sheet): THREE.BufferGeometry
+export function createSheetGeometry (s: Sheet): THREE.BufferGeometry
 {
   return new THREE.ShapeGeometry(
     s.faceVertexIndices().map(
@@ -24,10 +24,4 @@ function _createFaceShape(
       return new THREE.Vector2(p[0], p[1])
     })
   )
-}
-
-
-
-export {
-  createSheetGeometry
 }

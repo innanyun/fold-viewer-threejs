@@ -1,14 +1,14 @@
 import * as THREE from 'three'
 
 import { specifyMeshMotion } from 'view/mesh_motion'
-import { ISceneBuilder } from 'scene_builder'
+import { SceneBuilder } from 'view/scene_builder'
 
-import { ViewOptions } from 'config'
+import { ViewOptions } from 'view/config'
 
 import { initDatGUI } from 'system/debug'
 
 
-class View {
+export class View {
 
   private _container: HTMLElement
 
@@ -20,7 +20,7 @@ class View {
   // private _material: THREE.Material
 
 
-  constructor(options: ViewOptions, sceneBuilder: ISceneBuilder) {
+  constructor(options: ViewOptions, sceneBuilder: SceneBuilder) {
 
     this._container = options.dom
 
@@ -90,6 +90,3 @@ class View {
   }
 
 }
-
-
-export { View }

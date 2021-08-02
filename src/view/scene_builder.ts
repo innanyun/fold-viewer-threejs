@@ -1,15 +1,10 @@
 import * as THREE from 'three'
 
 
-interface ISceneBuilder {
+export interface SceneBuilder {
 
   createGeometry(): THREE.BufferGeometry
 
   createMaterial(): THREE.Material
 
-}
-
-
-export {
-  ISceneBuilder
 }

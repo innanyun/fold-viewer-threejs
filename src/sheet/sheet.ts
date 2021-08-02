@@ -1,7 +1,7 @@
-import { VertexId, Vector2Coord, Vector3Coord } from './types'
+import { VertexId, Vector2Coord, Vector3Coord } from 'sheet/types'
 
 
-interface Sheet {
+export interface Sheet {
 
   vertexLocations(): Array<Vector2Coord>
 
