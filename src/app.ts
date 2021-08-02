@@ -1,14 +1,7 @@
-// import { ThreeView } from 'three_view'
-// import { SheetSceneBuilder } from "sheet_scene_builder";
-
-
-// new ThreeView(
-//   { dom: document.getElementById('container')! },
-//   new SheetSceneBuilder()
-// );
-
-import { VIEW_OPTIONS } from 'config';
+import { SheetSceneBuilder } from "sheet_scene_builder";
 import { View } from 'view'
 
+import { VIEW_OPTIONS } from "config";
 
-new View(VIEW_OPTIONS)
+
+new View(VIEW_OPTIONS, new SheetSceneBuilder())

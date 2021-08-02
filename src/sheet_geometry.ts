@@ -7,7 +7,9 @@ import { VertexId, Vector3Coord } from 'types'
 function createSheetGeometry (s: Sheet): THREE.BufferGeometry
 {
   return new THREE.ShapeGeometry(
-    s.faceVertexIndices().map(f => _createFaceShape(s.vertexPositions(), f))
+    s.faceVertexIndices().map(
+      faceVertexIds => _createFaceShape(s.vertexPositions(), faceVertexIds)
+    )
   )
 }
 
