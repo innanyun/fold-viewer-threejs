@@ -1,5 +1,5 @@
-import {describe, it} from 'mocha'
-import {assert, expect} from 'chai'
+import { describe, it } from 'mocha'
+import { assert, expect } from 'chai'
 
 // import { strict as assert } from 'assert'
 

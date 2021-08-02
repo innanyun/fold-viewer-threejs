@@ -26,7 +26,7 @@ export class View {
 
     const
       width = this._container.offsetWidth,
-      height = this._container.offsetHeight;
+      height = this._container.offsetHeight
 
     this._scene = new THREE.Scene()
 
@@ -48,7 +48,7 @@ export class View {
       /*this._geometry =*/sceneBuilder.createGeometry(),
       /*this._material =*/sceneBuilder.createMaterial()
     )
-    this._scene.add(this._mesh);
+    this._scene.add(this._mesh)
 
     this._scene.add(new THREE.AxesHelper())
 
@@ -74,13 +74,13 @@ export class View {
   }
 
   setupResize(): void {
-    window.addEventListener("resize", this.resize.bind(this));
+    window.addEventListener('resize', this.resize.bind(this))
   }
 
   resize(_?: Event): void {
     const
       newWidth = this._container.offsetWidth,
-      newHeight = this._container.offsetHeight;
+      newHeight = this._container.offsetHeight
 
     this._renderer.setSize(newWidth, newHeight)
 
