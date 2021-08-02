@@ -86,6 +86,7 @@ export class View {
 
     this._camera.aspect = newWidth / newHeight
     this._camera.updateProjectionMatrix()
+
     this.render()
   }
 
