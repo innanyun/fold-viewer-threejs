@@ -1,9 +1,12 @@
 export interface ViewOptions {
   dom: HTMLElement
+  // Scene
   backgroundColor: string | number
+  // Camera
   fov: number
   near: number
   far: number
+  // development
   debug: boolean
 }
 

@@ -3,13 +3,12 @@ import * as THREE from 'three'
 import { specifyMeshMotion } from 'view/mesh_motion'
 import { SceneBuilder } from 'view/scene_builder'
 
-import { ViewOptions, VIEW_OPTIONS } from 'view/config'
+import { ViewOptions } from 'view/config'
 
 import { initDatGUI } from 'system/debug'
 
 
 export class View {
-
   private _container: HTMLElement
 
   private _scene: THREE.Scene
@@ -19,9 +18,7 @@ export class View {
   // private _geometry: THREE.BufferGeometry
   // private _material: THREE.Material
 
-
   constructor(options: ViewOptions, sceneBuilder: SceneBuilder) {
-
     this._container = options.dom
 
     const
@@ -45,10 +42,10 @@ export class View {
     this._scene.background = new THREE.Color(options.backgroundColor)
 
     this._mesh = new THREE.Mesh(
-      /*this._geometry =*/sceneBuilder.createGeometry(),
-      /*this._material =*/sceneBuilder.createMaterial()
+      /*this._geometry =*/ sceneBuilder.createGeometry(),
+      /*this._material =*/ sceneBuilder.createMaterial()
     )
-    this._scene.add(this._mesh)
+    this._scene.add(this._mesh);
 
     this._scene.add(new THREE.AxesHelper())
 
@@ -59,25 +56,20 @@ export class View {
     this.initView(options)
   }
 
-  render(): void {
-    this._renderer.render(this._scene, this._camera)
-    window.requestAnimationFrame(this.render.bind(this))
-  }
-
-  initView(options: ViewOptions): void {
+  private initView(options: ViewOptions): void {
     this.resize()
     this.setupResize()
 
-    options.debug && this._initDebugAssets()
+    options.debug && this.initDebugAssets()
 
     specifyMeshMotion(this._mesh)
   }
 
-  setupResize(): void {
-    window.addEventListener('resize', this.resize.bind(this))
+  private setupResize(): void {
+    window.addEventListener("resize", this.resize.bind(this))
   }
 
-  resize(_?: Event): void {
+  private resize(_?: Event): void {
     const
       newWidth = this._container.offsetWidth,
       newHeight = this._container.offsetHeight
@@ -90,7 +82,12 @@ export class View {
     this.render()
   }
 
-  private _initDebugAssets() {
+  private render(): void {
+    this._renderer.render(this._scene, this._camera)
+    window.requestAnimationFrame(this.render.bind(this))
+  }
+
+  private initDebugAssets() {
     initDatGUI(this._scene, this._mesh, this._camera)
     this._scene.add(new THREE.AxesHelper())
   }
