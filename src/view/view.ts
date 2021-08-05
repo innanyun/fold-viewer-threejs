@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { specifyMeshMotion } from 'view/mesh_motion'
 import { SceneBuilder } from 'view/scene_builder'
 
-import { ViewOptions } from 'view/config'
+import { ViewOptions, VIEW_OPTIONS } from 'view/config'
 
 import { initDatGUI } from 'system/debug'
 
@@ -56,7 +56,7 @@ export class View {
     this._renderer.setSize(width, height)
     this._container.appendChild(this._renderer.domElement)
 
-    this.initView()
+    this.initView(options)
   }
 
   render(): void {
@@ -64,11 +64,11 @@ export class View {
     window.requestAnimationFrame(this.render.bind(this))
   }
 
-  initView(): void {
+  initView(options: ViewOptions): void {
     this.resize()
     this.setupResize()
 
-    initDatGUI(this._scene, this._mesh, this._camera)
+    options.debug && this._initDebugAssets()
 
     specifyMeshMotion(this._mesh)
   }
@@ -88,6 +88,11 @@ export class View {
     this._camera.updateProjectionMatrix()
 
     this.render()
+  }
+
+  private _initDebugAssets() {
+    initDatGUI(this._scene, this._mesh, this._camera)
+    this._scene.add(new THREE.AxesHelper())
   }
 
 }
