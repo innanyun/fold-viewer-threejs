@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 
+import { MeshBuilder } from 'view/mesh_builder'
+import { createSheetGeometry } from 'sheet/sheet_geometry'
+import { SHEET_OPTIONS } from 'sheet/config'
 import { Sheet } from 'sheet/sheet'
-import { createSheetGeometry } from "sheet/sheet_geometry";
-import { SHEET_OPTIONS } from "sheet/config";
-import { MeshBuilder } from "view/mesh_builder";
 
 
 export class SheetMeshBuilder implements MeshBuilder {

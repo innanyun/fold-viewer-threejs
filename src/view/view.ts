@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 import { specifyMeshMotion } from 'view/mesh_motion'
-import { SceneBuilder } from 'view/scene_builder'
+import { MeshBuilder } from 'view/mesh_builder'
 
 import { ViewOptions } from 'view/config'
 
@@ -15,10 +15,8 @@ export class View {
   private _camera: THREE.PerspectiveCamera
   private _renderer: THREE.Renderer
   private _mesh: THREE.Mesh
-  // private _geometry: THREE.BufferGeometry
-  // private _material: THREE.Material
 
-  constructor(options: ViewOptions, sceneBuilder: SceneBuilder) {
+  constructor(options: ViewOptions, sceneMeshBuilder: MeshBuilder) {
     this._container = options.dom
 
     const
@@ -41,13 +39,7 @@ export class View {
 
     this._scene.background = new THREE.Color(options.backgroundColor)
 
-    this._mesh = new THREE.Mesh(
-      /*this._geometry =*/ sceneBuilder.createGeometry(),
-      /*this._material =*/ sceneBuilder.createMaterial()
-    )
-    this._scene.add(this._mesh);
-
-    this._scene.add(new THREE.AxesHelper())
+    this._scene.add((this._mesh = sceneMeshBuilder.mesh()))
 
     this._renderer = new THREE.WebGLRenderer()
     this._renderer.setSize(width, height)
