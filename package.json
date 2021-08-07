@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "fs": "^0.0.1-security",
     "gsap": "^3.7.0",
     "three": "^0.129.0"
   },
