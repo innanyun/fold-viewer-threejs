@@ -7,15 +7,16 @@
 
 import * as fs from "fs";
 
-import { FOLD_format } from 'data/FOLD_format';
+import { FOLD_data } from 'data/FOLD_format';
 
-import imported from './test-data/simple.json';
+import * as externalData from './test-data/diagonal-cp.json';
 
 
 const
   last = (arr: string[]): string => arr[arr?.length - 1],
-  f: FOLD_format = JSON.parse(fs.readFileSync(last(process.argv)).toString()),
-  g: FOLD_format = imported;
+  read: FOLD_data = JSON.parse(fs.readFileSync(last(process.argv)).toString()),
+  imported: FOLD_data = externalData;
 
-console.log(f);
-console.log(g);
+
+console.log(read);
+console.log(imported);
