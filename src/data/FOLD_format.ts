@@ -13,7 +13,7 @@ interface FOLD_file_metadata {
   file_spec: number;
   file_creator: string;
   file_author?: string;
-  file_title: string;
+  file_title?: string;
   file_description?: string;
   file_classes: Array<
     ("singleModel" | "multiModel") | "animation" | "diagrams" | CustomProperty
