@@ -1,33 +1,33 @@
-import { Vector2Coord, Vector3Coord, VertexId, EdgeId, FaceId } from 'sheet/types';
+import { Vector2Coord, Vector3Coord, VertexId, EdgeId, FaceId } from 'sheet/types'
 
 
-type FOLD_data = FOLD_file_metadata & FOLD_frame_data;
-type FOLD_frame_data = FOLD_single_frame_data | FOLD_multi_frame_data;
-type FOLD_single_frame_data = FOLD_frame_metadata & FOLD_geometric_data;
+type FOLD_data = FOLD_file_metadata & FOLD_frame_data
+type FOLD_frame_data = FOLD_single_frame_data | FOLD_multi_frame_data
+type FOLD_single_frame_data = FOLD_frame_metadata & FOLD_geometric_data
 
 
-type CustomProperty = string;
+type CustomProperty = string
 
 
 interface FOLD_file_metadata {
-  file_spec: number;
-  file_creator?: string;
-  file_author?: string;
-  file_title?: string;
-  file_description?: string;
+  file_spec: number
+  file_creator?: string
+  file_author?: string
+  file_title?: string
+  file_description?: string
   file_classes?: Array<
     ('singleModel' | 'multiModel') | 'animation' | 'diagrams' | CustomProperty
-  >;
+  >
 }
 
 
 interface FOLD_frame_metadata {
-  frame_author?: string;
-  frame_title?: string;
-  frame_description?: string;
+  frame_author?: string
+  frame_title?: string
+  frame_description?: string
   frame_classes?: Array<
     'creasePattern' | 'foldedForm' | 'graph' | 'linkage' | CustomProperty
-  >;
+  >
   frame_attributes?: Array<
     | ('2D' | '3D')
     | 'abstract'
@@ -36,7 +36,7 @@ interface FOLD_frame_metadata {
     | ('selfTouching' | 'nonSelfTouching')
     | ('selfIntersecting' | 'nonSelfIntersecting')
     | CustomProperty
-  >;
+  >
   frame_unit?:
     | 'unit'
     | 'in'
@@ -47,12 +47,12 @@ interface FOLD_frame_metadata {
     | 'um'
     | 'nm'
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
-    | string;
+    | string
 }
 
 
 interface FOLD_multi_frame_data {
-  file_frames: Array<FOLD_frame_data>;
+  file_frames: Array<FOLD_frame_data>
 }
 
 
@@ -62,20 +62,20 @@ interface FOLD_geometric_data {
     | Vector3Coord
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
     | number[]
-  >;
-  vertices_vertices?: Array<Array<VertexId>>;
-  vertices_faces?: Array<Array<FaceId>>;
+  >
+  vertices_vertices?: Array<Array<VertexId>>
+  vertices_faces?: Array<Array<FaceId>>
 
   edges_vertices: Array<
     | [VertexId, VertexId]
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
     | number[]
-  >;
+  >
   edges_faces?: Array<
     | ([FaceId, FaceId | null] | FaceId)
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
     | (number | null)[]
-  >;
+  >
   edges_assignment?: Array<
     | 'B'
     | 'M'
@@ -84,22 +84,22 @@ interface FOLD_geometric_data {
     | 'U'
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
     | string
-  >;
+  >
   edges_foldAngle?: Array<
     | number
     /*TODO: spec says only `number` but some files from the field have `null`s*/
     | null
-  >;
-  edges_length?: Array<number>;
+  >
+  edges_length?: Array<number>
 
-  faces_vertices?: Array<Array<VertexId>>;
-  faces_edges?: Array<Array<EdgeId>>;
+  faces_vertices?: Array<Array<VertexId>>
+  faces_edges?: Array<Array<EdgeId>>
   faceOrders?: Array<
     | [FaceId, FaceId, 1 | -1 | 0]
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
     | number[]
-  >;
-  edgeOrders?: Array<[EdgeId, EdgeId, 1 | -1 | 0]>;
+  >
+  edgeOrders?: Array<[EdgeId, EdgeId, 1 | -1 | 0]>
 }
 
 
