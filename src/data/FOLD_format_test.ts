@@ -1,6 +1,6 @@
 /**
  * build:
- *  esbuild --outfile=build/test.js --bundle --platform=node src/data/FOLD_reader_test.ts
+ *  esbuild --outfile=build/test.js --bundle --platform=node <this_file>
  * run:
  *  node build/test.js <FOLD_file_path>
  */
@@ -9,7 +9,7 @@ import * as fs from 'fs';
 
 import { FOLD_data } from 'data/FOLD_format';
 
-import * as externalData from './test-data/panels.json';
+import * as externalData from './test-data/passed/BoxPleatTessellation.json';
 
 
 const

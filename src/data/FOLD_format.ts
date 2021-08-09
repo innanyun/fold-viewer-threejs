@@ -77,20 +77,23 @@ interface FOLD_geometric_data {
     | (number | null)[]
   >;
   edges_assignment?: Array<
-    | 'B'
-    | 'M'
-    | 'V'
-    | 'F'
-    | 'U'
+    | "B"
+    | "M"
+    | "V"
+    | "F"
+    | "U"
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
     | string
   >;
-  edges_foldAngle?: Array<number>;
+  edges_foldAngle?: Array<
+    | number
+    /*TODO: spec says only `number` but some files from the field have `null`s*/
+    | null
+  >;
   edges_length?: Array<number>;
 
   faces_vertices?: Array<Array<VertexId>>;
   faces_edges?: Array<Array<EdgeId>>;
-
   faceOrders?: Array<
     | [FaceId, FaceId, 1 | -1 | 0]
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
