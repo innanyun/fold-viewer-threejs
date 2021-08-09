@@ -77,11 +77,11 @@ interface FOLD_geometric_data {
     | (number | null)[]
   >;
   edges_assignment?: Array<
-    | "B"
-    | "M"
-    | "V"
-    | "F"
-    | "U"
+    | 'B'
+    | 'M'
+    | 'V'
+    | 'F'
+    | 'U'
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
     | string
   >;
