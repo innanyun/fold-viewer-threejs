@@ -15,7 +15,7 @@ interface FOLD_file_metadata {
   file_author?: string;
   file_title?: string;
   file_description?: string;
-  file_classes: Array<
+  file_classes?: Array<
     ('singleModel' | 'multiModel') | 'animation' | 'diagrams' | CustomProperty
   >;
 }
@@ -23,12 +23,12 @@ interface FOLD_file_metadata {
 
 interface FOLD_frame_metadata {
   frame_author?: string;
-  frame_title: string;
+  frame_title?: string;
   frame_description?: string;
-  frame_classes: Array<
+  frame_classes?: Array<
     'creasePattern' | 'foldedForm' | 'graph' | 'linkage' | CustomProperty
   >;
-  frame_attributes: Array<
+  frame_attributes?: Array<
     | ('2D' | '3D')
     | 'abstract'
     | ('manifold' | 'nonManifold')
@@ -46,7 +46,8 @@ interface FOLD_frame_metadata {
     | 'mm'
     | 'um'
     | 'nm'
-    | string /*TODO: temporary workaround for validation utilizing TypeScript type system*/;
+    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+    | string;
 }
 
 
@@ -59,28 +60,35 @@ interface FOLD_geometric_data {
   vertices_coords: Array<
     | Vector2Coord
     | Vector3Coord
-    | number[] /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+    | number[]
   >;
   vertices_vertices?: Array<Array<VertexId>>;
   vertices_faces?: Array<Array<FaceId>>;
 
   edges_vertices: Array<
     | [VertexId, VertexId]
-    | number[] /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+    | number[]
   >;
-  edges_faces?: Array<[FaceId, FaceId] | FaceId>;
+  edges_faces?: Array<
+    | ([FaceId, FaceId | null] | FaceId)
+    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+    | (number | null)[]
+  >;
   edges_assignment: Array<
-    | 'B'
-    | 'M'
-    | 'V'
-    | 'F'
-    | 'U'
-    | string /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+    | "B"
+    | "M"
+    | "V"
+    | "F"
+    | "U"
+    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+    | string
   >;
   edges_foldAngle?: Array<number>;
   edges_length?: Array<number>;
 
-  faces_vertices: Array<Array<VertexId>>;
+  faces_vertices?: Array<Array<VertexId>>;
   faces_edges?: Array<Array<EdgeId>>;
 
   faceOrders?: Array<[FaceId, FaceId, 1 | -1 | 0]>;
