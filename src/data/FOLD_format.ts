@@ -41,31 +41,54 @@ interface FOLD_frame_metadata {
     | ("selfIntersecting" | "nonSelfIntersecting")
     | CustomProperty
   >;
-  frame_unit: "unit" | "in" | "pt" | "m" | "cm" | "mm" | "um" | "nm";
+  frame_unit?:
+    | 'unit'
+    | 'in'
+    | 'pt'
+    | 'm'
+    | 'cm'
+    | 'mm'
+    | 'um'
+    | 'nm'
+    | string /*TODO: temporary workaround for validation utilizing TypeScript type system*/;
 }
 
 
 interface FOLD_multi_frame_data {
-  file_frames?: Array<FOLD_frame_data>;
+  file_frames: Array<FOLD_frame_data>;
 }
 
 
 interface FOLD_geometric_data {
-  vertices_coords: Array<Vector2Coord | Vector3Coord>;
-  vertices_vertices: Array<Array<VertexId>>;
-  vertices_faces: Array<Array<FaceId>>;
+  vertices_coords: Array<
+    | Vector2Coord
+    | Vector3Coord
+    | number[] /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+  >;
+  vertices_vertices?: Array<Array<VertexId>>;
+  vertices_faces?: Array<Array<FaceId>>;
 
-  edges_vertices: Array<[VertexId, VertexId]>;
-  edges_faces: Array<[FaceId, FaceId]>;
-  edges_assignment: Array<'B' | 'M' | 'V' | 'F' | 'U'>;
-  edges_foldAngle: Array<number>;
-  edges_length: Array<number>;
+  edges_vertices: Array<
+    | [VertexId, VertexId]
+    | number[] /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+  >;
+  edges_faces: Array<[FaceId, FaceId] | FaceId>;
+  edges_assignment: Array<
+    | 'B'
+    | 'M'
+    | 'V'
+    | 'F'
+    | 'U'
+    | string /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+  >;
+  edges_foldAngle?: Array<number>;
+  edges_length?: Array<number>;
 
-  faces_vertices: Array<Array<VertexId>>
-  faces_edges: Array<Array<EdgeId>>
+  faces_vertices: Array<Array<VertexId>>;
+  faces_edges?: Array<Array<EdgeId>>;
 
-  faceOrders: Array<[FaceId, FaceId, (1 | -1 | 0)]>;
-  edgeOrders: Array<[EdgeId, EdgeId, (1 | -1 | 0)]>;
+  faceOrders?: Array<[FaceId, FaceId, 1 | -1 | 0]>;
+  edgeOrders?: Array<[EdgeId, EdgeId, 1 | -1 | 0]>;
 }
 
 

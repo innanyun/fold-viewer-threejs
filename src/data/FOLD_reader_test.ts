@@ -5,11 +5,11 @@
  *  node build/test.js <FOLD_file_path>
  */
 
-import * as fs from "fs";
+import * as fs from 'fs';
 
 import { FOLD_data } from 'data/FOLD_format';
 
-import * as externalData from './test-data/simple.json';
+import * as externalData from './test-data/square-sheet.json';
 
 
 const
