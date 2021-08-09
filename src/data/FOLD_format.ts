@@ -24,7 +24,7 @@ interface FOLD_file_metadata {
 interface FOLD_frame_metadata {
   frame_author?: string;
   frame_title: string;
-  frame_description: string;
+  frame_description?: string;
   frame_classes: Array<
     'creasePattern' | 'foldedForm' | 'graph' | 'linkage' | CustomProperty
   >;
@@ -68,7 +68,7 @@ interface FOLD_geometric_data {
     | [VertexId, VertexId]
     | number[] /*TODO: temporary workaround for validation utilizing TypeScript type system*/
   >;
-  edges_faces: Array<[FaceId, FaceId] | FaceId>;
+  edges_faces?: Array<[FaceId, FaceId] | FaceId>;
   edges_assignment: Array<
     | 'B'
     | 'M'
