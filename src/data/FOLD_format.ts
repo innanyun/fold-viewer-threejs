@@ -91,7 +91,11 @@ interface FOLD_geometric_data {
   faces_vertices?: Array<Array<VertexId>>;
   faces_edges?: Array<Array<EdgeId>>;
 
-  faceOrders?: Array<[FaceId, FaceId, 1 | -1 | 0]>;
+  faceOrders?: Array<
+    | [FaceId, FaceId, 1 | -1 | 0]
+    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
+    | number[]
+  >;
   edgeOrders?: Array<[EdgeId, EdgeId, 1 | -1 | 0]>;
 }
 
