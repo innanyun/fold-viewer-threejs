@@ -16,7 +16,7 @@ interface FOLD_file_metadata {
   file_title?: string;
   file_description?: string;
   file_classes: Array<
-    ("singleModel" | "multiModel") | "animation" | "diagrams" | CustomProperty
+    ('singleModel' | 'multiModel') | 'animation' | 'diagrams' | CustomProperty
   >;
 }
 
@@ -26,19 +26,15 @@ interface FOLD_frame_metadata {
   frame_title: string;
   frame_description: string;
   frame_classes: Array<
-    | "creasePattern"
-    | "foldedForm"
-    | "graph"
-    | "linkage"
-    | CustomProperty
+    'creasePattern' | 'foldedForm' | 'graph' | 'linkage' | CustomProperty
   >;
   frame_attributes: Array<
-    | ("2D" | "3D")
-    | "abstract"
-    | ("manifold" | "nonManifold")
-    | ("orientable" | "nonOrientable")
-    | ("selfTouching" | "nonSelfTouching")
-    | ("selfIntersecting" | "nonSelfIntersecting")
+    | ('2D' | '3D')
+    | 'abstract'
+    | ('manifold' | 'nonManifold')
+    | ('orientable' | 'nonOrientable')
+    | ('selfTouching' | 'nonSelfTouching')
+    | ('selfIntersecting' | 'nonSelfIntersecting')
     | CustomProperty
   >;
   frame_unit?:
