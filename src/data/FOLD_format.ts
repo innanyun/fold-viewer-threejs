@@ -11,7 +11,7 @@ type CustomProperty = string;
 
 interface FOLD_file_metadata {
   file_spec: number;
-  file_creator: string;
+  file_creator?: string;
   file_author?: string;
   file_title?: string;
   file_description?: string;
@@ -76,12 +76,12 @@ interface FOLD_geometric_data {
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
     | (number | null)[]
   >;
-  edges_assignment: Array<
-    | "B"
-    | "M"
-    | "V"
-    | "F"
-    | "U"
+  edges_assignment?: Array<
+    | 'B'
+    | 'M'
+    | 'V'
+    | 'F'
+    | 'U'
     /*TODO: temporary workaround for validation utilizing TypeScript type system*/
     | string
   >;
