@@ -1,7 +1,7 @@
 import { Sheet } from 'sheet/sheet';
 import { VertexId, Vector2Coord, Vector3Coord } from 'sheet/types';
-import { readFoldFile } from './FOLD_file_reader';
-import { FOLD_data } from './FOLD_format';
+import { readFoldFile } from './fold_file_reader';
+import { FOLD_data } from './fold_format';
 
 
 export class FoldFileSheet implements Sheet {

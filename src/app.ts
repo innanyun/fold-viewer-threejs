@@ -1,5 +1,5 @@
 import { SquareSheet } from 'sheet/square_sheet'
-import { FoldFileSheet } from 'data/FOLD_sheet';
+import { FoldFileSheet } from 'data/fold_file_sheet';
 import { View } from 'view/view'
 import { SheetMeshBuilder } from 'view/sheet_mesh_builder'
 

@@ -1,8 +1,8 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
 
-import { readFoldFile } from 'data/FOLD_file_reader'
-import { FOLD_data } from './FOLD_format'
+import { readFoldFile } from 'data/fold_file_reader'
+import { FOLD_data } from './fold_format'
 
 
 describe('FOLD format reader', () => {

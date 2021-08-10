@@ -2,11 +2,12 @@ import { Vector2Coord, Vector3Coord, VertexId, EdgeId, FaceId } from 'sheet/type
 
 
 type FOLD_data = FOLD_file_metadata & FOLD_frame_data
+
 type FOLD_frame_data =
   | FOLD_single_frame_data
   | FOLD_single_frame_data & FOLD_multi_frame_data
-type FOLD_single_frame_data = FOLD_frame_metadata & FOLD_geometric_data
 
+type FOLD_single_frame_data = FOLD_frame_metadata & FOLD_geometric_data
 
 type CustomProperty = string
 

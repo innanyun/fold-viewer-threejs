@@ -7,7 +7,7 @@
 
 import * as fs from 'fs'
 
-import { FOLD_data } from 'data/FOLD_format'
+import { FOLD_data } from 'data/fold_format'
 
 import * as externalData from './test-data/passed/BoxPleatTessellation.json'
 
