@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "lib": ["es6", "dom"],
-    "locale": "ko",
+    // "locale": "ko",
     "pretty": true,
     "listFiles": false,
     "sourceMap": true,
@@ -23,6 +23,7 @@
     "noUnusedLocals": true, // not too strict?
     "noUnusedParameters": true,
     "resolveJsonModule": true,
+    "esModuleInterop": true,
 
     "baseUrl": "src",     // root for non-relative imports
     "outDir": "build",
