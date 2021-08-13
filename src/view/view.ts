@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 
 import { specifyMeshMotion } from 'view/mesh_motion'
-import { MeshBuilder } from 'view/mesh_builder'
 
 import { ViewOptions } from 'view/config'
 import { initDatGUI } from 'system/debug'
@@ -15,19 +14,20 @@ export class View {
   private _renderer: THREE.Renderer
   private _mesh!: THREE.Mesh
 
-  constructor(options: ViewOptions, sceneMeshBuilder: MeshBuilder) {
+  constructor(options: ViewOptions, sheetMesh: THREE.Mesh) {
     this._container = options.dom
 
-    const width = this._container.offsetWidth,
+    const
+      width = this._container.offsetWidth,
       height = this._container.offsetHeight
 
     this._scene = new THREE.Scene()
 
     this._camera = new THREE.PerspectiveCamera(
-      options.fov, // field of view
+      options.fov,    // field of view
       width / height, // aspect ratio
-      options.near, // near plane of viewing frustum
-      options.far // far plane of viewing frustum
+      options.near,   // near plane of viewing frustum
+      options.far     // far plane of viewing frustum
     )
     this._camera.position.z = 5
 
@@ -37,7 +37,7 @@ export class View {
 
     this._scene.background = new THREE.Color(options.backgroundColor)
 
-    this.setMesh(sceneMeshBuilder)
+    this.setMesh(this._mesh = sheetMesh)
 
     this._renderer = new THREE.WebGLRenderer()
     this._renderer.setSize(width, height)
@@ -55,25 +55,23 @@ export class View {
     specifyMeshMotion(this._mesh)
   }
 
-  private setMesh(sceneMeshBuilder: MeshBuilder): void {
-    // remove old (if any)
-    if (this._mesh) {
-      this._mesh.geometry.dispose()
+  setMesh(sheetMesh: THREE.Mesh): void {
+    const removeMesh = (mesh: THREE.Mesh): void => {
+      mesh.geometry.dispose()
 
-      let material = this._mesh.material
+      let material = mesh.material
       if (Array.isArray(material)) {
-        material.forEach(m => m.dispose())
+        material.forEach((m) => m.dispose())
       } else {
         material.dispose()
       }
 
-      this._scene.remove(this._mesh)
-
-      this._mesh = undefined as any
+      this._scene.remove(mesh)
+      mesh = undefined as any
     }
 
-    // add new
-    this._scene.add((this._mesh = sceneMeshBuilder.mesh()))
+    this._mesh && removeMesh(this._mesh)
+    this._scene.add(this._mesh = sheetMesh)
   }
 
   private setupResize(): void {

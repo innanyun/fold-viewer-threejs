@@ -1,4 +1,4 @@
-import { fromEvent } from 'rxjs'
+import { fromEvent, Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import { FOLD_data } from 'data/fold_format'
@@ -17,7 +17,7 @@ function _createLocalFileChooser(parent: HTMLElement): HTMLInputElement {
 }
 
 
-export function initFoldFileReader() {
+export function initFoldFileReader(): Observable<FOLD_data> {
   let _reader = new FileReader()
 
   fromEvent(
@@ -27,8 +27,8 @@ export function initFoldFileReader() {
     map((f: File) => _reader.readAsText(f))
   ).subscribe()
 
-  fromEvent(_reader, 'load').pipe(
+  return fromEvent(_reader, 'load').pipe(
     map((_: Event): string => _reader.result as string),
     map((fileContent: string): FOLD_data => JSON.parse(fileContent))
-  ).subscribe(console.log)
+  )//.subscribe(console.log)
 }
