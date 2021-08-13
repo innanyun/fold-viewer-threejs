@@ -1,49 +1,34 @@
+import { fromEvent } from 'rxjs'
+import { map } from 'rxjs/operators'
+
 import { FOLD_data } from 'data/fold_format'
 
 
-export function readFoldFile(url: string): FOLD_data | undefined {
-  const fileData = _readRemoteFile(url)
+function _createLocalFileChooser(parent: HTMLElement): HTMLInputElement {
+  let input = document.createElement('input')
 
-  return fileData ? JSON.parse(fileData.toString()) as FOLD_data : undefined
+  input.type = 'file'
+  input.accept = 'text/plain, .json, .fold'
+  input.multiple = false
+
+  parent.appendChild(input)
+
+  return input
 }
 
 
-function _readRemoteFile(url: string): Blob | undefined {
-  let
-    xhr = new XMLHttpRequest(),
-    fileData: Blob | undefined
+export function initFoldFileReader() {
+  let _reader = new FileReader()
 
-  xhr.open("GET", url, /*async=*/ false)
+  fromEvent(
+    _createLocalFileChooser(document.getElementById('container')!), 'change'
+  ).pipe(
+    map((e: Event) => (e.target as HTMLInputElement).files![0]),
+    map((f: File) => _reader.readAsText(f))
+  ).subscribe()
 
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200 || xhr.status === 0) {
-        fileData = xhr.response
-      }
-    }
-  }
-
-  xhr.send()
-
-  return fileData
-}
-
-
-function _readLocalFile(file: File): string | undefined {
-  let
-    reader = new FileReader(),
-    fileData: string | undefined
-
-  reader.onload = () => {
-    if (reader.readyState === reader.DONE) {
-      fileData = reader.result as string
-    }
-  }
-  reader.onerror = e => {
-    console.error(`Error: ${e.type}`)
-  }
-
-  reader.readAsText(file)
-
-  return fileData
+  fromEvent(_reader, 'load').pipe(
+    map((_: Event): string => _reader.result as string),
+    map((fileContent: string): FOLD_data => JSON.parse(fileContent))
+  ).subscribe(console.log)
 }

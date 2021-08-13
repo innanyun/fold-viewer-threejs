@@ -1,22 +1,17 @@
 import { SquareSheet } from 'sheet/square_sheet'
-import { FoldFileSheet } from 'data/fold_file_sheet';
 import { View } from 'view/view'
 import { SheetMeshBuilder } from 'view/sheet_mesh_builder'
 
 import { SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
+import { initFoldFileReader } from 'data/fold_file_reader'
 
 
-const
-  defaultSheet = new SquareSheet(SHEET_OPTIONS.size),
-  fileSheet = new FoldFileSheet(
-    'http://localhost:3000/src/data/test-data/passed/crane.json'
-  );
+console.clear()
 
-new View(VIEW_OPTIONS, new SheetMeshBuilder(
-  // defaultSheet
-  fileSheet
-))
+initFoldFileReader()
 
-
-console.log(fileSheet)
+new View(
+  VIEW_OPTIONS,
+  new SheetMeshBuilder(new SquareSheet(SHEET_OPTIONS.size))
+)
