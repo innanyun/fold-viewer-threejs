@@ -5,20 +5,20 @@ import { FOLD_data } from './fold_format'
 
 export class FoldFileSheet implements Sheet {
 
-  private _vertexLocations: Array<Vector2Coord | undefined>
-  private _vertexPositions: Array<Vector3Coord>
-  private _faceVertexIndices: Array<Array<VertexId>>
+  private _verticesLocations: Array<Vector2Coord | undefined>
+  private _verticesPositions: Array<Vector3Coord>
+  private _facecVerticesIds: Array<Array<VertexId>>
 
-  verticesLocations(): Array<Vector2Coord | undefined> { return this._vertexLocations }
-  verticesPositions(): Array<Vector3Coord> { return this._vertexPositions }
-  facesVerticesIds(): Array<Array<VertexId>> { return this._faceVertexIndices }
+  verticesLocations(): Array<Vector2Coord | undefined> { return this._verticesLocations }
+  verticesPositions(): Array<Vector3Coord> { return this._verticesPositions }
+  facesVerticesIds(): Array<Array<VertexId>> { return this._facecVerticesIds }
 
   constructor(foldData: FOLD_data) {
     const v = foldData.vertices_coords
 
-    this._vertexLocations = v.map(v => v.length === 2 ? v as Vector2Coord: undefined)
-    this._vertexPositions = v.map(v => (v.length === 3 ? v : [...v, 0]) as Vector3Coord)
-    this._faceVertexIndices = foldData.faces_vertices as VertexId[][]
+    this._verticesLocations = v.map(v => v.length === 2 ? v as Vector2Coord: undefined)
+    this._verticesPositions = v.map(v => (v.length === 3 ? v : [...v, 0]) as Vector3Coord)
+    this._facecVerticesIds = foldData.faces_vertices as VertexId[][]
   }
 
 }

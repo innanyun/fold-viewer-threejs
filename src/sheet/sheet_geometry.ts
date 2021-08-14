@@ -18,25 +18,27 @@ function _createFacesGeometry(
 
   g.setIndex(
     allFacesVerticesIds.map(
-      singleFaceVertices => _tessellate(singleFaceVertices)
+      singleFaceVerticesIds => _tessellate(singleFaceVerticesIds)
     ).flat()
   )
-  g.setAttribute('position', new THREE.Float32BufferAttribute(verticesPositions.flat(), 3))
+  g.setAttribute(
+    'position', new THREE.Float32BufferAttribute(verticesPositions.flat(), 3)
+  )
   g.computeVertexNormals()
 
   return g
 }
 
 
-function _tessellate(faceVertexIndices: VertexId[]): VertexId[] {
+function _tessellate(faceVerticesIds: VertexId[]): VertexId[] {
   const
     geometryIndices = [],
-    a = faceVertexIndices[0]
+    a = faceVerticesIds[0]
 
-  for (let j = 1; j < faceVertexIndices.length - 1; j += 1) {
+  for (let j = 1; j < faceVerticesIds.length - 1; j += 1) {
     const
-      b = faceVertexIndices[j],
-      c = faceVertexIndices[j + 1]
+      b = faceVerticesIds[j],
+      c = faceVerticesIds[j + 1]
 
     geometryIndices.push(a, b, c)
   }
