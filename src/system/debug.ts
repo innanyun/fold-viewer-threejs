@@ -1,5 +1,7 @@
 import * as dat from 'dat.gui'
 
+import { Sheet } from "sheet/sheet";
+
 import { SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
 

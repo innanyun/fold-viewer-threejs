@@ -19,7 +19,7 @@ describe('sheet geometry', () => {
   it('vertex planar locations', () => {
     const
       SHEET_SIZE: number = 5,
-      v = new SquareSheet(SHEET_SIZE).vertexPositions()
+      v = new SquareSheet(SHEET_SIZE).verticesPositions()
 
     expect(v).to.have.lengthOf(4)
     assert(v.every((p: Vector3Coord) => expect(p[2]).equals(0)))

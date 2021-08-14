@@ -2,6 +2,7 @@
   "dependencies": {
     "fs": "^0.0.1-security",
     "gsap": "^3.7.0",
+    "mathjs": "^9.4.4",
     "three": "^0.129.0"
   },
   "devDependencies": {

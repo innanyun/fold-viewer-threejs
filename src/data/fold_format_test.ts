@@ -1,8 +1,11 @@
 /**
- * build:
- *  esbuild --outfile=build/test.js --bundle --platform=node <this_file>
- * run:
- *  node build/test.js **<FOLD_file_path>**
+ * **NB**: MANUAL (non-automated) test for `FOLD_data` type evolution
+ *
+ * build (in the project root dir):
+ *  `esbuild --outfile=build/test.js --bundle --platform=node <this_file>`
+ * run (in the project root dir):
+ *  `node build/test.js **<FOLD_file>**` eg
+ *  `node build/test.js src/data/test-data/3d-vertex-coords/box.json`
  */
 
 import * as fs from 'fs'

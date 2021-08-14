@@ -9,9 +9,9 @@ export class FoldFileSheet implements Sheet {
   private _vertexPositions: Array<Vector3Coord>
   private _faceVertexIndices: Array<Array<VertexId>>
 
-  vertexLocations(): Array<Vector2Coord | undefined> { return this._vertexLocations }
-  vertexPositions(): Array<Vector3Coord> { return this._vertexPositions }
-  faceVertexIndices(): Array<Array<VertexId>> { return this._faceVertexIndices }
+  verticesLocations(): Array<Vector2Coord | undefined> { return this._vertexLocations }
+  verticesPositions(): Array<Vector3Coord> { return this._vertexPositions }
+  facesVerticesIds(): Array<Array<VertexId>> { return this._faceVertexIndices }
 
   constructor(foldData: FOLD_data) {
     const v = foldData.vertices_coords

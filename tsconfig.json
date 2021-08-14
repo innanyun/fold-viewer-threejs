@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es6", "dom"],
+    "target": "es2020",
+    // "lib": ["es6", "dom"],
     // "locale": "ko",
     "pretty": true,
     "listFiles": false,
