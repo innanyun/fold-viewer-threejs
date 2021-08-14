@@ -20,8 +20,10 @@ const view = new View(
 )
 
 
-foldData$.subscribe({next: (data: FOLD_data) => {
-  const newMesh = createSheetMesh(new FoldFileSheet(data))
-  view.setMesh(newMesh)
-  specifyMeshMotion(newMesh)
-}})
+foldData$.subscribe({
+  next: (data: FOLD_data) => {
+    const newMesh = createSheetMesh(new FoldFileSheet(data))
+    view.setMesh(newMesh)
+    specifyMeshMotion(newMesh)
+  }
+})

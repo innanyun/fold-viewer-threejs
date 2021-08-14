@@ -30,5 +30,5 @@ export function initFoldFileReader(): Observable<FOLD_data> {
   return fromEvent(_reader, 'load').pipe(
     map((_: Event): string => _reader.result as string),
     map((fileContent: string): FOLD_data => JSON.parse(fileContent))
-  )//.subscribe(console.log)
+  )
 }
