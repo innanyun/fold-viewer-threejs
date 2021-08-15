@@ -30,18 +30,18 @@ function _createFacesGeometry(
 }
 
 
-function _tessellate(faceVerticesIds: VertexId[]): VertexId[] {
+function _tessellate(polygonVerticesIds: VertexId[]): VertexId[] {
   const
-    geometryIndices = [],
-    a = faceVerticesIds[0]
+    indices = [],
+    a = polygonVerticesIds[0]
 
-  for (let j = 1; j < faceVerticesIds.length - 1; j += 1) {
+  for (let j = 1; j < polygonVerticesIds.length - 1; j += 1) {
     const
-      b = faceVerticesIds[j],
-      c = faceVerticesIds[j + 1]
+      b = polygonVerticesIds[j],
+      c = polygonVerticesIds[j + 1]
 
-    geometryIndices.push(a, b, c)
+    indices.push(a, b, c)
   }
 
-  return geometryIndices
+  return indices
 }

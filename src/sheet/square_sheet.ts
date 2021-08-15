@@ -4,13 +4,13 @@ import { VertexId, Vector2Coord, Vector3Coord } from 'sheet/types'
 
 export class SquareSheet implements Sheet {
 
-  private _verticesLocations: Array<Vector2Coord>
-  private _verticesPositions: Array<Vector3Coord>
-  private _facesVerticesIds: Array<Array<VertexId>>
+  private _verticesLocations: Vector2Coord[]
+  private _verticesPositions: Vector3Coord[]
+  private _facesVerticesIds: VertexId[][]
 
-  verticesLocations (): Array<Vector2Coord> { return this._verticesLocations }
-  verticesPositions (): Array<Vector3Coord> { return this._verticesPositions }
-  facesVerticesIds (): Array<Array<VertexId>> { return this._facesVerticesIds }
+  verticesLocations (): Vector2Coord[] { return this._verticesLocations }
+  verticesPositions (): Vector3Coord[] { return this._verticesPositions }
+  facesVerticesIds (): VertexId[][] { return this._facesVerticesIds }
 
   constructor(size: number = 1.0) {
     this._verticesLocations = [

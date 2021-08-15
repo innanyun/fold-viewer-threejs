@@ -5,13 +5,13 @@ import { FOLD_data } from './fold_format'
 
 export class FoldFileSheet implements Sheet {
 
-  private _verticesLocations: Array<Vector2Coord | undefined>
-  private _verticesPositions: Array<Vector3Coord>
-  private _facecVerticesIds: Array<Array<VertexId>>
+  private _verticesLocations: (Vector2Coord | undefined)[]
+  private _verticesPositions: Vector3Coord[]
+  private _facecVerticesIds: VertexId[][]
 
-  verticesLocations(): Array<Vector2Coord | undefined> { return this._verticesLocations }
-  verticesPositions(): Array<Vector3Coord> { return this._verticesPositions }
-  facesVerticesIds(): Array<Array<VertexId>> { return this._facecVerticesIds }
+  verticesLocations(): (Vector2Coord | undefined)[] { return this._verticesLocations }
+  verticesPositions(): Vector3Coord[] { return this._verticesPositions }
+  facesVerticesIds(): VertexId[][] { return this._facecVerticesIds }
 
   constructor(foldData: FOLD_data) {
     const v = foldData.vertices_coords
