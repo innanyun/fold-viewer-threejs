@@ -8,7 +8,6 @@ import { createSheetMesh } from 'view/sheet_mesh_builder'
 
 import { SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
-// import { dumpSheet } from 'system/debug'
 
 
 console.clear()
@@ -29,9 +28,5 @@ foldData$.subscribe({
 
     view.setMesh(newMesh)
     specifyMeshMotion(newMesh)
-
-    // TODO: debug output
-    // console.log(data)
-    // dumpSheet(newSheet)
   }
 })

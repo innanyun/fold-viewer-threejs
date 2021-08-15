@@ -49,8 +49,6 @@ interface FOLD_frame_metadata {
     | 'mm'
     | 'um'
     | 'nm'
-    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
-    | string
 }
 
 
@@ -60,33 +58,18 @@ interface FOLD_multi_frame_data {
 
 
 interface FOLD_geometric_data {
-  vertices_coords: Array<
-    | Vector2Coord
-    | Vector3Coord
-    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
-    | number[]
-  >
+  vertices_coords: Array<Vector2Coord | Vector3Coord>
   vertices_vertices?: Array<Array<VertexId>>
   vertices_faces?: Array<Array<FaceId>>
 
-  edges_vertices: Array<
-    | [VertexId, VertexId]
-    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
-    | number[]
-  >
-  edges_faces?: Array<
-    | ([FaceId, FaceId | null] | FaceId)
-    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
-    | (number | null)[]
-  >
+  edges_vertices: Array<[VertexId, VertexId]>
+  edges_faces?: Array<[FaceId, FaceId | null] | FaceId>
   edges_assignment?: Array<
     | 'B'
     | 'M'
     | 'V'
     | 'F'
     | 'U'
-    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
-    | string
   >
   edges_foldAngle?: Array<
     | number
@@ -97,11 +80,7 @@ interface FOLD_geometric_data {
 
   faces_vertices?: Array<Array<VertexId>>
   faces_edges?: Array<Array<EdgeId>>
-  faceOrders?: Array<
-    | [FaceId, FaceId, 1 | -1 | 0]
-    /*TODO: temporary workaround for validation utilizing TypeScript type system*/
-    | number[]
-  >
+  faceOrders?: Array<[FaceId, FaceId, 1 | -1 | 0]>
   edgeOrders?: Array<[EdgeId, EdgeId, 1 | -1 | 0]>
 }
 
