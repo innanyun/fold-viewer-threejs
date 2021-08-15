@@ -10,17 +10,17 @@ export function createSheetGeometry (s: Sheet): THREE.BufferGeometry
 }
 
 function _createFacesGeometry(
-  verticesPositions: Array<Vector3Coord>,
-  allFacesVerticesIds: Array<Array<VertexId>>
+  verticesPositions: Vector3Coord[],
+  allFacesVerticesIds: VertexId[][]
 ): THREE.BufferGeometry {
 
   let g = new THREE.BufferGeometry()
 
-  g.setIndex(
+  g.setIndex(new THREE.Uint16BufferAttribute(
     allFacesVerticesIds.map(
       singleFaceVerticesIds => _tessellate(singleFaceVerticesIds)
-    ).flat()
-  )
+    ).flat(), 1
+  ))
   g.setAttribute(
     'position', new THREE.Float32BufferAttribute(verticesPositions.flat(), 3)
   )
