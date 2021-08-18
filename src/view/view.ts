@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-import { specifyMeshMotion } from 'view/mesh_motion'
+import { specifyMotion } from 'view/mesh_motion'
 
 import { ViewOptions } from 'view/config'
 import { initDatGUI } from 'system/debug'
@@ -12,9 +12,9 @@ export class View {
   private _scene: THREE.Scene
   private _camera: THREE.PerspectiveCamera
   private _renderer: THREE.Renderer
-  private _mesh!: THREE.Mesh
+  private _mesh: THREE.Object3D
 
-  constructor(options: ViewOptions, sheetMesh: THREE.Mesh) {
+  constructor(options: ViewOptions, sheetMesh: THREE.Object3D) {
     this._container = options.dom
 
     const
@@ -52,19 +52,19 @@ export class View {
 
     options.debug && this.initDebugAssets()
 
-    specifyMeshMotion(this._mesh)
+    specifyMotion(this._mesh)
   }
 
-  setMesh(sheetMesh: THREE.Mesh): void {
-    const removeMesh = (mesh: THREE.Mesh): void => {
-      mesh.geometry.dispose()
+  setMesh(sheetMesh: THREE.Object3D): void {
+    const removeMesh = (mesh: THREE.Object3D): void => {
+      // mesh.geometry.dispose()
 
-      let material = mesh.material
-      if (Array.isArray(material)) {
-        material.forEach(m => m.dispose())
-      } else {
-        material.dispose()
-      }
+      // let material = mesh.material
+      // if (Array.isArray(material)) {
+      //   material.forEach(m => m.dispose())
+      // } else {
+      //   material.dispose()
+      // }
 
       this._scene.remove(mesh)
       mesh = undefined as any

@@ -1,9 +1,11 @@
 export interface SheetOptions {
-  size: number
+  scale: number
   color: string | number
+  edgeColor: string | number
 }
 
 export const SHEET_OPTIONS: SheetOptions = {
-  size: 2,
-  color: 0x00ff00
+  scale: 2,
+  color: 0x00ff00,
+  edgeColor: 0xff0000
 }

@@ -2,7 +2,7 @@ import { SquareSheet } from 'sheet/square_sheet'
 import { initFoldFileReader } from 'data/fold_file_reader'
 import { FOLD_data } from 'data/fold_format'
 import { FoldFileSheet } from 'data/fold_file_sheet'
-import { specifyMeshMotion } from 'view/mesh_motion'
+import { specifyMotion } from 'view/mesh_motion'
 import { View } from 'view/view'
 import { createSheetMesh } from 'view/sheet_mesh_builder'
 
@@ -16,7 +16,7 @@ const foldData$ = initFoldFileReader()
 
 const view = new View(
   VIEW_OPTIONS,
-  createSheetMesh(new SquareSheet(SHEET_OPTIONS.size))
+  createSheetMesh(new SquareSheet(SHEET_OPTIONS.scale))
 )
 
 
@@ -27,6 +27,6 @@ foldData$.subscribe({
       newMesh = createSheetMesh(newSheet)
 
     view.setMesh(newMesh)
-    specifyMeshMotion(newMesh)
+    specifyMotion(newMesh)
   }
 })

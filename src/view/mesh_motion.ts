@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { gsap } from 'gsap'
 
 
-export function specifyMeshMotion(mesh: THREE.Mesh) {
+export function specifyMotion(mesh: THREE.Object3D) {
   gsap.to(mesh.rotation, {
     delay: 1, duration: 3,
     x: Math.PI,
