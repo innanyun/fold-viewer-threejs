@@ -60,18 +60,10 @@ export class View {
   }
 
   setMesh(sheetMesh: THREE.Object3D): void {
+
     const removeMesh = (mesh: THREE.Object3D): void => {
-      // mesh.geometry.dispose()
-
-      // let material = mesh.material
-      // if (Array.isArray(material)) {
-      //   material.forEach(m => m.dispose())
-      // } else {
-      //   material.dispose()
-      // }
-
+      // TODO: dispose `mesh`
       this._scene.remove(mesh)
-      mesh = undefined as any
     }
 
     this._mesh && removeMesh(this._mesh)
