@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 import { specifyMotion } from 'view/mesh_motion'
 
@@ -13,6 +14,7 @@ export class View {
   private _camera: THREE.PerspectiveCamera
   private _renderer: THREE.Renderer
   private _mesh: THREE.Object3D
+  // private _controls: OrbitControls
 
   constructor(options: ViewOptions, sheetMesh: THREE.Object3D) {
     this._container = options.dom
@@ -42,6 +44,8 @@ export class View {
     this._renderer = new THREE.WebGLRenderer()
     this._renderer.setSize(width, height)
     this._container.appendChild(this._renderer.domElement)
+
+    /* this._controls =  */new OrbitControls(this._camera, this._renderer.domElement)
 
     this.initView(options)
   }
