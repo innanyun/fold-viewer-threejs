@@ -27,6 +27,6 @@ foldData$.subscribe({
       newMesh = createSheetMesh(newSheet)
 
     view.setMesh(newMesh)
-    specifyMotion(newMesh)
+    // specifyMotion(newMesh)
   }
 })

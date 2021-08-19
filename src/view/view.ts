@@ -56,7 +56,7 @@ export class View {
 
     options.debug && this.initDebugAssets()
 
-    specifyMotion(this._mesh)
+    // specifyMotion(this._mesh)
   }
 
   setMesh(sheetMesh: THREE.Object3D): void {
