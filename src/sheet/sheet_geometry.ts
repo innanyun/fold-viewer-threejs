@@ -6,11 +6,11 @@ import { VertexId, Vector3Coord } from 'sheet/types'
 
 export function createSheetGeometry (s: Sheet): THREE.BufferGeometry
 {
-  return _createSheetGeometry(s.verticesPositions(), s.facesVerticesIds())
+  return _createFacesGeometry(s.verticesPositions(), s.facesVerticesIds()).center()
 }
 
 
-function _createSheetGeometry(
+function _createFacesGeometry(
   verticesCoords: Vector3Coord[], facesVertices: VertexId[][]
 ): THREE.BufferGeometry {
   let geometry = new THREE.BufferGeometry()
