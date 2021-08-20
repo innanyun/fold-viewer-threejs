@@ -55,10 +55,10 @@ function _createEdgesMesh(sheetGeometry: THREE.BufferGeometry): THREE.Object3D {
 
 
 function _createSheetMaterial(): THREE.Material {
-  return new THREE.MeshStandardMaterial({
+  return new THREE.MeshPhongMaterial({
     color: SHEET_OPTIONS.color,
     transparent: true,
-    opacity: 0.3,
+    opacity: SHEET_OPTIONS.opacity,
     side: THREE.DoubleSide,
   })
 }
