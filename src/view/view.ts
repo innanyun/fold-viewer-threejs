@@ -1,80 +1,105 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-import { specifyMotion } from 'view/mesh_motion'
+// import { specifyMotion } from 'view/mesh_motion'
 
 import { ViewOptions } from 'view/config'
 import { initDatGUI } from 'system/debug'
 
 
 export class View {
-  private _container: HTMLElement
 
+  private _container: HTMLElement
   private _scene: THREE.Scene
+  // @ts-expect-error
   private _camera: THREE.PerspectiveCamera
+  // @ts-expect-error
   private _renderer: THREE.Renderer
   private _mesh: THREE.Object3D
-  // private _controls: OrbitControls
+  // @ts-expect-error
+  private _controls: OrbitControls
 
   constructor(options: ViewOptions, sheetMesh: THREE.Object3D) {
-    this._container = options.dom
-
-    const
-      width = this._container.offsetWidth,
-      height = this._container.offsetHeight
-
-    this._scene = new THREE.Scene()
-
-    this._camera = new THREE.PerspectiveCamera(
-      options.fov,    // field of view
-      width / height, // aspect ratio
-      options.near,   // near plane of viewing frustum
-      options.far     // far plane of viewing frustum
+    this._setupEnvironment(
+      this._scene = new THREE.Scene(),
+      this._container = options.dom,
+      options
     )
-    this._camera.position.z = 5
-
-    let light = new THREE.PointLight(0xffffff)
-    light.position.set(-10, 40, 10)
-    this._scene.add(light)
-
-    this._scene.background = new THREE.Color(options.backgroundColor)
-
-    this.setMesh(this._mesh = sheetMesh)
-
-    this._renderer = new THREE.WebGLRenderer()
-    this._renderer.setSize(width, height)
-    this._container.appendChild(this._renderer.domElement)
-
-    /* this._controls =  */new OrbitControls(this._camera, this._renderer.domElement)
-
-    this.initView(options)
+    this.setMesh((this._mesh = sheetMesh))
+    this._setupControls()
+    this._setupView(options)
   }
 
-  private initView(options: ViewOptions): void {
-    this.resize()
-    this.setupResize()
+  private _setupEnvironment(
+    scene: THREE.Scene, container: HTMLElement, options: ViewOptions
+  ) {
 
-    options.debug && this.initDebugAssets()
+    const setupCamera = (): void => {
+      this._camera = new THREE.PerspectiveCamera(
+        options.fov,
+        this._container.offsetWidth / this._container.offsetHeight,
+        options.near,
+        options.far
+      )
+      this._camera.position.z = 5
+    },
+    setupLights = (scene: THREE.Scene): void => {
+      let light = new THREE.PointLight(0xffffff)
+      light.position.set(-10, 40, 10)
+      scene.add(light)
+    },
+    setupRenderer = (container: HTMLElement): void => {
+      this._renderer = new THREE.WebGLRenderer()
+      this._renderer.setSize(
+        container.offsetWidth,
+        container.offsetHeight
+      )
+      container.appendChild(this._renderer.domElement)
+    },
+    setupBackground = (scene: THREE.Scene): void => {
+      scene.background = new THREE.Color(options.backgroundColor)
+    }
 
-    // specifyMotion(this._mesh)
+    setupCamera()
+    setupLights(scene)
+    setupRenderer(container)
+    setupBackground(scene)
+  }
+
+  private _setupView(options: ViewOptions): void {
+
+    this._resize()
+    this._setupResize()
+
+    // options.debug && this._initDebugAssets()
   }
 
   setMesh(sheetMesh: THREE.Object3D): void {
-
     const removeMesh = (mesh: THREE.Object3D): void => {
       // TODO: dispose `mesh`
       this._scene.remove(mesh)
     }
 
     this._mesh && removeMesh(this._mesh)
-    this._scene.add(this._mesh = sheetMesh)
+    this._scene.add((this._mesh = sheetMesh))
   }
 
-  private setupResize(): void {
-    window.addEventListener('resize', this.resize.bind(this))
+  private _setupControls() {
+    this._controls = new OrbitControls(
+      this._camera,
+      this._renderer.domElement
+    )
+    this._controls.enableDamping = true
+    this._controls.dampingFactor = 0.05
+
+    // specifyMotion(this._mesh)
   }
 
-  private resize(_?: Event): void {
+  private _setupResize(): void {
+    window.addEventListener("resize", this._resize.bind(this))
+  }
+
+  private _resize(_?: Event): void {
     const newWidth = this._container.offsetWidth,
       newHeight = this._container.offsetHeight
 
@@ -83,17 +108,18 @@ export class View {
     this._camera.aspect = newWidth / newHeight
     this._camera.updateProjectionMatrix()
 
-    this.render()
+    this._render()
   }
 
-  private render(): void {
+  private _render(): void {
     this._renderer.render(this._scene, this._camera)
-    window.requestAnimationFrame(this.render.bind(this))
+    window.requestAnimationFrame(this._render.bind(this))
+
+    this._controls.update()
   }
 
-  private initDebugAssets() {
+  private _initDebugAssets() {
     initDatGUI(this._scene, this._mesh, this._camera)
     this._scene.add(new THREE.AxesHelper())
   }
-
 }
