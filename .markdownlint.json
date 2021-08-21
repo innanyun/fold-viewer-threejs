@@ -1,0 +1,10 @@
+{
+    "default": true,
+    "header-style": { "style": "atx" },
+    "ul-style": { "style": "sublist" },
+    "ul-indent": { "indent": 4 },
+    "no-inline-html": false,
+    "no-hard-tabs": true,
+    "no-space-in-emphasis": false,
+    "no-duplicate-heading": false
+}
