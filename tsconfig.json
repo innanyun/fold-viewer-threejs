@@ -1,39 +1,39 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "lib": ["es6", "dom"],
-        "locale": "ko",
-        "pretty": true,
-        "listFiles": false,
-        "sourceMap": true,
-        "forceConsistentCasingInFileNames": true,
-        "removeComments": true,
-        "skipLibCheck": true,  // for speed up compilation
+  "compilerOptions": {
+    "target": "es2020",
+    "pretty": true,
+    "listFiles": false,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "removeComments": true,
+    "skipLibCheck": true,  // for speed up compilation
 
-        "alwaysStrict": true,
-        "strict": true,
-        "strictFunctionTypes": true,
-        "strictNullChecks": true,
-        "strictPropertyInitialization": true,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "noImplicitReturns": true,
-        "downlevelIteration": true,
-        "noUnusedLocals": true, // not too strict?
-        "noUnusedParameters": true,
+    "alwaysStrict": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "downlevelIteration": true,
+    "noUnusedLocals": true, // not too strict?
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
 
-        "baseUrl": "src",       // root for non-relative imports
-        "outDir": "build",
-        "rootDir": "src",       // all sources are below here
+    "baseUrl": "src",     // root for non-relative imports
+    "outDir": "build",
+    "rootDir": "src",     // all sources are below here
 
-        "module": "commonjs",
-        "moduleResolution": "node",
+    "module": "commonjs",
+    "moduleResolution": "node",
 
-        "types": ["node", "three"]
-    },
+    "types": ["node", "three"]
+  },
 
-    "include": ["src/**/*"],
+  "include": ["src/**/*"],
 
-    "exclude": ["node_modules", "lab"]
+  "exclude": ["node_modules", "lab"]
 }
-
