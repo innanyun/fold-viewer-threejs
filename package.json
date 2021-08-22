@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "fs": "^0.0.1-security",
+    "http-server": "^13.0.1",
     "mathjs": "^9.4.4",
     "three": "^0.129.0"
   },
