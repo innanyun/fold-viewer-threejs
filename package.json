@@ -45,9 +45,8 @@
     "typescript": "^4.3.5"
   },
   "scripts": {
-    "build": "esbuild src/app.ts --bundle --format=esm --minify --outdir=build",
-    "watch": "esbuild src/app.ts --watch --bundle --format=esm --sourcemap --outdir=build",
-    "livereload": "browser-sync start --server --files 'build' '*.html'",
-    "run": "npx http-server"
+    "start": "npx esbuild src/app.ts --bundle --format=esm --minify --outdir=build && npx http-server",
+    "dev": "npx esbuild src/app.ts --watch --bundle --format=esm --sourcemap --outdir=build",
+    "browser-sync": "npx browser-sync start --server --files 'build' '*.html'"
   }
 }
