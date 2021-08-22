@@ -1,7 +1,25 @@
 {
+  "name": "fold-viewer-threejs",
+  "version": "0.1.0",
+  "description": "FOLD File Viewer (Three.js)",
+  "browser": {
+    "path": "build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/innanyun/fold.git"
+  },
+  "keywords": [
+    "origami",
+    "crease",
+    "pattern",
+    "geometry",
+    "2D",
+    "3D"
+  ],
+  "license": "MIT",
   "dependencies": {
     "fs": "^0.0.1-security",
-    "gsap": "^3.7.0",
     "mathjs": "^9.4.4",
     "three": "^0.129.0"
   },
@@ -25,12 +43,10 @@
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },
-  "browser": {
-    "path": "build"
-  },
   "scripts": {
     "build": "esbuild src/app.ts --bundle --format=esm --minify --outdir=build",
     "watch": "esbuild src/app.ts --watch --bundle --format=esm --sourcemap --outdir=build",
-    "livereload": "browser-sync start --server --files 'build' '*.html'"
+    "livereload": "browser-sync start --server --files 'build' '*.html'",
+    "run": "npx http-server"
   }
 }
