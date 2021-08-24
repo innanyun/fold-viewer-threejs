@@ -8,14 +8,13 @@ import { initDatGUI } from 'system/debug'
 
 
 export class View {
-
   private _container: HTMLElement
   private _scene: THREE.Scene
+  private _mesh: THREE.Object3D
   // @ts-expect-error
   private _camera: THREE.PerspectiveCamera
   // @ts-expect-error
   private _renderer: THREE.Renderer
-  private _mesh: THREE.Object3D
   // @ts-expect-error
   private _controls: OrbitControls
 
@@ -31,34 +30,33 @@ export class View {
   }
 
   private _setupEnvironment(
-    scene: THREE.Scene, container: HTMLElement, options: ViewOptions
+    scene: THREE.Scene,
+    container: HTMLElement,
+    options: ViewOptions
   ) {
-
-    const setupCamera = (): void => {
-      this._camera = new THREE.PerspectiveCamera(
-        options.fov,
-        this._container.offsetWidth / this._container.offsetHeight,
-        options.near,
-        options.far
-      )
-      this._camera.position.z = 5
-    },
-    setupLights = (scene: THREE.Scene): void => {
-      let light = new THREE.PointLight(0xffffff)
-      light.position.set(-10, 40, 10)
-      scene.add(light)
-    },
-    setupRenderer = (container: HTMLElement): void => {
-      this._renderer = new THREE.WebGLRenderer()
-      this._renderer.setSize(
-        container.offsetWidth,
-        container.offsetHeight
-      )
-      container.appendChild(this._renderer.domElement)
-    },
-    setupBackground = (scene: THREE.Scene): void => {
-      scene.background = new THREE.Color(options.backgroundColor)
-    }
+    const
+      setupCamera = (): void => {
+        this._camera = new THREE.PerspectiveCamera(
+          options.fov,
+          this._container.offsetWidth / this._container.offsetHeight,
+          options.near,
+          options.far
+        )
+        this._camera.position.z = 5
+      },
+      setupLights = (scene: THREE.Scene): void => {
+        let light = new THREE.PointLight(0xffffff)
+        light.position.set(-10, 40, 10)
+        scene.add(light)
+      },
+      setupRenderer = (container: HTMLElement): void => {
+        this._renderer = new THREE.WebGLRenderer()
+        this._renderer.setSize(container.offsetWidth, container.offsetHeight)
+        container.appendChild(this._renderer.domElement)
+      },
+      setupBackground = (scene: THREE.Scene): void => {
+        scene.background = new THREE.Color(options.backgroundColor)
+      }
 
     setupCamera()
     setupLights(scene)
@@ -67,7 +65,6 @@ export class View {
   }
 
   private _setupView(options: ViewOptions): void {
-
     this._resize()
     this._setupResize()
 
@@ -85,10 +82,7 @@ export class View {
   }
 
   private _setupControls() {
-    this._controls = new OrbitControls(
-      this._camera,
-      this._renderer.domElement
-    )
+    this._controls = new OrbitControls(this._camera, this._renderer.domElement)
     this._controls.enableDamping = true
     this._controls.dampingFactor = 0.05
 
@@ -100,7 +94,8 @@ export class View {
   }
 
   private _resize(_?: Event): void {
-    const newWidth = this._container.offsetWidth,
+    const
+      newWidth = this._container.offsetWidth,
       newHeight = this._container.offsetHeight
 
     this._renderer.setSize(newWidth, newHeight)

@@ -20,7 +20,8 @@ export function initDatGUI(
 
 
 function _setSheetOptions(
-  sheetOptions: dat.GUI, sheetMesh: THREE.Object3D
+  sheetOptions: dat.GUI,
+  sheetMesh: THREE.Object3D
 ): void {
 
   function _updateSheetColor(sheetMesh: THREE.Object3D): Function {
@@ -42,7 +43,9 @@ function _setSheetOptions(
 
 
 function _setRenderingOptions(
-  renderOptions: dat.GUI, scene: THREE.Scene, camera: THREE.Camera
+  renderOptions: dat.GUI,
+  scene: THREE.Scene,
+  camera: THREE.Camera
 ): void {
 
   renderOptions
