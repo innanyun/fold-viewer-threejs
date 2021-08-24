@@ -21,7 +21,7 @@ const view = new View(
 
 
 foldData$.subscribe({
-  next: (data: FOLD_data) => {
+  next: (data: FOLD_data): void => {
     const
       newSheet = new FoldFileSheet(data),
       newMesh = createSheetMesh(newSheet)

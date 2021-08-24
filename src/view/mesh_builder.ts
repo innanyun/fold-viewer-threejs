@@ -18,9 +18,9 @@ export function createSheetMesh(aSheet: Sheet): THREE.Object3D {
     allMeshes = [edgesMesh, bodyMesh],
     meshGroup = new THREE.Group()
 
-  allMeshes.forEach(mesh =>
-    mesh.scale.set(SHEET_OPTIONS.scale, SHEET_OPTIONS.scale, SHEET_OPTIONS.scale)
-  )
+  allMeshes.forEach(mesh => mesh.scale.set(
+    SHEET_OPTIONS.scale, SHEET_OPTIONS.scale, SHEET_OPTIONS.scale
+  ))
 
   meshGroup.add(bodyMesh, edgesMesh)
 
