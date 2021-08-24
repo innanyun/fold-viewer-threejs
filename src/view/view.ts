@@ -71,7 +71,7 @@ export class View {
     this._resize()
     this._setupResize()
 
-    // options.debug && this._initDebugAssets()
+    options.debug && this._initDebugAssets()
   }
 
   setMesh(sheetMesh: THREE.Object3D): void {
