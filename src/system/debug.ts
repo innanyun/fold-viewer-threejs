@@ -35,8 +35,10 @@ function _setSheetOptions(
   }
 
   sheetOptions
-    .addColor(SHEET_OPTIONS, 'color')
-    .onChange(newColor => _updateSheetColor(sheetMesh)(newColor))
+    .addColor(SHEET_OPTIONS, "color")
+    .onChange((newColor) => _updateSheetColor(sheetMesh)(newColor))
+
+  // sheetOptions.add(sheetMesh.material, 'wireframe').listen()
 
   sheetOptions.open()
 }
@@ -45,15 +47,16 @@ function _setSheetOptions(
 function _setRenderingOptions(
   renderOptions: dat.GUI,
   scene: THREE.Scene,
-  camera: THREE.Camera
+  camera: THREE.PerspectiveCamera
 ): void {
 
-  renderOptions
-    .addColor(VIEW_OPTIONS, 'backgroundColor')
+  renderOptions.addColor(VIEW_OPTIONS, 'backgroundColor')
     .onChange(newColor => (scene.background as THREE.Color).set(newColor))
-  renderOptions.add(camera.position, 'z').min(5).max(30).step(5).listen()
-  renderOptions.add(camera, 'fov').min(0).max(125).step(25).listen()
-  // renderingOptionsGui.add(mesh.material, 'wireframe').listen()
+
+  renderOptions.add(camera.position, 'z', 0, 50, 5).listen()
+
+  renderOptions.add(camera, 'fov', 25, 125, 25).listen()
+    .onChange(_unusedNewFov => camera.updateProjectionMatrix())
 
   renderOptions.open()
 }
