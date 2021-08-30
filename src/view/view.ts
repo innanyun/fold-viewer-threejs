@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { GUI } from "dat.gui"
 
 // import { specifyMotion } from 'view/mesh_motion'
 
@@ -17,11 +18,13 @@ export class View {
   private _renderer: THREE.Renderer
   // @ts-expect-error
   private _controls: OrbitControls
+  // @ts-expect-error
+  private _sheetOptions: GUI
 
   constructor(options: ViewOptions, sheetMesh: THREE.Object3D) {
     this._setupEnvironment(
-      this._scene = new THREE.Scene(),
-      this._container = options.dom,
+      (this._scene = new THREE.Scene()),
+      (this._container = options.dom),
       options
     )
     this.setMesh((this._mesh = sheetMesh))
@@ -114,7 +117,8 @@ export class View {
   }
 
   private _initDebugAssets() {
-    initDatGUI(this._scene, this._mesh, this._camera)
+    this._sheetOptions = initDatGUI(this._scene, this._mesh, this._camera)
     this._scene.add(new THREE.AxesHelper())
   }
+
 }
