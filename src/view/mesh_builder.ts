@@ -11,34 +11,46 @@ import { SHEET_OPTIONS } from 'sheet/config'
 
 export function createSheetMesh(aSheet: Sheet): THREE.Object3D {
 
-  let
-    geometry = createSheetGeometry(aSheet),
-    bodyMesh = _createBodyMesh(geometry),
-    edgesMesh = _createEdgesMesh(geometry),
-    allMeshes = [edgesMesh, bodyMesh],
+  const
+    sheetGeometry = createSheetGeometry(aSheet),
+    sheetFaceMesh = _createSheetFacesMesh(sheetGeometry),
+    sheetEdgesMesh = _createSheetEdgesMesh(sheetGeometry),
+    allMeshes = [sheetEdgesMesh, sheetFaceMesh],
     meshGroup = new THREE.Group()
 
-  allMeshes.forEach(mesh =>
-    mesh.scale.set(SHEET_OPTIONS.scale, SHEET_OPTIONS.scale, SHEET_OPTIONS.scale)
-  )
+  allMeshes.forEach(mesh => mesh.scale.set(
+    SHEET_OPTIONS.scale, SHEET_OPTIONS.scale, SHEET_OPTIONS.scale
+  ))
 
-  meshGroup.add(bodyMesh, edgesMesh)
+  meshGroup.add(sheetFaceMesh, sheetEdgesMesh)
 
   return meshGroup
 }
 
 
-function _createBodyMesh(geometry: THREE.BufferGeometry): THREE.Mesh {
-  return new THREE.Mesh(geometry, _createSheetMaterial())
+function _createSheetFacesMesh(
+  sheetGeometry: THREE.BufferGeometry
+): THREE.Mesh {
+  const
+    sheetFacesMaterial = new THREE.MeshPhongMaterial({
+      color: SHEET_OPTIONS.frontColor,
+      transparent: true,
+      opacity: SHEET_OPTIONS.opacity,
+      side: THREE.DoubleSide,
+    })
+
+  return new THREE.Mesh(sheetGeometry, sheetFacesMaterial)
 }
 
 
-function _createEdgesMesh(sheetGeometry: THREE.BufferGeometry): THREE.Object3D {
+function _createSheetEdgesMesh(
+  sheetGeometry: THREE.BufferGeometry
+): THREE.Object3D {
   const
-    geometry = new LineSegmentsGeometry().fromEdgesGeometry(
+    sheetEdgesGeometry = new LineSegmentsGeometry().fromEdgesGeometry(
       new THREE.EdgesGeometry(sheetGeometry)
     ),
-    material = new LineMaterial({
+    sheetEdgesMaterial = new LineMaterial({
       color: SHEET_OPTIONS.edgeColor as number,
       linewidth: 0.005,
       dashed: false, // try `true` for dashed wireframes
@@ -46,19 +58,9 @@ function _createEdgesMesh(sheetGeometry: THREE.BufferGeometry): THREE.Object3D {
       gapSize: 0.02,
     })
 
-  let mesh = new Wireframe(geometry, material)
+  let mesh = new Wireframe(sheetEdgesGeometry, sheetEdgesMaterial)
 
   mesh.computeLineDistances()
 
   return mesh
-}
-
-
-function _createSheetMaterial(): THREE.Material {
-  return new THREE.MeshPhongMaterial({
-    color: SHEET_OPTIONS.color,
-    transparent: true,
-    opacity: SHEET_OPTIONS.opacity,
-    side: THREE.DoubleSide,
-  })
 }
