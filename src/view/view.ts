@@ -29,7 +29,7 @@ export class View {
     )
     this._setupControls()
     this._setupView(options)
-    this.setMesh((this._mesh = sheetMesh))
+    this.setMesh((this._mesh = sheetMesh), options.debug)
   }
 
   private _setupEnvironment(
@@ -74,7 +74,7 @@ export class View {
     options.debug && this._initDebugAssets()
   }
 
-  setMesh(sheetMesh: THREE.Object3D): void {
+  setMesh(sheetMesh: THREE.Object3D, debug: boolean = true): void {
     const removeMesh = (mesh: THREE.Object3D): void => {
       // TODO: dispose `mesh`
       this._scene.remove(mesh)
@@ -82,7 +82,9 @@ export class View {
 
     this._mesh && removeMesh(this._mesh)
     this._scene.add((this._mesh = sheetMesh))
-    bindSheetOptionsControllers(this._sheetOptionsControllers, this._mesh)
+
+    debug &&
+      bindSheetOptionsControllers(this._sheetOptionsControllers, this._mesh)
   }
 
   private _setupControls() {
