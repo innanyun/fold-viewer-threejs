@@ -3,46 +3,68 @@ import { Wireframe } from 'three/examples/jsm/lines/Wireframe'
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial'
 import * as dat from 'dat.gui'
 
-import { SHEET_OPTIONS } from 'sheet/config'
+import { SheetOptions, SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
 
 
-export function initDatGUI(
-  scene: THREE.Scene, sheetMesh: THREE.Object3D, camera: THREE.PerspectiveCamera
-): dat.GUI
-{
-  let
-    gui = new dat.GUI({name: 'FOLD viewer'}),
-    sheetOptions = gui.addFolder('Sheet'),
-    renderOptions = gui.addFolder('Render')
-
-  setSheetOptions(sheetOptions, sheetMesh)
-  _setRenderingOptions(renderOptions, scene, camera)
-
-  return sheetOptions
+export interface SheetOptionsControllers {
+  frontColorControl: dat.GUIController
+  backColorControl: dat.GUIController
+  edgeColorControl: dat.GUIController
+  opacityControl: dat.GUIController
 }
 
 
-export function setSheetOptions(
-  sheetOptions: dat.GUI,
-  sheetMesh: THREE.Object3D
+export function initDatGUI(
+  scene: THREE.Scene, camera: THREE.PerspectiveCamera
+): SheetOptionsControllers
+{
+  let
+    gui = new dat.GUI({name: 'FOLD viewer'}),
+    sheetOptionsControllers = gui.addFolder('Sheet'),
+    viewOptionsControllers = gui.addFolder('View')
+
+  _createAndSetViewOptions(viewOptionsControllers, scene, camera)
+
+  return _createSheetOptionsControllers(sheetOptionsControllers, SHEET_OPTIONS)
+}
+
+function _createSheetOptionsControllers(
+  sheetOptionsFolder: dat.GUI, options: SheetOptions
+): SheetOptionsControllers {
+
+  sheetOptionsFolder.open()
+
+  return {
+    frontColorControl: sheetOptionsFolder.addColor(options, 'frontColor'),
+    backColorControl: sheetOptionsFolder.addColor(options, 'backColor'),
+    edgeColorControl: sheetOptionsFolder.addColor(options, 'edgeColor'),
+    opacityControl: sheetOptionsFolder.add(options, 'opacity', 0.0, 1.0, 0.1)
+  }
+}
+
+export function bindSheetOptionsControllers(
+  sheetOptionsControls: SheetOptionsControllers,
+  sheetMesh: THREE.Object3D,
 ): void {
 
   const
-    updateFacesColor = _updateSheetFacesColor(sheetMesh),
+    updateFrontFacesColor = _updateSheetFacesColor(sheetMesh),
     updateEdgesColor = _updateSheetEdgesColor(sheetMesh),
     updateOpacity = _updateSheetOpacity(sheetMesh)
 
-  sheetOptions.addColor(SHEET_OPTIONS, 'frontColor')
-    .onChange(newColor => updateFacesColor(newColor))
-  sheetOptions.addColor(SHEET_OPTIONS, 'backColor')
-    .onChange(newColor => updateFacesColor(newColor))
-  sheetOptions.addColor(SHEET_OPTIONS, 'edgeColor')
-    .onChange(newColor => updateEdgesColor(newColor))
-  sheetOptions.add(SHEET_OPTIONS, 'opacity', 0.1, 1.0, 0.1)
-    .onChange(newOpacity => updateOpacity(newOpacity))
-
-  sheetOptions.open()
+  sheetOptionsControls.frontColorControl.onChange(
+    newColor => updateFrontFacesColor(newColor)
+  )
+  sheetOptionsControls.backColorControl.onChange(
+    newColor => updateFrontFacesColor(newColor) // TODO: updateBackFacesColor
+  )
+  sheetOptionsControls.edgeColorControl.onChange(
+    newColor => updateEdgesColor(newColor)
+  )
+  sheetOptionsControls.opacityControl.onChange(
+    newOpacity => updateOpacity(newOpacity)
+  )
 }
 
 
@@ -85,17 +107,17 @@ function _updateSheetOpacity(sheetMesh: THREE.Object3D): Function {
 }
 
 
-function _setRenderingOptions(
-  renderOptions: dat.GUI,
+function _createAndSetViewOptions(
+  viewOptionsFolder: dat.GUI,
   scene: THREE.Scene,
   camera: THREE.PerspectiveCamera
 ): void {
 
-  renderOptions.addColor(VIEW_OPTIONS, 'backgroundColor')
+  viewOptionsFolder.addColor(VIEW_OPTIONS, 'backgroundColor')
     .onChange(newColor => (scene.background as THREE.Color).set(newColor))
-  renderOptions.add(camera.position, 'z', 0, 50, 5).listen()
-  renderOptions.add(camera, 'fov', 25, 125, 25).listen()
+  viewOptionsFolder.add(camera.position, 'z', 0, 50, 5).listen()
+  viewOptionsFolder.add(camera, 'fov', 25, 125, 25).listen()
     .onChange(_unusedNewFov => camera.updateProjectionMatrix())
 
-  renderOptions.open()
+  viewOptionsFolder.open()
 }
