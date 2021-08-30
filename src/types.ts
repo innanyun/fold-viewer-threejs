@@ -1,0 +1,1 @@
+type ColorSpec = string | number
