@@ -1,11 +1,11 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { GUI } from "dat.gui"
 
 // import { specifyMotion } from 'view/mesh_motion'
 
 import { ViewOptions } from 'view/config'
-import { initDatGUI } from 'system/debug'
+import { initDatGUI, bindSheetOptionsControllers,
+  SheetOptionsControllers } from 'system/debug'
 
 
 export class View {
@@ -19,7 +19,7 @@ export class View {
   // @ts-expect-error
   private _controls: OrbitControls
   // @ts-expect-error
-  private _sheetOptions: GUI
+  private _sheetOptionsControllers: SheetOptionsControllers
 
   constructor(options: ViewOptions, sheetMesh: THREE.Object3D) {
     this._setupEnvironment(
@@ -27,9 +27,9 @@ export class View {
       (this._container = options.dom),
       options
     )
-    this.setMesh((this._mesh = sheetMesh))
     this._setupControls()
     this._setupView(options)
+    this.setMesh((this._mesh = sheetMesh))
   }
 
   private _setupEnvironment(
@@ -82,6 +82,7 @@ export class View {
 
     this._mesh && removeMesh(this._mesh)
     this._scene.add((this._mesh = sheetMesh))
+    bindSheetOptionsControllers(this._sheetOptionsControllers, this._mesh)
   }
 
   private _setupControls() {
@@ -117,7 +118,7 @@ export class View {
   }
 
   private _initDebugAssets() {
-    this._sheetOptions = initDatGUI(this._scene, this._mesh, this._camera)
+    this._sheetOptionsControllers = initDatGUI(this._scene, this._camera)
     this._scene.add(new THREE.AxesHelper())
   }
 
