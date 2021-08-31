@@ -9,9 +9,9 @@ export interface SheetOptions {
 
 export const SHEET_OPTIONS: SheetOptions = {
   scale: 2,
-  opacity: 0.5,
+  opacity: 0.7,
   frontColor: 0x00ff00,
   backColor: 0xff00ff,
   edgeColor: 0x0000ff,
-  edgeWidth: 0.003
+  edgeWidth: 0.002
 }
