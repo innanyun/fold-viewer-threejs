@@ -48,9 +48,13 @@ export class View {
         this._camera.position.z = 5
       },
       setupLights = (scene: THREE.Scene): void => {
-        let light = new THREE.PointLight(0xffffff)
-        light.position.set(-10, 40, 10)
-        scene.add(light)
+        const skyLight = new THREE.HemisphereLight(0xffeeb1, 0x080820)
+        scene.add(skyLight)
+
+        let spotLight = new THREE.SpotLight(0xffffff, 5)
+        spotLight.position.set(-10, 10, 10)
+        spotLight.castShadow = true
+        scene.add(spotLight)
       },
       setupRenderer = (container: HTMLElement): void => {
         this._renderer = new THREE.WebGLRenderer()
