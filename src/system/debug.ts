@@ -8,10 +8,13 @@ import { VIEW_OPTIONS } from 'view/config'
 
 
 export interface SheetOptionsControllers {
+  // faces
   frontColorControl: dat.GUIController
   backColorControl: dat.GUIController
-  edgeColorControl: dat.GUIController
   opacityControl: dat.GUIController
+  // edges
+  edgeColorControl: dat.GUIController
+  edgeWidthControl: dat.GUIController
 }
 
 
@@ -29,19 +32,24 @@ export function initDatGUI(
   return _createSheetOptionsControllers(sheetOptionsControllers, SHEET_OPTIONS)
 }
 
+
 function _createSheetOptionsControllers(
-  sheetOptionsFolder: dat.GUI, options: SheetOptions
+  controllers: dat.GUI, options: SheetOptions
 ): SheetOptionsControllers {
 
-  sheetOptionsFolder.open()
+  controllers.open()
 
   return {
-    frontColorControl: sheetOptionsFolder.addColor(options, 'frontColor'),
-    backColorControl: sheetOptionsFolder.addColor(options, 'backColor'),
-    edgeColorControl: sheetOptionsFolder.addColor(options, 'edgeColor'),
-    opacityControl: sheetOptionsFolder.add(options, 'opacity', 0.0, 1.0, 0.1)
+    // faces
+    frontColorControl: controllers.addColor(options, 'frontColor'),
+    backColorControl: controllers.addColor(options, 'backColor'),
+    opacityControl: controllers.add(options, 'opacity', 0.0, 1.0, 0.1),
+    // edges
+    edgeColorControl: controllers.addColor(options, 'edgeColor'),
+    edgeWidthControl: controllers.add(options, 'edgeWidth', 0.0, 0.01, 0.001)
   }
 }
+
 
 export function bindSheetOptionsControllers(
   sheetOptions: SheetOptionsControllers,
@@ -50,8 +58,9 @@ export function bindSheetOptionsControllers(
 
   const
     updateFrontFacesColor = _updateSheetFacesColor(sheetMesh),
+    updateOpacity = _updateSheetOpacity(sheetMesh),
     updateEdgesColor = _updateSheetEdgesColor(sheetMesh),
-    updateOpacity = _updateSheetOpacity(sheetMesh)
+    updateEdgeWidth = _updateSheetEdgeWidth(sheetMesh)
 
   sheetOptions.frontColorControl.onChange(
     newColor => updateFrontFacesColor(newColor)
@@ -59,12 +68,9 @@ export function bindSheetOptionsControllers(
   sheetOptions.backColorControl.onChange(
     newColor => updateFrontFacesColor(newColor) // TODO: updateBackFacesColor
   )
-  sheetOptions.edgeColorControl.onChange(
-    newColor => updateEdgesColor(newColor)
-  )
-  sheetOptions.opacityControl.onChange(
-    newOpacity => updateOpacity(newOpacity)
-  )
+  sheetOptions.opacityControl.onChange(newOpacity => updateOpacity(newOpacity))
+  sheetOptions.edgeColorControl.onChange(newColor => updateEdgesColor(newColor))
+  sheetOptions.edgeWidthControl.onChange(newWidth => updateEdgeWidth(newWidth))
 }
 
 
@@ -95,6 +101,16 @@ function _updateSheetEdgesColor(sheetMesh: THREE.Object3D): Function {
   }
 }
 
+function _updateSheetEdgeWidth(sheetMesh: THREE.Object3D): Function {
+  return function (newWidth: number): void {
+    sheetMesh.traverse(mesh => {
+      if (_isEdge(mesh)) {
+        ((mesh as Wireframe).material as LineMaterial).linewidth = newWidth
+      }
+    })
+  }
+}
+
 function _updateSheetOpacity(sheetMesh: THREE.Object3D): Function {
   return function (newOpacity: number): void {
     sheetMesh.traverse((mesh) => {
@@ -108,16 +124,16 @@ function _updateSheetOpacity(sheetMesh: THREE.Object3D): Function {
 
 
 function _createAndSetViewOptions(
-  viewOptionsFolder: dat.GUI,
+  controllers: dat.GUI,
   scene: THREE.Scene,
   camera: THREE.PerspectiveCamera
 ): void {
 
-  viewOptionsFolder.addColor(VIEW_OPTIONS, 'backgroundColor')
+  controllers.addColor(VIEW_OPTIONS, 'backgroundColor')
     .onChange(newColor => (scene.background as THREE.Color).set(newColor))
-  viewOptionsFolder.add(camera.position, 'z', 0, 50, 5).listen()
-  viewOptionsFolder.add(camera, 'fov', 25, 125, 25).listen()
+  controllers.add(camera.position, 'z', 0, 50, 5).listen()
+  controllers.add(camera, 'fov', 25, 125, 25).listen()
     .onChange(_unusedNewFov => camera.updateProjectionMatrix())
 
-  viewOptionsFolder.open()
+  controllers.open()
 }
