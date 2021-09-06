@@ -1,18 +1,27 @@
 {
-  "compilerOptions": {
-    "target": "es2020",
-    "pretty": true,
-    "listFiles": false,
-    "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "removeComments": true,
-    "skipLibCheck": true,  // for speed up compilation
+  // top level
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "lab"],
 
+  "compilerOptions": {
+
+    // type checking
     "alwaysStrict": true,
     "strict": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
+
+    // language and environment
+    "target": "es2020",
+
+    // output formatting
+    "pretty": true,
+
+    // compiler diagnostics
+    "listFiles": false, // for compilation speed
+
+    // emit
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noImplicitReturns": true,
@@ -20,20 +29,24 @@
     "downlevelIteration": true,
     "noUnusedLocals": true, // not too strict?
     "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-
-    "baseUrl": "src",     // root for non-relative imports
     "outDir": "build",
-    "rootDir": "src",     // all sources are below here
+    "sourceMap": true,
+    "removeComments": true,
 
+    // modules
+    "types": ["node", "three"],
     "module": "commonjs",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": "src",     // root for non-relative imports
+    "rootDir": "src",     // all sources are below here
 
-    "types": ["node", "three"]
+    // interop constriaints
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // completeness
+    "skipLibCheck": true,  // for compilation speed
   },
 
-  "include": ["src/**/*"],
-
-  "exclude": ["node_modules", "lab"]
 }
