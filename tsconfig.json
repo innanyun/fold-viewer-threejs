@@ -41,7 +41,7 @@
     "baseUrl": "src",     // root for non-relative imports
     "rootDir": "src",     // all sources are below here
 
-    // interop constriaints
+    // interop constraints
     "esModuleInterop": true,
     "isolatedModules": true, // for esbuild
     "forceConsistentCasingInFileNames": true,
