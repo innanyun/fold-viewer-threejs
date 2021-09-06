@@ -8,7 +8,4 @@ type Vector2Coord = [number, number]
 type Vector3Coord = [number, number, number]
 
 
-export {
-  VertexId, EdgeId, FaceId,
-  Vector2Coord, Vector3Coord
-}
+export type { VertexId, EdgeId, FaceId, Vector2Coord, Vector3Coord }

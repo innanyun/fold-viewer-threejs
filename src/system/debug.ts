@@ -3,6 +3,7 @@ import { Wireframe } from 'three/examples/jsm/lines/Wireframe'
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial'
 import * as dat from 'dat.gui'
 
+import { ColorSpec } from 'types'
 import { SheetOptions, SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
 
