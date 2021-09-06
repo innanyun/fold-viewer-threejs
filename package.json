@@ -45,11 +45,12 @@
     "typescript": "^4.3.5"
   },
   "scripts": {
-    "build": "npx esbuild src/app.ts --bundle --format=esm --minify --outdir=build",
-    "start": "npm run build && npx http-server",
-    "_typecheck": "npx tsc --watch --noEmit",
-    "_watch": "npx esbuild src/app.ts --watch --bundle --format=esm --sourcemap --outdir=build",
+    "_type-check": "npx tsc --watch --noEmit",
+    "_esbuild-base": "npx esbuild src/app.ts --bundle --format=esm --outdir=build",
+    "_esbuild-watch": "npm run _esbuild-base -- --watch --sourcemap",
     "_browser-sync": "npx browser-sync start --server --files 'build' '*.html'",
-    "dev": "npm run _typecheck && npm run _watch && npm run _browser-sync"
+    "build": "npm run _esbuild-base --minify",
+    "start": "npm run build && npx http-server",
+    "dev": "npm run _type-check & npm run _esbuild-watch & npm run _browser-sync"
   }
 }
