@@ -85,6 +85,6 @@ interface FOLD_geometric_data {
 }
 
 
-export {
+export type {
   FOLD_data
 }

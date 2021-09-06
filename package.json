@@ -41,13 +41,15 @@
     "mocha": "^9.0.2",
     "rxjs": "^7.1.0",
     "rxjs-debug": "^1.3.0",
-    "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },
   "scripts": {
-    "start": "npx esbuild src/app.ts --bundle --format=esm --minify --outdir=build && npx http-server",
-    "dev": "npx esbuild src/app.ts --watch --bundle --format=esm --sourcemap --outdir=build",
-    "browser-sync": "npx browser-sync start --server --files 'build' '*.html'"
+    "build": "npx esbuild src/app.ts --bundle --format=esm --minify --outdir=build",
+    "start": "npm run build && npx http-server",
+    "_typecheck": "npx tsc --watch --noEmit",
+    "_watch": "npx esbuild src/app.ts --watch --bundle --format=esm --sourcemap --outdir=build",
+    "_browser-sync": "npx browser-sync start --server --files 'build' '*.html'",
+    "dev": "npm run _typecheck && npm run _watch && npm run _browser-sync"
   }
 }
