@@ -27,5 +27,9 @@ reflecting the new changes in the specification would be a no-brainer.
 ## Usage
 
 1. Install node packages: `npm install`
-1. Run `start` task: `npm start`
-1. Visit <http://localhost:8080>
+1. Run `npm [run] start` and visit <http://localhost:8080>.
+1. For development, run `npm [run] dev`. This runs the following tasks in
+   parallel (using `npm-run-all`):
+   + `npm [run] _type-check` for type checking using TypeScript compiler
+   + `npm [run] _esbuild-watch` for rebuild on file changes
+   + `npm [run] browser-sync` for live reloading browser pages
