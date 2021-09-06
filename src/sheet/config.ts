@@ -1,3 +1,6 @@
+import { ColorSpec } from 'types'
+
+
 export interface SheetOptions {
   scale: number
   opacity: number
@@ -6,6 +9,7 @@ export interface SheetOptions {
   edgeColor: ColorSpec
   edgeWidth: number
 }
+
 
 export const SHEET_OPTIONS: SheetOptions = {
   scale: 2,

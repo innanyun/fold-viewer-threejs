@@ -43,6 +43,7 @@
 
     // interop constriaints
     "esModuleInterop": true,
+    "isolatedModules": true, // for esbuild
     "forceConsistentCasingInFileNames": true,
 
     // completeness

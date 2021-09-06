@@ -46,7 +46,7 @@
   },
   "scripts": {
     "start": "npx esbuild src/app.ts --bundle --format=esm --minify --outdir=build && npx http-server",
-    "dev": "npx esbuild src/app.ts --watch --bundle --format=esm --sourcemap --outdir=build",
+    "dev": "npx tsc --watch --noEmit && npx esbuild src/app.ts --watch --bundle --format=esm --sourcemap --outdir=build",
     "browser-sync": "npx browser-sync start --server --files 'build' '*.html'"
   }
 }
