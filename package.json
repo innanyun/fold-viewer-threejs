@@ -41,7 +41,6 @@
     "mocha": "^9.0.2",
     "rxjs": "^7.1.0",
     "rxjs-debug": "^1.3.0",
-    "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },
