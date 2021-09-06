@@ -1,3 +1,6 @@
+import { ColorSpec } from 'types'
+
+
 export interface ViewOptions {
   dom: HTMLElement
   // Scene
