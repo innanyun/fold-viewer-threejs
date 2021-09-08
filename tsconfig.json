@@ -47,7 +47,7 @@
     "forceConsistentCasingInFileNames": true,
 
     // completeness
-    "skipLibCheck": true,  // for compilation speed
-  },
+    "skipLibCheck": true  // for compilation speed
+  }
 
 }

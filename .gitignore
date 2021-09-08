@@ -3,3 +3,4 @@ pnpm-lock.yaml
 build
 .tscache
 .vscode
+.tsconfig.json
