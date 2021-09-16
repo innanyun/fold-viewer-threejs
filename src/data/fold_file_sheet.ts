@@ -1,6 +1,6 @@
 import { Sheet } from 'sheet/sheet'
 import { VertexId, Vector2Coord, Vector3Coord } from 'sheet/types'
-import { FOLD_data } from './fold_format'
+import { FOLD_data } from 'data/fold_format'
 
 
 class FoldFileSheet implements Sheet {

@@ -4,15 +4,15 @@ import fs from 'fs'
 import path from 'path'
 
 import { FOLD_data } from 'data/fold_format'
-import imported from './test-data/3d-vertex-coords/bird-base-3d-modified.prettified.json'
+import imported from 'data/test-data/3d-vertex-coords/bird-base-3d-modified.prettified.json'
 
 
 describe('Reading files of FOLD-format', () => {
 
   it('should successfully read from external file', () => {
-    const TEST_DATA_FILE = path.join(
-        __dirname,
-        'test-data/3d-vertex-coords/bird-base-3d-modified.json'
+    const
+      TEST_DATA_FILE = path.join(
+        __dirname, 'test-data/3d-vertex-coords/bird-base-3d-modified.json'
       ),
       readIn: FOLD_data = JSON.parse(fs.readFileSync(TEST_DATA_FILE).toString())
 
