@@ -96,7 +96,7 @@ export class View {
   }
 
   private _setupResize(): void {
-    window.addEventListener("resize", this._resize.bind(this))
+    window.addEventListener('resize', this._resize.bind(this))
   }
 
   private _resize(_?: Event): void {
