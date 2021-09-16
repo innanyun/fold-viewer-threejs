@@ -1,7 +1,7 @@
 import { ColorSpec } from 'types'
 
 
-export interface SheetOptions {
+interface SheetOptions {
   scale: number
   opacity: number
   frontColor: ColorSpec
@@ -11,7 +11,7 @@ export interface SheetOptions {
 }
 
 
-export const SHEET_OPTIONS: SheetOptions = {
+const SHEET_OPTIONS: SheetOptions = {
   scale: 2,
   opacity: 0.5,
   frontColor: 0x00ff00,
@@ -19,3 +19,7 @@ export const SHEET_OPTIONS: SheetOptions = {
   edgeColor: 0x0000ff,
   edgeWidth: 0.003
 }
+
+
+export type { SheetOptions }
+export { SHEET_OPTIONS }

@@ -8,7 +8,7 @@ import { SheetOptions, SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
 
 
-export interface SheetOptionsControllers {
+interface SheetOptionsControllers {
   // faces
   frontColorControl: dat.GUIController
   backColorControl: dat.GUIController
@@ -19,7 +19,7 @@ export interface SheetOptionsControllers {
 }
 
 
-export function initDatGUI(
+function initDatGUI(
   scene: THREE.Scene, camera: THREE.PerspectiveCamera
 ): SheetOptionsControllers
 {
@@ -138,3 +138,7 @@ function _createAndSetViewOptions(
 
   controllers.open()
 }
+
+
+export type { SheetOptionsControllers }
+export { initDatGUI }

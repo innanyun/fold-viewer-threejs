@@ -43,8 +43,8 @@ assert(
 _dumpVertexCoords(sheet2)
 
 assert(
-  sheet3.verticesLocations().every(uv => uv === undefined),
-  "vertices planar coordinates UNDEFINED"
+  !sheet3.verticesLocations().every(v => v.length === 2),
+  "vertices planar coordinates undefined"
 )
 assert(
   sheet3.verticesPositions().every(xyz => xyz.length === 3),

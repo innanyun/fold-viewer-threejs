@@ -12,7 +12,7 @@ import * as fs from 'fs'
 
 import { FOLD_data } from 'data/fold_format'
 
-import * as externalData from './test-data/3d-vertex-coords/bird-base-3d-modified.json'
+import externalData from './test-data/3d-vertex-coords/bird-base-3d-modified.json'
 
 
 const

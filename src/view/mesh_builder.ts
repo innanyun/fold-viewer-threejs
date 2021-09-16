@@ -9,7 +9,7 @@ import { createSheetGeometry } from 'sheet/sheet_geometry'
 import { SHEET_OPTIONS } from 'sheet/config'
 
 
-export function createSheetMesh(aSheet: Sheet): THREE.Object3D {
+function createSheetMesh(aSheet: Sheet): THREE.Object3D {
 
   const
     sheetGeometry = createSheetGeometry(aSheet),
@@ -64,3 +64,6 @@ function _createSheetEdgesMesh(
 
   return mesh
 }
+
+
+export { createSheetMesh }

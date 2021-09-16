@@ -3,7 +3,7 @@ import { VertexId, Vector2Coord, Vector3Coord } from 'sheet/types'
 import { FOLD_data } from './fold_format'
 
 
-export class FoldFileSheet implements Sheet {
+class FoldFileSheet implements Sheet {
 
   private _verticesLocations: Vector2Coord[]
   private _verticesPositions: Vector3Coord[]
@@ -22,3 +22,6 @@ export class FoldFileSheet implements Sheet {
   }
 
 }
+
+
+export { FoldFileSheet }

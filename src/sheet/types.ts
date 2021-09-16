@@ -26,12 +26,13 @@ type Tuple<T extends any[]> = Pick<
   T,
   Exclude<keyof T, ArrayLengthMutationKeys>
 > & { [Symbol.iterator]: () => IterableIterator<ArrayItems<T>> }
-
+//
 type FixedLengthArray<Type, Count extends number> =
-  Count extends 1 ? Tuple<[Type]>
-  : Count extends 2 ? Tuple<[Type, Type]>
-  : Count extends 3 ? Tuple<[Type, Type, Type]>
-  : // ...
+  Count extends 1 ? Tuple<[Type]> :
+  Count extends 2 ? Tuple<[Type, Type]> :
+  Count extends 3 ? Tuple<[Type, Type, Type]> :
+  // ...
   never
+
 
 export type { VertexId, EdgeId, FaceId, Vector2Coord, Vector3Coord, VectorCoord }
