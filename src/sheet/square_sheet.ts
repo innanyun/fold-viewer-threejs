@@ -2,7 +2,7 @@ import { Sheet } from 'sheet/sheet'
 import { VertexId, Vector2Coord, Vector3Coord } from 'sheet/types'
 
 
-export class SquareSheet implements Sheet {
+class SquareSheet implements Sheet {
 
   private _verticesLocations: Vector2Coord[]
   private _verticesPositions: Vector3Coord[]
@@ -26,3 +26,6 @@ export class SquareSheet implements Sheet {
   }
 
 }
+
+
+export { SquareSheet }

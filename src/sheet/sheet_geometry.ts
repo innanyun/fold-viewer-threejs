@@ -4,8 +4,7 @@ import { Sheet } from 'sheet/sheet'
 import { VertexId, Vector3Coord } from 'sheet/types'
 
 
-export function createSheetGeometry (s: Sheet): THREE.BufferGeometry
-{
+function createSheetGeometry (s: Sheet): THREE.BufferGeometry {
   return _createFacesGeometry(s.verticesPositions(), s.facesVerticesIds()).center()
 }
 
@@ -46,3 +45,6 @@ function _tessellate(polygonVertices: VertexId[]): VertexId[] {
 
   return indices
 }
+
+
+export { createSheetGeometry }

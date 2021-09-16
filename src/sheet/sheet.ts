@@ -1,7 +1,7 @@
 import { VertexId, Vector2Coord, Vector3Coord } from 'sheet/types'
 
 
-export interface Sheet {
+interface Sheet {
 
   verticesLocations(): Vector2Coord[]
 
@@ -10,3 +10,6 @@ export interface Sheet {
   facesVerticesIds(): VertexId[][]
 
 }
+
+
+export type { Sheet }
