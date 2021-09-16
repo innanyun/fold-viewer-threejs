@@ -1,28 +1,24 @@
 import { describe, it } from 'mocha'
-import { assert, expect } from 'chai'
+import { expect } from 'chai'
 
-// import { strict as assert } from 'assert'
-
-import { Vector3Coord } from 'sheet/types'
 import { SquareSheet } from 'sheet/square_sheet'
+import * as math from 'mathjs'
 
 
-// const
-//   vertexPositions = squareSheetVertexPositions(5)
+describe('Square sheet geometry', () => {
 
-// assert(vertexPositions.length == 4)
-// console.log('vertex spatial coords:', vertexPositions)
+  const
+    S = new SquareSheet(),
+    v2coords = S.verticesLocations(),
+    v3coords = S.verticesPositions()
 
+  it('should have 4 vertices', () => {
+    expect(v2coords).to.have.lengthOf(4)
+    expect(v3coords).to.have.lengthOf(4)
+  })
 
-describe('sheet geometry', () => {
-
-  it('vertex planar locations', () => {
-    const
-      SHEET_SIZE: number = 5,
-      v = new SquareSheet(SHEET_SIZE).verticesPositions()
-
-    expect(v).to.have.lengthOf(4)
-    assert(v.every((p: Vector3Coord) => expect(p[2]).equals(0)))
+  it('should have all 0 as z components of vertex positions', () => {
+    expect(v3coords.every(p => math.equal(p[2], 0))).to.be.true
   })
 
 })

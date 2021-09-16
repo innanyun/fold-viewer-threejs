@@ -1,25 +1,28 @@
-/**
- * **NB**: MANUAL (non-automated) test for `FOLD_data` type evolution
- *
- * build (in the project root dir):
- *  `esbuild --outfile=build/test.js --bundle --platform=node <this_file>`
- * run (in the project root dir):
- *  `node build/test.js **<FOLD_file>**` eg
- *  `node build/test.js src/data/test-data/3d-vertex-coords/box.json`
- */
-
-import * as fs from 'fs'
+import { describe, it } from 'mocha'
+import { expect } from 'chai'
+import fs from 'fs'
+import path from 'path'
 
 import { FOLD_data } from 'data/fold_format'
-
-import externalData from './test-data/3d-vertex-coords/bird-base-3d-modified.json'
-
-
-const
-  last = (arr: string[]): string => arr[arr?.length - 1],
-  readIn: FOLD_data = JSON.parse(fs.readFileSync(last(process.argv)).toString()),
-  imported: FOLD_data = externalData
+import imported from './test-data/3d-vertex-coords/bird-base-3d-modified.prettified.json'
 
 
-console.log(readIn)
-console.log(imported)
+describe('FOLD format file reading', () => {
+
+  it('should successfully read from external file', done => {
+    const
+      TEST_DATA_FILE = path.join(
+        __dirname, 'test-data/3d-vertex-coords/bird-base-3d-modified.json'
+      ),
+      readIn: FOLD_data = JSON.parse(fs.readFileSync(TEST_DATA_FILE).toString())
+
+    expect(readIn.vertices_coords.every(v => v.length === 3)).to.be.true
+    done()
+  })
+
+  it('should properly pass through JSON import of TypeScript', (done) => {
+    expect(imported.vertices_coords.every(v => v.length === 3)).to.be.true
+    done()
+  })
+
+})
