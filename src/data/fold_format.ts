@@ -1,4 +1,4 @@
-import { Vector2Coord, Vector3Coord, VertexId, EdgeId, FaceId } from 'sheet/types'
+import { VertexId, EdgeId, FaceId, VectorCoord } from 'sheet/types'
 
 
 type FOLD_data = FOLD_file_metadata & FOLD_frame_data
@@ -58,7 +58,7 @@ interface FOLD_multi_frame_data {
 
 
 interface FOLD_geometric_data {
-  vertices_coords: Array<Vector2Coord | Vector3Coord>
+  vertices_coords: Array<VectorCoord>
   vertices_vertices?: Array<Array<VertexId>>
   vertices_faces?: Array<Array<FaceId>>
 
