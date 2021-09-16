@@ -3,7 +3,7 @@ import { VertexId, Vector2Coord, Vector3Coord } from 'sheet/types'
 
 export interface Sheet {
 
-  verticesLocations(): (Vector2Coord | undefined)[]
+  verticesLocations(): Vector2Coord[]
 
   verticesPositions(): Vector3Coord[]
 
