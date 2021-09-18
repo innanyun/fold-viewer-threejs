@@ -12,7 +12,7 @@ function createSheetGeometry (s: Sheet): THREE.BufferGeometry {
 function _createFacesGeometry(
   verticesCoords: Vector3Coord[], facesVertices: VertexId[][]
 ): THREE.BufferGeometry {
-  let geometry = new THREE.BufferGeometry()
+  const geometry = new THREE.BufferGeometry()
 
   geometry.setAttribute(
     'position', new THREE.Float32BufferAttribute(verticesCoords.flat(), 3)
@@ -22,7 +22,7 @@ function _createFacesGeometry(
   )
   geometry.computeVertexNormals()
 
-  return geometry;
+  return geometry
 }
 
 

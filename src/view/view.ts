@@ -48,7 +48,7 @@ export class View {
         this._camera.position.z = 5
       },
       setupLights = (scene: THREE.Scene): void => {
-        let light = new THREE.PointLight(0xffffff)
+        const light = new THREE.PointLight(0xffffff)
         light.position.set(-10, 40, 10)
         scene.add(light)
       },
@@ -74,7 +74,7 @@ export class View {
     options.debug && this._initDebugAssets()
   }
 
-  setMesh(sheetMesh: THREE.Object3D, debug: boolean = true): void {
+  setMesh(sheetMesh: THREE.Object3D, debug = true): void {
     const removeMesh = (mesh: THREE.Object3D): void => {
       // TODO: dispose `mesh`
       this._scene.remove(mesh)
@@ -99,6 +99,7 @@ export class View {
     window.addEventListener('resize', this._resize.bind(this))
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private _resize(_?: Event): void {
     const
       newWidth = this._container.offsetWidth,

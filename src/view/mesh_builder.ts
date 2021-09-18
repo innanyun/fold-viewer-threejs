@@ -58,7 +58,7 @@ function _createSheetEdgesMesh(
       gapSize: 0.02,
     })
 
-  let mesh = new Wireframe(sheetEdgesGeometry, sheetEdgesMaterial)
+  const mesh = new Wireframe(sheetEdgesGeometry, sheetEdgesMaterial)
 
   mesh.computeLineDistances()
 

@@ -15,7 +15,7 @@ interface ViewOptions {
 
 
 const VIEW_OPTIONS: ViewOptions = {
-  dom: document.getElementById('container')!,
+  dom: document.getElementById('container') as HTMLElement,
   // Scene
   backgroundColor: '#ceedce',
   // Camera
