@@ -18,7 +18,7 @@ describe('Square sheet geometry', () => {
   })
 
   it('should have vertices 3D coordinates initialized as (z = 0)', () => {
-    expect(v3coords.every((p) => math.equal(p[2], 0))).to.be.true
+    expect(v3coords.every(p => math.equal(p[2], 0))).to.be.true
   })
 
 })

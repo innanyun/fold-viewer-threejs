@@ -9,6 +9,7 @@ import { initDatGUI, bindSheetOptionsControllers,
 
 
 export class View {
+
   private _container: HTMLElement
   private _scene: THREE.Scene
   private _mesh: THREE.Object3D
@@ -81,7 +82,7 @@ export class View {
     }
 
     this._mesh && removeMesh(this._mesh)
-    this._scene.add((this._mesh = sheetMesh))
+    this._scene.add(this._mesh = sheetMesh)
 
     debug &&
       bindSheetOptionsControllers(this._sheetOptionsControllers, this._mesh)
@@ -124,4 +125,5 @@ export class View {
     this._sheetOptionsControllers = initDatGUI(this._scene, this._camera)
     this._scene.add(new THREE.AxesHelper())
   }
+
 }
