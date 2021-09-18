@@ -62,7 +62,7 @@
     "browser-sync": "browser-sync start --server --files 'build' '*.html'",
     "dev": "npm-run-all --parallel _type-check-only _test-watch _esbuild-watch browser-sync",
     "lint": "eslint src",
-    "_strip-json-comments": "strip-json-comments tsconfig.json > .tsconfig.json",
+    "_strip-json-comments": "strip-json-comments --no-whitespace tsconfig.json > .tsconfig.json",
     "_test-base": "ts-mocha --project .tsconfig.json --paths src/**/*test.ts",
     "_test-watch": "npm run _test-base -- --watch --watch-extensions ts",
     "test": "npm-run-all --serial _strip-json-comments _test-base",
