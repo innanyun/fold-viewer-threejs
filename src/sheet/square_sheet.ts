@@ -12,7 +12,7 @@ class SquareSheet implements Sheet {
   verticesPositions (): Vector3Coord[] { return this._verticesPositions }
   facesVerticesIds (): VertexId[][] { return this._facesVerticesIds }
 
-  constructor(size: number = 1.0) {
+  constructor(size = 1.0) {
     this._verticesLocations = [
       [-0.5, -0.5],
       [ 0.5, -0.5],

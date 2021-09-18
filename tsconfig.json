@@ -27,7 +27,7 @@
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "downlevelIteration": true,
-    "noUnusedLocals": true, // not too strict?
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "build",
     "sourceMap": true,
