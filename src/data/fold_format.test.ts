@@ -22,4 +22,5 @@ describe('Reading files of FOLD-format', () => {
   it('should properly pass through JSON import of TypeScript', () => {
     expect(imported.vertices_coords.every((v) => v.length === 3)).to.be.true
   })
+
 })

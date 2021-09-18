@@ -12,13 +12,13 @@ export class View {
   private _container: HTMLElement
   private _scene: THREE.Scene
   private _mesh: THREE.Object3D
-  // @ts-expect-error
+  // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _camera: THREE.PerspectiveCamera
-  // @ts-expect-error
+  // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _renderer: THREE.Renderer
-  // @ts-expect-error
+  // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _controls: OrbitControls
-  // @ts-expect-error
+  // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _sheetOptionsControllers: SheetOptionsControllers
 
   constructor(options: ViewOptions, sheetMesh: THREE.Object3D) {
@@ -123,5 +123,4 @@ export class View {
     this._sheetOptionsControllers = initDatGUI(this._scene, this._camera)
     this._scene.add(new THREE.AxesHelper())
   }
-
 }

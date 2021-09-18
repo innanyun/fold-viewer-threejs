@@ -8,7 +8,8 @@ import { FOLD_data } from 'data/fold_format'
 
 
 describe('Sheet read from 2D vertices FOLD file', () => {
-  const FOLD_DATA_WITH_2D_VERTICES_COORDS: FOLD_data = {
+  const
+    FOLD_DATA_WITH_2D_VERTICES_COORDS: FOLD_data = {
       file_spec: 1.1,
       vertices_coords: [
         [0, 0],
