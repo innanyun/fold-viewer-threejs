@@ -18,7 +18,7 @@ function _createFacesGeometry(
     'position', new THREE.Float32BufferAttribute(verticesCoords.flat(), 3)
   )
   geometry.setIndex(
-    facesVertices.map((aFaceVertices) => _tessellate(aFaceVertices)).flat()
+    facesVertices.map(aFaceVertices => _tessellate(aFaceVertices)).flat()
   )
   geometry.computeVertexNormals()
 
