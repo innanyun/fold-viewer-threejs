@@ -4,3 +4,5 @@ build
 .tscache
 .vscode
 .tsconfig.json
+.pnpm-debug.log
+package-lock.json
