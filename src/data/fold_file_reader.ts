@@ -22,7 +22,7 @@ function initFoldFileReader(): Observable<FOLD_data> {
 
   fromEvent(
     _createLocalFileChooser(
-      document.getElementById('container') as HTMLDivElement
+      document.getElementById('controls') as HTMLDivElement
     ),
     'change'
   ).pipe(
