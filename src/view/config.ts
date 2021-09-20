@@ -1,7 +1,7 @@
 import { ColorSpec } from 'types'
 
 
-export interface ViewOptions {
+interface ViewOptions {
   dom: HTMLElement
   // Scene
   backgroundColor: ColorSpec
@@ -14,8 +14,8 @@ export interface ViewOptions {
 }
 
 
-export const VIEW_OPTIONS: ViewOptions = {
-  dom: document.getElementById('container')!,
+const VIEW_OPTIONS: ViewOptions = {
+  dom: document.getElementById('container') as HTMLElement,
   // Scene
   backgroundColor: '#ceedce',
   // Camera
@@ -25,3 +25,7 @@ export const VIEW_OPTIONS: ViewOptions = {
   // development
   debug: true // `dat.GUI` & `AxesHelper`
 }
+
+
+export type { ViewOptions }
+export { VIEW_OPTIONS }

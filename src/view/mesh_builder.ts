@@ -9,7 +9,7 @@ import { createSheetGeometry } from 'sheet/sheet_geometry'
 import { SHEET_OPTIONS } from 'sheet/config'
 
 
-export function createSheetMesh(aSheet: Sheet): THREE.Object3D {
+function createSheetMesh(aSheet: Sheet): THREE.Object3D {
 
   const
     sheetGeometry = createSheetGeometry(aSheet),
@@ -58,9 +58,12 @@ function _createSheetEdgesMesh(
       gapSize: 0.02,
     })
 
-  let mesh = new Wireframe(sheetEdgesGeometry, sheetEdgesMaterial)
+  const mesh = new Wireframe(sheetEdgesGeometry, sheetEdgesMaterial)
 
   mesh.computeLineDistances()
 
   return mesh
 }
+
+
+export { createSheetMesh }

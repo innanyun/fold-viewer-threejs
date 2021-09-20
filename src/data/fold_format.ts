@@ -1,4 +1,5 @@
-import { Vector2Coord, Vector3Coord, VertexId, EdgeId, FaceId } from 'sheet/types'
+import { FixedLengthArray, Tuple } from 'types'
+import { VertexId, EdgeId, FaceId, VectorCoord } from 'sheet/types'
 
 
 type FOLD_data = FOLD_file_metadata & FOLD_frame_data
@@ -58,12 +59,12 @@ interface FOLD_multi_frame_data {
 
 
 interface FOLD_geometric_data {
-  vertices_coords: Array<Vector2Coord | Vector3Coord>
+  vertices_coords: Array<VectorCoord>
   vertices_vertices?: Array<Array<VertexId>>
   vertices_faces?: Array<Array<FaceId>>
 
-  edges_vertices: Array<[VertexId, VertexId]>
-  edges_faces?: Array<[FaceId, FaceId | null] | FaceId>
+  edges_vertices: Array<FixedLengthArray<VertexId, 2>>
+  edges_faces?: Array<Tuple<[FaceId, FaceId | null]> | FaceId>
   edges_assignment?: Array<
     | 'B'
     | 'M'
@@ -80,11 +81,9 @@ interface FOLD_geometric_data {
 
   faces_vertices?: Array<Array<VertexId>>
   faces_edges?: Array<Array<EdgeId>>
-  faceOrders?: Array<[FaceId, FaceId, 1 | -1 | 0]>
-  edgeOrders?: Array<[EdgeId, EdgeId, 1 | -1 | 0]>
+  faceOrders?: Array<Tuple<[FaceId, FaceId, 1 | -1 | 0]>>
+  edgeOrders?: Array<Tuple<[EdgeId, EdgeId, 1 | -1 | 0]>>
 }
 
 
-export type {
-  FOLD_data
-}
+export type { FOLD_data }
