@@ -5,7 +5,7 @@ import { FOLD_data } from 'data/fold_format'
 
 
 function _createLocalFileChooser(parent: HTMLElement): HTMLInputElement {
-  let input = document.createElement('input')
+  const input = document.createElement('input')
 
   input.type = 'file'
   input.accept = 'text/plain, .json, .fold'
@@ -17,18 +17,25 @@ function _createLocalFileChooser(parent: HTMLElement): HTMLInputElement {
 }
 
 
-export function initFoldFileReader(): Observable<FOLD_data> {
-  let _reader = new FileReader()
+function initFoldFileReader(): Observable<FOLD_data> {
+  const _reader = new FileReader()
 
   fromEvent(
-    _createLocalFileChooser(document.getElementById('container')!), 'change'
+    _createLocalFileChooser(
+      document.getElementById('container') as HTMLDivElement
+    ),
+    'change'
   ).pipe(
-    map((e: Event) => (e.target as HTMLInputElement).files![0]),
-    map((f: File) => _reader.readAsText(f))
+    map(event => ((event.target as HTMLInputElement).files as FileList)[0]),
+    map(file => _reader.readAsText(file))
   ).subscribe()
 
   return fromEvent(_reader, 'load').pipe(
-    map((_: Event): string => _reader.result as string),
-    map((fileContent: string): FOLD_data => JSON.parse(fileContent))
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    map(_event => _reader.result as string),
+    map(fileContent => JSON.parse(fileContent))
   )
 }
+
+
+export { initFoldFileReader }

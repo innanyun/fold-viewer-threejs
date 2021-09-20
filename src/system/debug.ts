@@ -8,7 +8,7 @@ import { SheetOptions, SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
 
 
-export interface SheetOptionsControllers {
+interface SheetOptionsControllers {
   // faces
   frontColorControl: dat.GUIController
   backColorControl: dat.GUIController
@@ -19,11 +19,11 @@ export interface SheetOptionsControllers {
 }
 
 
-export function initDatGUI(
+function initDatGUI(
   scene: THREE.Scene, camera: THREE.PerspectiveCamera
 ): SheetOptionsControllers
 {
-  let
+  const
     gui = new dat.GUI({name: 'FOLD viewer'}),
     sheetOptionsControllers = gui.addFolder('Sheet'),
     viewOptionsControllers = gui.addFolder('View')
@@ -79,7 +79,7 @@ const
     !_isEdge(mesh)
 
 
-function _updateSheetFacesColor(sheetMesh: THREE.Object3D): Function {
+function _updateSheetFacesColor(sheetMesh: THREE.Object3D) /*: Function */ {
   return function (newColor: ColorSpec | THREE.Color): void {
     sheetMesh.traverse(mesh => {
       if (_isFace(mesh)) {
@@ -89,7 +89,7 @@ function _updateSheetFacesColor(sheetMesh: THREE.Object3D): Function {
   }
 }
 
-function _updateSheetEdgesColor(sheetMesh: THREE.Object3D): Function {
+function _updateSheetEdgesColor(sheetMesh: THREE.Object3D)/* : Function */ {
   return function (newColor: ColorSpec | THREE.Color): void {
     sheetMesh.traverse(mesh => {
       if (_isEdge(mesh)) {
@@ -99,7 +99,7 @@ function _updateSheetEdgesColor(sheetMesh: THREE.Object3D): Function {
   }
 }
 
-function _updateSheetEdgeWidth(sheetMesh: THREE.Object3D): Function {
+function _updateSheetEdgeWidth(sheetMesh: THREE.Object3D)/* : Function */ {
   return function (newWidth: number): void {
     sheetMesh.traverse(mesh => {
       if (_isEdge(mesh)) {
@@ -109,7 +109,7 @@ function _updateSheetEdgeWidth(sheetMesh: THREE.Object3D): Function {
   }
 }
 
-function _updateSheetOpacity(sheetMesh: THREE.Object3D): Function {
+function _updateSheetOpacity(sheetMesh: THREE.Object3D)/* : Function */ {
   return function (newOpacity: number): void {
     sheetMesh.traverse((mesh) => {
       if (_isFace(mesh)) {
@@ -130,7 +130,12 @@ function _createAndSetViewOptions(
     .onChange(newColor => (scene.background as THREE.Color).set(newColor))
   controllers.add(camera.position, 'z', 0, 50, 5).listen()
   controllers.add(camera, 'fov', 25, 125, 25).listen()
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     .onChange(_unusedNewFov => camera.updateProjectionMatrix())
 
   controllers.open()
 }
+
+
+export type { SheetOptionsControllers }
+export { initDatGUI }

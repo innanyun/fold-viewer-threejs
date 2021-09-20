@@ -9,16 +9,17 @@ import { initDatGUI, bindSheetOptionsControllers,
 
 
 export class View {
+
   private _container: HTMLElement
   private _scene: THREE.Scene
   private _mesh: THREE.Object3D
-  // @ts-expect-error
+  // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _camera: THREE.PerspectiveCamera
-  // @ts-expect-error
+  // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _renderer: THREE.Renderer
-  // @ts-expect-error
+  // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _controls: OrbitControls
-  // @ts-expect-error
+  // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _sheetOptionsControllers: SheetOptionsControllers
 
   constructor(options: ViewOptions, sheetMesh: THREE.Object3D) {
@@ -51,7 +52,7 @@ export class View {
         const skyLight = new THREE.HemisphereLight(0xffeeb1, 0x080820)
         scene.add(skyLight)
 
-        let spotLight = new THREE.SpotLight(0xffffff, 5)
+        const spotLight = new THREE.SpotLight(0xffffff, 5)
         spotLight.position.set(-10, 10, 10)
         spotLight.castShadow = true
         scene.add(spotLight)
@@ -78,14 +79,14 @@ export class View {
     options.debug && this._initDebugAssets()
   }
 
-  setMesh(sheetMesh: THREE.Object3D, debug: boolean = true): void {
+  setMesh(sheetMesh: THREE.Object3D, debug = true): void {
     const removeMesh = (mesh: THREE.Object3D): void => {
       // TODO: dispose `mesh`
       this._scene.remove(mesh)
     }
 
     this._mesh && removeMesh(this._mesh)
-    this._scene.add((this._mesh = sheetMesh))
+    this._scene.add(this._mesh = sheetMesh)
 
     debug &&
       bindSheetOptionsControllers(this._sheetOptionsControllers, this._mesh)
@@ -100,9 +101,10 @@ export class View {
   }
 
   private _setupResize(): void {
-    window.addEventListener("resize", this._resize.bind(this))
+    window.addEventListener('resize', this._resize.bind(this))
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private _resize(_?: Event): void {
     const
       newWidth = this._container.offsetWidth,
