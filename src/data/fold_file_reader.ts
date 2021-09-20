@@ -21,10 +21,12 @@ function initFoldFileReader(): Observable<FOLD_data> {
   const _reader = new FileReader()
 
   fromEvent(
-    _createLocalFileChooser(document.getElementById('container')!),
+    _createLocalFileChooser(
+      document.getElementById('container') as HTMLDivElement
+    ),
     'change'
   ).pipe(
-    map(event => ((event.target as HTMLInputElement).files!)[0]),
+    map(event => ((event.target as HTMLInputElement).files as FileList)[0]),
     map(file => _reader.readAsText(file))
   ).subscribe()
 
