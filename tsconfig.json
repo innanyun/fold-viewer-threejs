@@ -4,13 +4,6 @@
   "exclude": ["node_modules", "lab"],
 
   "compilerOptions": {
-    "target": "es2020",
-    "pretty": true,
-    "listFiles": false,
-    "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "removeComments": true,
-    "skipLibCheck": true,  // for speed up compilation
 
     // type checking
     "alwaysStrict": true,
