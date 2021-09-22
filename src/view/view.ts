@@ -24,8 +24,8 @@ export class View {
 
   constructor(options: ViewOptions, sheetMesh: THREE.Object3D) {
     this._setupEnvironment(
-      (this._scene = new THREE.Scene()),
-      (this._container = options.dom),
+      this._scene = new THREE.Scene(),
+      this._container = options.dom,
       options
     )
     this._setupControls()
