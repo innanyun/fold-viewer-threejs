@@ -1,14 +1,15 @@
+import { FixedLengthArray } from 'types'
+
+
 //
 // type aliases
 //
 type VertexId = number
 type EdgeId = number
 type FaceId = number
-type Vector2Coord = [number, number]
-type Vector3Coord = [number, number, number]
+type Vector2Coord = FixedLengthArray<number, 2>
+type Vector3Coord = FixedLengthArray<number, 3>
+type VectorCoord = FixedLengthArray<number, 2 | 3>
 
 
-export {
-  VertexId, EdgeId, FaceId,
-  Vector2Coord, Vector3Coord
-}
+export type { VertexId, EdgeId, FaceId, Vector2Coord, Vector3Coord, VectorCoord }

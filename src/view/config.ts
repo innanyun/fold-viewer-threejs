@@ -1,7 +1,10 @@
-export interface ViewOptions {
+import { ColorSpec } from 'types'
+
+
+interface ViewOptions {
   dom: HTMLElement
   // Scene
-  backgroundColor: string | number
+  backgroundColor: ColorSpec
   // Camera
   fov: number
   near: number
@@ -11,8 +14,8 @@ export interface ViewOptions {
 }
 
 
-export const VIEW_OPTIONS: ViewOptions = {
-  dom: document.getElementById('container')!,
+const VIEW_OPTIONS: ViewOptions = {
+  dom: document.getElementById('container') as HTMLElement,
   // Scene
   backgroundColor: '#ceedce',
   // Camera
@@ -22,3 +25,7 @@ export const VIEW_OPTIONS: ViewOptions = {
   // development
   debug: true // `dat.GUI` & `AxesHelper`
 }
+
+
+export type { ViewOptions }
+export { VIEW_OPTIONS }

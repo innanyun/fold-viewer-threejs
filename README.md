@@ -15,7 +15,7 @@ simulation](http://d-origami.com) so I made the following decisions:
 * TypeScript as an implementation language
 * Three.js as a 3D framework
 
-## So Is It Worth?
+## Is It Worth?
 
 The sophisticated type system of TypeScript makes it possible to express the
 [FOLD file format
@@ -26,6 +26,14 @@ reflecting the new changes in the specification would be a no-brainer.
 
 ## Usage
 
-1. Install node packages: `npm install`
-1. Run `start` task: `npm start`
-1. Visit <http://localhost:8080>
+1. Install packages: `npm install`
+1. Run: `npm run start` and visit <http://localhost:8080>.
+1. Development
+   + Live reload: `npm run dev` This runs the following tasks in parallel:
+      - `_type-check-only` for live type checking using TypeScript compiler
+      - `_test-watch` for rerunning tests when files change
+      - `_esbuild-watch` for rebuilding when files change
+      - `browser-sync` for reloading browser pages when files change
+   + Test: `npm run test`
+   + Lint: `npm run lint`
+

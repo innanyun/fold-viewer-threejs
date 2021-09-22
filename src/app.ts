@@ -12,16 +12,17 @@ import { VIEW_OPTIONS } from 'view/config'
 
 console.clear()
 
-const foldData$ = initFoldFileReader()
 
-const view = new View(
-  VIEW_OPTIONS,
-  createSheetMesh(new SquareSheet(SHEET_OPTIONS.scale))
-)
+const
+  view = new View(
+    VIEW_OPTIONS,
+    createSheetMesh(new SquareSheet(SHEET_OPTIONS.scale))
+  ),
+  foldData$ = initFoldFileReader()
 
 
 foldData$.subscribe({
-  next: (data: FOLD_data) => {
+  next: (data: FOLD_data): void => {
     const
       newSheet = new FoldFileSheet(data),
       newMesh = createSheetMesh(newSheet)
