@@ -1,5 +1,5 @@
 import { SquareSheet } from 'sheet/square_sheet'
-import { localFoldFileReader$ } from 'data/local_fold_file_reader'
+import { readLocalFoldFile$ } from 'data/read_local_fold_file'
 import { FOLD_data } from 'data/fold_format'
 import { FoldFileSheet } from 'data/fold_file_sheet'
 // import { specifyMotion } from 'view/mesh_motion'
@@ -15,10 +15,11 @@ console.clear()
 
 const
   view = new View(
-    VIEW_OPTIONS,
-    createSheetMesh(new SquareSheet(SHEET_OPTIONS.scale))
+    VIEW_OPTIONS, createSheetMesh(new SquareSheet(SHEET_OPTIONS.scale))
   ),
-  foldData$ = localFoldFileReader$()
+  foldData$ = readLocalFoldFile$(
+    document.getElementById('controls') as HTMLDivElement
+  )
 
 
 foldData$.subscribe({

@@ -5,9 +5,9 @@ import axios from 'axios'
 import { FOLD_data } from 'data/fold_format'
 
 
-function remoteFoldFileReader$(url: string): Observable<FOLD_data> {
+function readRemoteFoldFile$(url: string): Observable<FOLD_data> {
   return from(axios(url)).pipe(map(res => res.data))
 }
 
 
-export { remoteFoldFileReader$ }
+export { readRemoteFoldFile$ }

@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
 
-import { remoteFoldFileReader$ } from 'data/remote_fold_file_reader'
+import { readRemoteFoldFile$ } from 'data/read_remote_fold_file'
 import { FOLD_data } from 'data/fold_format'
 
 
@@ -11,7 +11,7 @@ describe('FOLD file fetched from remote URL', () => {
 
   it('should get JSON file', done => {
 
-    const foldData$ = remoteFoldFileReader$(TEST_URL)
+    const foldData$ = readRemoteFoldFile$(TEST_URL)
 
     foldData$.subscribe({
       next: (data: FOLD_data): void => {
