@@ -1,8 +1,8 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
 
-import { remoteFoldFileReader$ } from 'data/fold_file_fetcher'
-import { FOLD_data } from 'data/fold_format';
+import { remoteFoldFileReader$ } from 'data/remote_fold_file_reader'
+import { FOLD_data } from 'data/fold_format'
 
 
 describe('FOLD file fetched from remote URL', () => {
