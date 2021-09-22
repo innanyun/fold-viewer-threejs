@@ -63,11 +63,9 @@ export function bindSheetOptionsControllers(
     updateEdgesColor = _updateSheetEdgesColor(sheetMesh),
     updateEdgeWidth = _updateSheetEdgeWidth(sheetMesh)
 
-  sheetOptions.frontColorControl.onChange(
-    newColor => updateFrontFacesColor(newColor)
-  )
-  sheetOptions.backColorControl.onChange(
-    newColor => updateFrontFacesColor(newColor) // TODO: updateBackFacesColor
+  sheetOptions.frontColorControl.onChange(newColor => updateFrontFacesColor(newColor))
+  sheetOptions.backColorControl.onChange(newColor =>
+    updateFrontFacesColor/*TODO: updateBackFacesColor*/(newColor)
   )
   sheetOptions.opacityControl.onChange(newOpacity => updateOpacity(newOpacity))
   sheetOptions.edgeColorControl.onChange(newColor => updateEdgesColor(newColor))
@@ -85,8 +83,7 @@ function _updateSheetFacesColor(sheetMesh: THREE.Object3D) /*: Function */ {
   return function (newColor: ColorSpec | THREE.Color): void {
     sheetMesh.traverse(mesh => {
       if (_isFace(mesh)) {
-        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).color
-          .set(newColor)
+        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).color.set(newColor)
       }
     })
   }
@@ -116,8 +113,7 @@ function _updateSheetOpacity(sheetMesh: THREE.Object3D)/* : Function */ {
   return function (newOpacity: number): void {
     sheetMesh.traverse((mesh) => {
       if (_isFace(mesh)) {
-        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).opacity
-          = newOpacity
+        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).opacity = newOpacity
       }
     })
   }

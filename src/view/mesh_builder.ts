@@ -32,7 +32,7 @@ function _createSheetFacesMesh(
   sheetGeometry: THREE.BufferGeometry
 ): THREE.Mesh {
   const
-    sheetFacesMaterial = new THREE.MeshPhongMaterial({
+    sheetFacesMaterial = new THREE.MeshLambertMaterial({
       color: SHEET_OPTIONS.frontColor,
       transparent: true,
       opacity: SHEET_OPTIONS.opacity,
