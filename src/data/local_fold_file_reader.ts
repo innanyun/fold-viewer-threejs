@@ -17,7 +17,7 @@ function _createLocalFileChooser(parent: HTMLElement): HTMLInputElement {
 }
 
 
-function initFoldFileReader(): Observable<FOLD_data> {
+function localFoldFileReader$(): Observable<FOLD_data> {
   const _reader = new FileReader()
 
   fromEvent(
@@ -38,4 +38,4 @@ function initFoldFileReader(): Observable<FOLD_data> {
 }
 
 
-export { initFoldFileReader }
+export { localFoldFileReader$ }
