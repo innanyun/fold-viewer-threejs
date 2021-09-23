@@ -64,7 +64,7 @@
     "lint": "eslint --report-unused-disable-directives src",
     "_strip-tsconfig-comments": "strip-json-comments --no-whitespace tsconfig.json > .tsconfig.json",
     "_ts-mocha-test": "ts-mocha --project .tsconfig.json --paths src/**/*.test.ts",
-    "_test-watch": "npm run _ts-mocha-test -- --watch --watch-extensions ts",
+    "_test-watch": "npm run _ts-mocha-test -- --watch --watch-extensions ts --watch-files src/**/*.test.ts",
     "test": "npm-run-all --sequential _strip-tsconfig-comments _ts-mocha-test",
     "start": "npm run build && http-server"
   }
