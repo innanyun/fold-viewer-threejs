@@ -31,8 +31,7 @@ describe('Sheet from 2D vertices FOLD data', () => {
     assert(
       S2.verticesPositions().every(([x, y, z], i) =>
         math.deepEqual(
-          [x, y],
-          FOLD_DATA_WITH_2D_VERTICES_COORDS.vertices_coords[i] as unknown as number[]
+          [x, y], [...FOLD_DATA_WITH_2D_VERTICES_COORDS.vertices_coords[i]]
         ) &&
         math.equal(z, 0)
       )
