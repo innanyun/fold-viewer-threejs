@@ -130,7 +130,6 @@ function _createAndSetViewOptions(
     .onChange(newColor => (scene.background as THREE.Color).set(newColor))
   controllers.add(camera.position, 'z', 0, 50, 5).listen()
   controllers.add(camera, 'fov', 25, 125, 25).listen()
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     .onChange(_unusedNewFov => camera.updateProjectionMatrix())
 
   controllers.open()

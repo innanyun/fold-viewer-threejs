@@ -104,7 +104,6 @@ export class View {
     window.addEventListener('resize', this._resize.bind(this))
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private _resize(_?: Event): void {
     const
       newWidth = this._container.offsetWidth,

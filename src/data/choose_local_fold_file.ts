@@ -28,7 +28,6 @@ function chooseLocalFoldFile$(container: HTMLElement): Observable<FOLD_data> {
   ).subscribe()
 
   return fromEvent(_reader, 'load').pipe(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     map(_event => _reader.result as string),
     map(fileContent => JSON.parse(fileContent))
   )
