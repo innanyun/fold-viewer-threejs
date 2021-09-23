@@ -47,4 +47,4 @@ function _tessellate(polygonVertices: VertexId[]): VertexId[] {
 }
 
 
-export { createSheetGeometry }
+export { createSheetGeometry, _createFacesGeometry }
