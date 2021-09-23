@@ -22,16 +22,19 @@ describe('Sheet from 2D vertices FOLD data', () => {
     S2 = new FoldFileSheet(FOLD_DATA_WITH_2D_VERTICES_COORDS)
 
   it('should have vertices 2D coordinates initialized from data', () => {
-    assert(S2.verticesLocations().every(uv => expect(uv).to.have.lengthOf(2)))
-    expect(S2.verticesLocations()).deep.equals(
+    expect(S2.verticesLocations()).deep.equal(
       FOLD_DATA_WITH_2D_VERTICES_COORDS.vertices_coords
     )
   })
 
   it('should have vertices 3D coordinates initialized as (z = 0)', () => {
     assert(
-      S2.verticesPositions().every(
-        xyz => expect(xyz).to.have.lengthOf(3) && math.equal(xyz[2], 0)
+      S2.verticesPositions().every(([x, y, z], i) =>
+        math.deepEqual(
+          [x, y],
+          FOLD_DATA_WITH_2D_VERTICES_COORDS.vertices_coords[i] as unknown as number[]
+        ) &&
+        math.equal(z, 0)
       )
     )
   })
@@ -52,12 +55,14 @@ describe('Sheet from 3D vertices FOLD data', () => {
     },
     S3 = new FoldFileSheet(FOLD_DATA_WITH_3D_VERTICES_COORDS)
 
-  it('should have vertices 2D coordinates UNINITIALIZED', () => {
-    expect(S3.verticesLocations().every(uv => uv.length === 2)).to.be.false
+  it('should have vertices 2D coordinates UNDEFINED', () => {
+    expect(S3.verticesLocations()).to.be.undefined
   })
 
   it('should have vertices 3D coordinates initialized from data', () => {
-    expect(S3.verticesPositions().every(xyz => xyz.length === 3)).to.be.true
+    expect(S3.verticesPositions()).deep.equal(
+      FOLD_DATA_WITH_3D_VERTICES_COORDS.vertices_coords
+    )
   })
 
 })

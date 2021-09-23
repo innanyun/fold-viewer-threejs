@@ -5,19 +5,24 @@ import { FOLD_data } from 'data/fold_format'
 
 class FoldFileSheet implements Sheet {
 
-  private _verticesLocations: Vector2Coord[]
+  private _verticesLocations?: Vector2Coord[]
   private _verticesPositions: Vector3Coord[]
   private _facesVerticesIds: VertexId[][]
 
-  verticesLocations(): Vector2Coord[] { return this._verticesLocations }
+  verticesLocations(): Vector2Coord[] | undefined { return this._verticesLocations }
   verticesPositions(): Vector3Coord[] { return this._verticesPositions }
   facesVerticesIds(): VertexId[][] { return this._facesVerticesIds }
 
   constructor(foldData: FOLD_data) {
-    const v = foldData.vertices_coords
+    const
+      vertexCoords = foldData.vertices_coords,
+      twoDimensionalVerticesCoords = vertexCoords.every(coords => coords.length === 2)
 
-    this._verticesLocations = v.map(v => v.length === 2 ? v as Vector2Coord : v as never)
-    this._verticesPositions = v.map(v => (v.length === 3 ? v : [...v, 0]) as Vector3Coord)
+    this._verticesLocations = twoDimensionalVerticesCoords ?
+      vertexCoords.map(uv => uv as Vector2Coord) : undefined
+    this._verticesPositions = twoDimensionalVerticesCoords ?
+      vertexCoords.map(uv => [...uv, 0] as unknown as Vector3Coord) :
+      vertexCoords.map(xyz => xyz as Vector3Coord)
     this._facesVerticesIds = foldData.faces_vertices as VertexId[][]
   }
 
