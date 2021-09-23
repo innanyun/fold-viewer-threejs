@@ -7,9 +7,9 @@ import { FOLD_data } from 'data/fold_format'
 import imported from 'data/test-data/3d-vertex-coords/bird-base-3d-modified.prettified.json'
 
 
-describe('Reading files of FOLD-format', () => {
+describe('Reading from valid FOLD files', () => {
 
-  it('should successfully read from external file', () => {
+  it('should successfully read from valid FOLD file', () => {
     const
       TEST_DATA_FILE = path.join(
         __dirname, 'test-data/3d-vertex-coords/bird-base-3d-modified.json'
@@ -19,7 +19,7 @@ describe('Reading files of FOLD-format', () => {
     expect(readIn.vertices_coords.every(v => v.length === 3)).to.be.true
   })
 
-  it('should properly pass through JSON import of TypeScript', () => {
+  it('should properly work with JSON import of TypeScript', () => {
     expect(imported.vertices_coords.every(v => v.length === 3)).to.be.true
   })
 
