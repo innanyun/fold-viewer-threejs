@@ -15,14 +15,14 @@ class FoldFileSheet implements Sheet {
 
   constructor(foldData: FOLD_data) {
     const
-      vertexCoords = foldData.vertices_coords,
-      twoDimensionalVerticesCoords = vertexCoords.every(coords => coords.length === 2)
+      v = foldData.vertices_coords,
+      twoDimensionalVerticesCoords = v.every(coords => coords.length === 2)
 
     this._verticesLocations = twoDimensionalVerticesCoords ?
-      vertexCoords.map(uv => uv as Vector2Coord) : undefined
+      v.map(uv => uv as Vector2Coord) : undefined
     this._verticesPositions = twoDimensionalVerticesCoords ?
-      vertexCoords.map(uv => [...uv, 0] as unknown as Vector3Coord) :
-      vertexCoords.map(xyz => xyz as Vector3Coord)
+      v.map(uv => [...uv, 0] as unknown as Vector3Coord) :
+      v.map(xyz => xyz as Vector3Coord)
     this._facesVerticesIds = foldData.faces_vertices as VertexId[][]
   }
 
