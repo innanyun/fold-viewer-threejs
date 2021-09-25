@@ -7,7 +7,7 @@ import { FoldFileSheet } from 'data/fold_file_sheet'
 import { FOLD_data } from 'data/fold_format'
 
 
-describe('Sheet read from 2D vertices FOLD file', () => {
+describe('Sheet from 2D vertices FOLD data', () => {
   const
     FOLD_DATA_WITH_2D_VERTICES_COORDS: FOLD_data = {
       file_spec: 1.1,
@@ -21,22 +21,25 @@ describe('Sheet read from 2D vertices FOLD file', () => {
     },
     S2 = new FoldFileSheet(FOLD_DATA_WITH_2D_VERTICES_COORDS)
 
-  it('should have vertices 2D coordinates initialized from file', () => {
-    assert(
-      S2.verticesLocations().every(uv => uv !== undefined && uv.length === 2)
+  it('should have vertices 2D coordinates initialized from data', () => {
+    expect(S2.verticesLocations()).deep.equal(
+      FOLD_DATA_WITH_2D_VERTICES_COORDS.vertices_coords
     )
   })
 
   it('should have vertices 3D coordinates initialized as (z = 0)', () => {
     assert(
-      S2.verticesPositions().every(
-        xyz => xyz.length === 3 && math.equal(xyz[2], 0)
+      S2.verticesPositions().every(([x, y, z], i) =>
+        math.deepEqual(
+          [x, y], [...FOLD_DATA_WITH_2D_VERTICES_COORDS.vertices_coords[i]]
+        ) &&
+        math.equal(z, 0)
       )
     )
   })
 })
 
-describe('Sheet read from 3D vertices FOLD file', () => {
+describe('Sheet from 3D vertices FOLD data', () => {
 
   const
     FOLD_DATA_WITH_3D_VERTICES_COORDS: FOLD_data = {
@@ -52,11 +55,13 @@ describe('Sheet read from 3D vertices FOLD file', () => {
     S3 = new FoldFileSheet(FOLD_DATA_WITH_3D_VERTICES_COORDS)
 
   it('should have vertices 2D coordinates UNINITIALIZED', () => {
-    expect(S3.verticesLocations().every(v => v.length === 2)).to.be.false
+    expect(S3.verticesLocations()).to.be.empty
   })
 
-  it('should have vertices 3D coordinates initialized from file', () => {
-    expect(S3.verticesPositions().every(xyz => xyz.length === 3)).to.be.true
+  it('should have vertices 3D coordinates initialized from data', () => {
+    expect(S3.verticesPositions()).deep.equal(
+      FOLD_DATA_WITH_3D_VERTICES_COORDS.vertices_coords
+    )
   })
 
 })

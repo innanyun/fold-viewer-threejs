@@ -6,7 +6,9 @@ import { FOLD_data } from 'data/fold_format'
 
 
 function readRemoteFoldFile$(url: string): Observable<FOLD_data> {
-  return from(axios(url)).pipe(map(res => res.data))
+  return from(axios.get(url)).pipe(
+    map(response => response.data)
+  )
 }
 
 

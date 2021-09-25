@@ -13,8 +13,10 @@ function createSheetMesh(aSheet: Sheet): THREE.Object3D {
 
   const
     sheetGeometry = createSheetGeometry(aSheet),
-    sheetFaceMesh = _createSheetFacesMesh(sheetGeometry),
-    sheetEdgesMesh = _createSheetEdgesMesh(sheetGeometry),
+    sheetFaceMesh = _createFacesMesh(sheetGeometry),
+    sheetEdgesMesh = _createEdgesMesh(
+      sheetGeometry, aSheet.verticesLocations().length > 0
+    ),
     allMeshes = [sheetEdgesMesh, sheetFaceMesh],
     meshGroup = new THREE.Group()
 
@@ -28,7 +30,7 @@ function createSheetMesh(aSheet: Sheet): THREE.Object3D {
 }
 
 
-function _createSheetFacesMesh(
+function _createFacesMesh(
   sheetGeometry: THREE.BufferGeometry
 ): THREE.Mesh {
   const
@@ -37,23 +39,25 @@ function _createSheetFacesMesh(
       transparent: true,
       opacity: SHEET_OPTIONS.opacity,
       side: THREE.DoubleSide,
+      // wireframe: true,
+      wireframeLinewidth: 3
     })
 
   return new THREE.Mesh(sheetGeometry, sheetFacesMaterial)
 }
 
 
-function _createSheetEdgesMesh(
-  sheetGeometry: THREE.BufferGeometry
+function _createEdgesMesh(
+  sheetGeometry: THREE.BufferGeometry, twoDimensional = false
 ): THREE.Object3D {
   const
     sheetEdgesGeometry = new LineSegmentsGeometry().fromEdgesGeometry(
-      new THREE.EdgesGeometry(sheetGeometry)
+      new THREE.EdgesGeometry(sheetGeometry, twoDimensional ? 0 : 1)
     ),
     sheetEdgesMaterial = new LineMaterial({
       color: SHEET_OPTIONS.edgeColor as number,
       linewidth: SHEET_OPTIONS.edgeWidth,
-      dashed: false, // try `true` for dashed wireframes
+      // dashed: false, // try `true` for dashed wireframes
       dashSize: 0.05,
       gapSize: 0.02,
     })

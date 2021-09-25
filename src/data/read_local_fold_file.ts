@@ -1,36 +1,13 @@
-import { fromEvent, Observable } from 'rxjs'
+import { bindNodeCallback, Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
+import fs from 'fs'
 
 import { FOLD_data } from 'data/fold_format'
 
 
-function _createLocalFileChooser(parent: HTMLElement): HTMLInputElement {
-  const input = document.createElement('input')
-
-  input.type = 'file'
-  input.accept = 'text/plain, .json, .fold'
-  input.multiple = false
-
-  parent.appendChild(input)
-
-  return input
-}
-
-
-function readLocalFoldFile$(container: HTMLElement): Observable<FOLD_data> {
-  const _reader = new FileReader()
-
-  fromEvent(
-    _createLocalFileChooser(container), 'change'
-  ).pipe(
-    map(event => ((event.target as HTMLInputElement).files as FileList)[0]),
-    map(file => _reader.readAsText(file))
-  ).subscribe()
-
-  return fromEvent(_reader, 'load').pipe(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    map(_event => _reader.result as string),
-    map(fileContent => JSON.parse(fileContent))
+function readLocalFoldFile$(path: string): Observable<FOLD_data> {
+  return bindNodeCallback(fs.readFile)(path).pipe(
+    map(fileContent => JSON.parse(fileContent.toString()))
   )
 }
 
