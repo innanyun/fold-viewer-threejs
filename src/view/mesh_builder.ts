@@ -13,8 +13,8 @@ function createSheetMesh(aSheet: Sheet): THREE.Object3D {
 
   const
     sheetGeometry = createSheetGeometry(aSheet),
-    sheetFaceMesh = _createSheetFacesMesh(sheetGeometry),
-    sheetEdgesMesh = _createSheetEdgesMesh(sheetGeometry),
+    sheetFaceMesh = _createFacesMesh(sheetGeometry),
+    sheetEdgesMesh = _createEdgesMesh(sheetGeometry),
     allMeshes = [sheetEdgesMesh, sheetFaceMesh],
     meshGroup = new THREE.Group()
 
@@ -28,7 +28,7 @@ function createSheetMesh(aSheet: Sheet): THREE.Object3D {
 }
 
 
-function _createSheetFacesMesh(
+function _createFacesMesh(
   sheetGeometry: THREE.BufferGeometry
 ): THREE.Mesh {
   const
@@ -45,7 +45,7 @@ function _createSheetFacesMesh(
 }
 
 
-function _createSheetEdgesMesh(
+function _createEdgesMesh(
   sheetGeometry: THREE.BufferGeometry
 ): THREE.Object3D {
   const
