@@ -37,6 +37,8 @@ function _createSheetFacesMesh(
       transparent: true,
       opacity: SHEET_OPTIONS.opacity,
       side: THREE.DoubleSide,
+      // wireframe: true,
+      wireframeLinewidth: 3
     })
 
   return new THREE.Mesh(sheetGeometry, sheetFacesMaterial)
