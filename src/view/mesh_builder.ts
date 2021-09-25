@@ -14,7 +14,9 @@ function createSheetMesh(aSheet: Sheet): THREE.Object3D {
   const
     sheetGeometry = createSheetGeometry(aSheet),
     sheetFaceMesh = _createFacesMesh(sheetGeometry),
-    sheetEdgesMesh = _createEdgesMesh(sheetGeometry),
+    sheetEdgesMesh = _createEdgesMesh(
+      sheetGeometry, aSheet.verticesLocations().length > 0
+    ),
     allMeshes = [sheetEdgesMesh, sheetFaceMesh],
     meshGroup = new THREE.Group()
 
@@ -46,11 +48,11 @@ function _createFacesMesh(
 
 
 function _createEdgesMesh(
-  sheetGeometry: THREE.BufferGeometry
+  sheetGeometry: THREE.BufferGeometry, twoDimensional = false
 ): THREE.Object3D {
   const
     sheetEdgesGeometry = new LineSegmentsGeometry().fromEdgesGeometry(
-      new THREE.EdgesGeometry(sheetGeometry)
+      new THREE.EdgesGeometry(sheetGeometry, twoDimensional ? 0 : 1)
     ),
     sheetEdgesMaterial = new LineMaterial({
       color: SHEET_OPTIONS.edgeColor as number,
