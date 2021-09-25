@@ -57,7 +57,7 @@ function _createEdgesMesh(
     sheetEdgesMaterial = new LineMaterial({
       color: SHEET_OPTIONS.edgeColor as number,
       linewidth: SHEET_OPTIONS.edgeWidth,
-      dashed: false, // try `true` for dashed wireframes
+      // dashed: false, // try `true` for dashed wireframes
       dashSize: 0.05,
       gapSize: 0.02,
     })

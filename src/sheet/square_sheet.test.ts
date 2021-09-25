@@ -18,7 +18,9 @@ describe('Square sheet geometry', () => {
   })
 
   it('should have vertices 3D coordinates initialized as (z = 0)', () => {
-    assert(v3coords.every(([_x, _y, z]) => math.equal(z, 0)))
+    assert(v3coords.every(
+      ([x, y, z], i) => math.deepEqual([x, y], [...v2coords[i]]) && math.equal(z, 0)
+    ))
   })
 
 })

@@ -54,8 +54,8 @@ describe('Sheet from 3D vertices FOLD data', () => {
     },
     S3 = new FoldFileSheet(FOLD_DATA_WITH_3D_VERTICES_COORDS)
 
-  it('should have vertices 2D coordinates UNDEFINED', () => {
-    expect(S3.verticesLocations()).to.have.lengthOf(0)
+  it('should have vertices 2D coordinates UNINITIALIZED', () => {
+    expect(S3.verticesLocations()).to.be.empty
   })
 
   it('should have vertices 3D coordinates initialized from data', () => {
