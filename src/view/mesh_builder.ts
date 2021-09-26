@@ -13,20 +13,17 @@ function createSheetMesh(aSheet: Sheet): THREE.Object3D {
 
   const
     sheetGeometry = createSheetGeometry(aSheet),
-    sheetFaceMesh = _createFacesMesh(sheetGeometry),
+    sheetFacesMesh = _createFacesMesh(sheetGeometry),
     sheetEdgesMesh = _createEdgesMesh(
       sheetGeometry, aSheet.verticesLocations().length > 0
     ),
-    allMeshes = [sheetEdgesMesh, sheetFaceMesh],
-    meshGroup = new THREE.Group()
+    sheetMesh = [sheetEdgesMesh, sheetFacesMesh]
 
-  allMeshes.forEach(mesh => mesh.scale.set(
+  sheetMesh.forEach(mesh => mesh.scale.set(
     SHEET_OPTIONS.scale, SHEET_OPTIONS.scale, SHEET_OPTIONS.scale
   ))
 
-  meshGroup.add(sheetFaceMesh, sheetEdgesMesh)
-
-  return meshGroup
+  return new THREE.Group().add(...sheetMesh)
 }
 
 
@@ -62,11 +59,7 @@ function _createEdgesMesh(
       gapSize: 0.02,
     })
 
-  const mesh = new Wireframe(sheetEdgesGeometry, sheetEdgesMaterial)
-
-  mesh.computeLineDistances()
-
-  return mesh
+  return new Wireframe(sheetEdgesGeometry, sheetEdgesMaterial).computeLineDistances()
 }
 
 

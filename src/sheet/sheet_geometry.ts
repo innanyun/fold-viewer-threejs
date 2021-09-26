@@ -1,28 +1,25 @@
 import * as THREE from 'three'
 
 import { Sheet } from 'sheet/sheet'
-import { VertexId, Vector3Coord } from 'sheet/types'
+import { VertexId } from 'sheet/types'
 
 
+// Whole sheet as a SINGLE geometry
 function createSheetGeometry (s: Sheet): THREE.BufferGeometry {
-  return _createFacesGeometry(s.verticesPositions(), s.facesVerticesIds()).center()
-}
+  const
+    geometry = new THREE.BufferGeometry()
 
+  geometry
+    .setAttribute(
+      'position',
+      new THREE.Float32BufferAttribute(s.verticesPositions().flat(), 3)
+    )
+    .setIndex(
+      s.facesVerticesIds().map((aFaceVertices) => _tessellate(aFaceVertices)).flat()
+    )
+    .computeVertexNormals()
 
-function _createFacesGeometry(
-  verticesCoords: Vector3Coord[], facesVertices: VertexId[][]
-): THREE.BufferGeometry {
-  const geometry = new THREE.BufferGeometry()
-
-  geometry.setAttribute(
-    'position', new THREE.Float32BufferAttribute(verticesCoords.flat(), 3)
-  )
-  geometry.setIndex(
-    facesVertices.map(aFaceVertices => _tessellate(aFaceVertices)).flat()
-  )
-  geometry.computeVertexNormals()
-
-  return geometry
+  return geometry.center()
 }
 
 
@@ -47,4 +44,4 @@ function _tessellate(polygonVertices: VertexId[]): VertexId[] {
 }
 
 
-export { createSheetGeometry, _createFacesGeometry }
+export { createSheetGeometry }
