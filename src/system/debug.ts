@@ -17,7 +17,7 @@ interface SheetOptionsControllers {
   edgeColorControl: dat.GUIController
   edgeWidthControl: dat.GUIController
   // general
-  wireframeToggle: dat.GUIController
+  wireframeControl: dat.GUIController
 }
 
 
@@ -51,7 +51,7 @@ function _createSheetOptionsControllers(
     edgeColorControl: controllers.addColor(options, 'edgeColor'),
     edgeWidthControl: controllers.add(options, 'edgeWidth', 0.0, 0.01, 0.001),
     // general
-    wireframeToggle: controllers.add(options, 'wireframe')
+    wireframeControl: controllers.add(options, 'wireframe')
   }
 }
 
@@ -75,7 +75,7 @@ export function bindSheetOptionsControllers(
   sheetOptions.opacityControl.onChange(newOpacity => updateOpacity(newOpacity))
   sheetOptions.edgeColorControl.onChange(newColor => updateEdgesColor(newColor))
   sheetOptions.edgeWidthControl.onChange(newWidth => updateEdgeWidth(newWidth))
-  sheetOptions.wireframeToggle.onChange(newFlag => toggleWireframe(newFlag))
+  sheetOptions.wireframeControl.onChange(newFlag => toggleWireframe(newFlag))
 }
 
 
