@@ -4,7 +4,7 @@ import { FOLD_data } from 'data/fold_format'
 import { FoldFileSheet } from 'data/fold_file_sheet'
 // import { specifyMotion } from 'view/mesh_motion'
 import { View } from 'view/view'
-import { /* createSheetMesh,  */_createSheetFacesMesh } from 'view/mesh_builder'
+import { createSheetMesh } from 'view/mesh_builder'
 
 import { SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
@@ -15,7 +15,7 @@ console.clear()
 
 const view = new View(
     VIEW_OPTIONS,
-    _createSheetFacesMesh(new SquareSheet(SHEET_OPTIONS.scale))
+    createSheetMesh(new SquareSheet(SHEET_OPTIONS.scale))
   ),
   foldData$ = chooseLocalFoldFile$(
     document.getElementById('controls') as HTMLDivElement
@@ -24,9 +24,8 @@ const view = new View(
 
 foldData$.subscribe({
   next: (foldData: FOLD_data): void => {
-    const
-      newSheet = new FoldFileSheet(foldData),
-      newMesh = _createSheetFacesMesh(newSheet)
+    const newSheet = new FoldFileSheet(foldData),
+      newMesh = createSheetMesh(newSheet)
 
     view.setMesh(newMesh)
     // specifyMotion(newMesh)

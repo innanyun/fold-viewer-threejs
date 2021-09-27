@@ -7,7 +7,7 @@ import { VertexId } from 'sheet/types'
 
 
 // Whole sheet as a SINGLE geometry, centered
-function create3dSheetGeometry (s: Sheet): THREE.BufferGeometry {
+function createSheetGeometry (s: Sheet): THREE.BufferGeometry {
   const
     geometry = new THREE.BufferGeometry()
 
@@ -61,4 +61,4 @@ function createSheetFacesShapeGeometries$(
 }
 
 
-export { create3dSheetGeometry, createSheetFacesShapeGeometries$ }
+export { createSheetGeometry, createSheetFacesShapeGeometries$ }

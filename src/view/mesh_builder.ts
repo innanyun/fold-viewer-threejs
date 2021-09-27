@@ -4,10 +4,16 @@ import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeome
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial'
 
 import { Sheet } from 'sheet/sheet'
-import { create3dSheetGeometry, createSheetFacesShapeGeometries$ } from 'sheet/sheet_geometry'
+import { createSheetGeometry, createSheetFacesShapeGeometries$ } from 'sheet/sheet_geometry'
 
 import { SHEET_OPTIONS } from 'sheet/config'
 
+
+function createSheetMesh(s: Sheet): THREE.Object3D {
+  return s.verticesLocations().length > 0 ?
+    _createSheetFacesMesh(s) :
+    _createSheetGeometryMesh(s)
+}
 
 /**
  * Mesh for sheet as a single entity. Used for non-flat (3D) sheets.
@@ -17,12 +23,9 @@ import { SHEET_OPTIONS } from 'sheet/config'
 function _createSheetGeometryMesh(s: Sheet): THREE.Object3D {
 
   const
-    sheetGeometry = create3dSheetGeometry(s),
+    sheetGeometry = createSheetGeometry(s),
     sheetBodyMesh = new THREE.Mesh(sheetGeometry, _faceMaterial),
-    sheetEdgesMesh = _createEdgesMesh(
-      sheetGeometry,
-      s.verticesLocations().length > 0
-    ),
+    sheetEdgesMesh = _createEdgesMesh(sheetGeometry),
     sheetMesh = [sheetBodyMesh, sheetEdgesMesh]
 
   sheetMesh.forEach(mesh => mesh.scale.set(
@@ -51,21 +54,18 @@ const
   })
 
 
-function _createEdgesMesh(
-  geometry: THREE.BufferGeometry, flat = false
-): THREE.Object3D {
-  function createEdgesGeometry(
-    geometry: THREE.BufferGeometry,
-    flat = false
-  ): LineSegmentsGeometry  {
+function _createEdgesMesh(geometry: THREE.BufferGeometry): THREE.Object3D {
+
+  function createEdgesGeometry(geometry: THREE.BufferGeometry): LineSegmentsGeometry {
     return new LineSegmentsGeometry().fromEdgesGeometry(
-      new THREE.EdgesGeometry(geometry, flat ? 0 : 1)
+      new THREE.EdgesGeometry(geometry)
     )
   }
 
   return new Wireframe(
-    createEdgesGeometry(geometry, flat), _edgeMaterial
+    createEdgesGeometry(geometry), _edgeMaterial
   ).computeLineDistances()
+
 }
 
 
@@ -101,4 +101,4 @@ function _centerObject(obj: THREE.Object3D): THREE.Object3D {
 }
 
 
-export { _createSheetGeometryMesh, _createSheetFacesMesh }
+export { createSheetMesh }
