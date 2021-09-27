@@ -13,9 +13,9 @@ import { VIEW_OPTIONS } from 'view/config'
 console.clear()
 
 
-const
-  view = new View(
-    VIEW_OPTIONS, createSheetMesh(new SquareSheet(SHEET_OPTIONS.scale))
+const view = new View(
+    VIEW_OPTIONS,
+    createSheetMesh(new SquareSheet(SHEET_OPTIONS.scale))
   ),
   foldData$ = chooseLocalFoldFile$(
     document.getElementById('controls') as HTMLDivElement
@@ -24,8 +24,7 @@ const
 
 foldData$.subscribe({
   next: (foldData: FOLD_data): void => {
-    const
-      newSheet = new FoldFileSheet(foldData),
+    const newSheet = new FoldFileSheet(foldData),
       newMesh = createSheetMesh(newSheet)
 
     view.setMesh(newMesh)
