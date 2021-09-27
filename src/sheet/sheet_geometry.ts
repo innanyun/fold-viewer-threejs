@@ -6,7 +6,7 @@ import { Sheet } from 'sheet/sheet'
 import { VertexId } from 'sheet/types'
 
 
-// Whole sheet as a SINGLE geometry
+// Whole sheet as a SINGLE geometry, centered
 function create3dSheetGeometry (s: Sheet): THREE.BufferGeometry {
   const
     geometry = new THREE.BufferGeometry()

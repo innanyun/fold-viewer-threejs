@@ -81,7 +81,18 @@ function _createSheetFacesMesh(s: Sheet): THREE.Object3D {
     },
   })
 
-  return new THREE.Group().add(sheetFaces, sheetFacesEdges)
+  return _centerObject(new THREE.Group().add(sheetFaces, sheetFacesEdges))
+}
+
+
+function _centerObject(obj: THREE.Object3D): THREE.Object3D {
+  /**
+   * 👉 [@WestLangley's answer to "How to center a THREE.Group based on the
+   * width of its children?""](https://stackoverflow.com/a/46165381/3068407)
+   */
+  new THREE.Box3().setFromObject(obj).getCenter(obj.position).multiplyScalar(-1)
+
+  return obj
 }
 
 
