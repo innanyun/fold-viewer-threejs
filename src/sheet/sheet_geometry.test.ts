@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import path from 'path'
 import { map } from 'rxjs/operators'
 
-import { createSheetGeometry } from 'sheet/sheet_geometry'
+import { create3dSheetGeometry } from 'sheet/sheet_geometry'
 import { FoldFileSheet } from 'data/fold_file_sheet'
 import { readLocalFoldFile$ } from 'data/read_local_fold_file'
 
@@ -21,7 +21,7 @@ describe('Geometry for sheet from 2D vertices FOLD file', () => {
   it('should create valid face geometry', () => {
     TEST_SHEET$.subscribe({
       next: (sheet) => {
-        const p = createSheetGeometry(sheet).getAttribute('position')
+        const p = create3dSheetGeometry(sheet).getAttribute('position')
         for (let i = 0; i < p.count; i += 1) {
           expect([p.getX(i), p.getY(i), p.getZ(i)]).deep.equal(sheet.verticesPositions()[i])
         }
