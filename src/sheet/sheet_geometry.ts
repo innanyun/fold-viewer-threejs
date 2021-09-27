@@ -47,7 +47,9 @@ function _tessellate(polygonVertices: VertexId[]): VertexId[] {
 
 
 // Sheet as a set (=group) of faces geometry
-function createSheetFacesShapeGeometries$(s: Sheet): Observable<THREE.ShapeBufferGeometry> {
+function createSheetFacesShapeGeometries$(
+  s: Sheet
+): Observable<THREE.ShapeBufferGeometry> {
   return from(s.facesVerticesIds()).pipe(
     map(faceVertices =>
       faceVertices.map(i => new THREE.Vector2(...s.verticesLocations()[i]))

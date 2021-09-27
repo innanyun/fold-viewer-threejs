@@ -9,13 +9,19 @@ import { create3dSheetGeometry, createSheetFacesShapeGeometries$ } from 'sheet/s
 import { SHEET_OPTIONS } from 'sheet/config'
 
 
-function createSheetMesh(aSheet: Sheet): THREE.Object3D {
+/**
+ * Mesh for sheet as a single entity. Used for non-flat (3D) sheets.
+ * @param s
+ * @returns Mesh group for sheet body and geometry edges
+ */
+function _createSheetGeometryMesh(s: Sheet): THREE.Object3D {
 
   const
-    sheetGeometry = create3dSheetGeometry(aSheet),
-    sheetBodyMesh = _createSheetBodyMesh(sheetGeometry),
+    sheetGeometry = create3dSheetGeometry(s),
+    sheetBodyMesh = new THREE.Mesh(sheetGeometry, _faceMaterial),
     sheetEdgesMesh = _createEdgesMesh(
-      sheetGeometry, aSheet.verticesLocations().length > 0
+      sheetGeometry,
+      s.verticesLocations().length > 0
     ),
     sheetMesh = [sheetBodyMesh, sheetEdgesMesh]
 
@@ -26,19 +32,6 @@ function createSheetMesh(aSheet: Sheet): THREE.Object3D {
   return new THREE.Group().add(...sheetMesh)
 }
 
-
-function _createSheetBodyMesh(sheetGeometry: THREE.BufferGeometry): THREE.Mesh {
-  return new THREE.Mesh(sheetGeometry, _faceMaterial)
-}
-
-
-function _createEdgesGeometry(
-  geometry: THREE.BufferGeometry, flat = false
-): LineSegmentsGeometry {
-  return new LineSegmentsGeometry().fromEdgesGeometry(
-    new THREE.EdgesGeometry(geometry, flat ? 0 : 1)
-  )
-}
 
 const
   _faceMaterial = new THREE.MeshLambertMaterial({
@@ -61,12 +54,26 @@ const
 function _createEdgesMesh(
   geometry: THREE.BufferGeometry, flat = false
 ): THREE.Object3D {
+  function createEdgesGeometry(
+    geometry: THREE.BufferGeometry,
+    flat = false
+  ): LineSegmentsGeometry  {
+    return new LineSegmentsGeometry().fromEdgesGeometry(
+      new THREE.EdgesGeometry(geometry, flat ? 0 : 1)
+    )
+  }
+
   return new Wireframe(
-    _createEdgesGeometry(geometry, flat), _edgeMaterial
+    createEdgesGeometry(geometry, flat), _edgeMaterial
   ).computeLineDistances()
 }
 
 
+/**
+ * Mesh for sheet as a set/group of faces. Used for flat (2D) sheets.
+ * @param s
+ * @returns Mesh group for sheet faces and geometry edges
+ */
 function _createSheetFacesMesh(s: Sheet): THREE.Object3D {
   const
     sheetFaces = new THREE.Group(),
@@ -75,9 +82,7 @@ function _createSheetFacesMesh(s: Sheet): THREE.Object3D {
   createSheetFacesShapeGeometries$(s).subscribe({
     next: shapeGeometry => {
       sheetFaces.add(new THREE.Mesh(shapeGeometry, _faceMaterial))
-      sheetFacesEdges.add(
-        new THREE.Mesh(_createEdgesGeometry(shapeGeometry), _edgeMaterial)
-      )
+      sheetFacesEdges.add(_createEdgesMesh(shapeGeometry))
     },
   })
 
@@ -96,4 +101,4 @@ function _centerObject(obj: THREE.Object3D): THREE.Object3D {
 }
 
 
-export { createSheetMesh, _createSheetFacesMesh }
+export { _createSheetGeometryMesh, _createSheetFacesMesh }
