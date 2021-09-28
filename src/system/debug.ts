@@ -23,8 +23,8 @@ interface SheetOptionsControllers {
 
 function initDatGUI(
   scene: THREE.Scene, camera: THREE.PerspectiveCamera
-): SheetOptionsControllers
-{
+): SheetOptionsControllers {
+
   const
     gui = new dat.GUI({name: 'FOLD viewer'}),
     sheetOptionsControllers = gui.addFolder('Sheet'),
@@ -33,6 +33,7 @@ function initDatGUI(
   _createAndSetViewOptions(viewOptionsControllers, scene, camera)
 
   return _createSheetOptionsControllers(sheetOptionsControllers, SHEET_OPTIONS)
+
 }
 
 
@@ -53,6 +54,7 @@ function _createSheetOptionsControllers(
     // general
     wireframeControl: controllers.add(options, 'wireframe')
   }
+
 }
 
 
@@ -68,14 +70,17 @@ export function bindSheetOptionsControllers(
     updateEdgeWidth = _updateSheetEdgeWidth(sheetMesh),
     toggleWireframe = _toggleSheetWireframe(sheetMesh)
 
-  sheetOptions.frontColorControl.onChange(newColor => updateFrontFacesColor(newColor))
-  sheetOptions.backColorControl.onChange(newColor =>
-    updateFrontFacesColor/*TODO: updateBackFacesColor*/(newColor)
+  sheetOptions.frontColorControl.onChange(
+    newColor => updateFrontFacesColor(newColor)
+  )
+  sheetOptions.backColorControl.onChange(
+    newColor => updateFrontFacesColor/*TODO: updateBackFacesColor*/(newColor)
   )
   sheetOptions.opacityControl.onChange(newOpacity => updateOpacity(newOpacity))
   sheetOptions.edgeColorControl.onChange(newColor => updateEdgesColor(newColor))
   sheetOptions.edgeWidthControl.onChange(newWidth => updateEdgeWidth(newWidth))
   sheetOptions.wireframeControl.onChange(newFlag => toggleWireframe(newFlag))
+
 }
 
 
@@ -89,7 +94,9 @@ function _updateSheetFacesColor(sheetMesh: THREE.Object3D) /*: Function */ {
   return function (newColor: ColorSpec | THREE.Color): void {
     sheetMesh.traverse(mesh => {
       if (_isFace(mesh)) {
-        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).color.set(newColor)
+        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).color.set(
+          newColor
+        )
       }
     })
   }
@@ -119,7 +126,8 @@ function _updateSheetOpacity(sheetMesh: THREE.Object3D)/* : Function */ {
   return function (newOpacity: number): void {
     sheetMesh.traverse(mesh => {
       if (_isFace(mesh)) {
-        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).opacity = newOpacity
+        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).opacity =
+          newOpacity
       }
     })
   }
@@ -129,7 +137,8 @@ function _toggleSheetWireframe(sheetMesh: THREE.Object3D)/* : Function */ {
   return function (newFlag: boolean): void {
     sheetMesh.traverseVisible(mesh => {
       if (_isFace(mesh)) {
-        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).wireframe = newFlag
+        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).wireframe =
+          newFlag
       }
     })
   }
@@ -148,6 +157,7 @@ function _createAndSetViewOptions(
     .onChange(_unusedNewFov => camera.updateProjectionMatrix())
 
   controllers.open()
+
 }
 
 

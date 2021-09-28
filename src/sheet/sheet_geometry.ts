@@ -17,7 +17,9 @@ function createSheetGeometry (s: Sheet): THREE.BufferGeometry {
       new THREE.Float32BufferAttribute(s.verticesPositions().flat(), 3)
     )
     .setIndex(
-      s.facesVerticesIds().map(aFaceVertices => _tessellate(aFaceVertices)).flat()
+      s.facesVerticesIds().map(
+        aFaceVertices => _tessellate(aFaceVertices)
+      ).flat()
     )
     .computeVertexNormals()
 
@@ -26,18 +28,18 @@ function createSheetGeometry (s: Sheet): THREE.BufferGeometry {
 
 
 function _tessellate(polygonVertices: VertexId[]): VertexId[] {
-  const vertexCount = polygonVertices.length
-
-  if (vertexCount <= 3) {
+  if (polygonVertices.length <= 3) {
     return polygonVertices // no need to tessellate
   }
 
-  const indices = []
-  const a = polygonVertices[0]
+  const
+    indices = [],
+    a = polygonVertices[0]
 
   for (let j = 1; j < polygonVertices.length - 1; j += 1) {
-    const b = polygonVertices[j]
-    const c = polygonVertices[j + 1]
+    const
+      b = polygonVertices[j],
+      c = polygonVertices[j + 1]
 
     indices.push(a, b, c)
   }

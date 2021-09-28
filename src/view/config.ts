@@ -6,11 +6,12 @@ interface ViewOptions {
   // Scene
   backgroundColor: ColorSpec
   // Camera
-  fov: number
-  near: number
-  far: number
+  fov: number   // field of view
+  near: number  // near plane of viewing frustum
+  far: number   // far plane of viewing frustum
   // development
-  debug: boolean
+  debug: boolean     // `dat.GUI`
+  axesHelper: boolean// `AxesHelper`
 }
 
 
@@ -19,11 +20,12 @@ const VIEW_OPTIONS: ViewOptions = {
   // Scene
   backgroundColor: '#ceedce',
   // Camera
-  fov: 75,    // field of view
-  near: 0.1,  // near plane of viewing frustum
-  far: 1000,  // far plane of viewing frustum
+  fov: 75,
+  near: 0.1,
+  far: 1000,
   // development
-  debug: true // `dat.GUI` & `AxesHelper`
+  debug: true,
+  axesHelper: true
 }
 
 

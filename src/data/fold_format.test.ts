@@ -1,5 +1,5 @@
 import { describe, it } from 'mocha'
-import { expect } from 'chai'
+import { assert } from 'chai'
 import fs from 'fs'
 import path from 'path'
 
@@ -16,11 +16,11 @@ describe('Reading from valid FOLD files', () => {
       ),
       readIn: FOLD_data = JSON.parse(fs.readFileSync(TEST_DATA_FILE).toString())
 
-    expect(readIn.vertices_coords.every(v => v.length === 3)).to.be.true
+    assert(readIn.vertices_coords.every(v => v.length === 3))
   })
 
   it('should properly work with JSON import of TypeScript', () => {
-    expect(imported.vertices_coords.every(v => v.length === 3)).to.be.true
+    assert(imported.vertices_coords.every(v => v.length === 3))
   })
 
 })

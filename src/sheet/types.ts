@@ -12,4 +12,6 @@ type Vector3Coord = FixedLengthArray<number, 3>
 type VectorCoord = Vector2Coord | Vector3Coord
 
 
-export type { VertexId, EdgeId, FaceId, Vector2Coord, Vector3Coord, VectorCoord }
+export type {
+  VertexId, EdgeId, FaceId, Vector2Coord, Vector3Coord, VectorCoord
+}
