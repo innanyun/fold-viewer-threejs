@@ -1,6 +1,6 @@
 {
   "name": "fold-viewer-threejs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "FOLD File Viewer (Three.js)",
   "browser": {
     "path": "build"
@@ -19,6 +19,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.4",
     "fs": "^0.0.1-security",
     "gsap": "^3.7.1",
     "mathjs": "^9.4.4",
@@ -58,13 +59,13 @@
     "_esbuild-base": "esbuild src/app.ts --bundle --format=esm --outdir=build",
     "_esbuild-watch": "npm run _esbuild-base -- --watch --sourcemap",
     "build": "npm run _esbuild-base -- --minify",
-    "browser-sync": "browser-sync start --server --files 'build' '*.html'",
-    "dev": "npm-run-all --parallel _type-check-only _test-watch _esbuild-watch browser-sync",
+    "_browser-sync": "browser-sync start --server --files 'build' '*.html'",
+    "dev": "npm-run-all --parallel _type-check-only _test-watch _esbuild-watch _browser-sync",
     "lint": "eslint --report-unused-disable-directives src",
-    "_strip-json-comments": "strip-json-comments --no-whitespace tsconfig.json > .tsconfig.json",
-    "_test-base": "ts-mocha --project .tsconfig.json --paths src/**/*test.ts",
-    "_test-watch": "npm run _test-base -- --watch --watch-extensions ts",
-    "test": "npm-run-all --serial _strip-json-comments _test-base",
+    "_strip-tsconfig-comments": "strip-json-comments --no-whitespace tsconfig.json > .tsconfig.json",
+    "_ts-mocha-test": "ts-mocha --project .tsconfig.json --paths src/**/*.test.ts",
+    "_test-watch": "npm run _ts-mocha-test -- --watch --watch-extensions ts --watch-files src/**/*.test.ts",
+    "test": "npm-run-all --sequential _strip-tsconfig-comments _ts-mocha-test",
     "start": "npm run build && http-server"
   }
 }

@@ -6,3 +6,5 @@ build
 .tsconfig.json
 .pnpm-debug.log
 package-lock.json
+lab
+src/**/README.*

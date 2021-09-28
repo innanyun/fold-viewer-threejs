@@ -8,6 +8,7 @@ interface SheetOptions {
   backColor: ColorSpec
   edgeColor: ColorSpec
   edgeWidth: number
+  wireframe: boolean
 }
 
 
@@ -17,7 +18,8 @@ const SHEET_OPTIONS: SheetOptions = {
   frontColor: 0x00ff00,
   backColor: 0xff00ff,
   edgeColor: 0x0000ff,
-  edgeWidth: 0.002
+  edgeWidth: 0.002,
+  wireframe: false
 }
 
 

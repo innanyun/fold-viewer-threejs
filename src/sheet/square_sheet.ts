@@ -20,7 +20,9 @@ class SquareSheet implements Sheet {
       [-0.5,  0.5],
     ].map(([u, v]) => [size * u, size * v])
 
-    this._verticesPositions = this._verticesLocations.map(([u, v]) => [u, v, 0.0])
+    this._verticesPositions = this._verticesLocations.map(
+      ([u, v]) => [u, v, 0.0]
+    )
 
     this._facesVerticesIds = [[0, 1, 2, 3]]
   }

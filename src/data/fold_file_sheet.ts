@@ -14,11 +14,17 @@ class FoldFileSheet implements Sheet {
   facesVerticesIds(): VertexId[][] { return this._facesVerticesIds }
 
   constructor(foldData: FOLD_data) {
-    const v = foldData.vertices_coords
+    const
+      v = foldData.vertices_coords,
+      twoDimensionalVerticesCoords = v.every(coords => coords.length === 2)
 
-    this._verticesLocations = v.map(v => v.length === 2 ? v as Vector2Coord : v as never)
-    this._verticesPositions = v.map(v => (v.length === 3 ? v : [...v, 0]) as Vector3Coord)
-    this._facesVerticesIds = foldData.faces_vertices as VertexId[][]
+    this._verticesLocations = twoDimensionalVerticesCoords ?
+      v.map(([u, v]) => [u, v]) : []
+
+    this._verticesPositions = twoDimensionalVerticesCoords ?
+      v.map(([u, v]) => [u, v, 0]) : v.map(xyz => xyz as Vector3Coord)
+
+    this._facesVerticesIds = foldData.faces_vertices ?? []
   }
 
 }

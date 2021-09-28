@@ -17,25 +17,21 @@ function _createLocalFileChooser(parent: HTMLElement): HTMLInputElement {
 }
 
 
-function initFoldFileReader(): Observable<FOLD_data> {
+function chooseLocalFoldFile$(container: HTMLElement): Observable<FOLD_data> {
   const _reader = new FileReader()
 
   fromEvent(
-    _createLocalFileChooser(
-      document.getElementById('controls') as HTMLDivElement
-    ),
-    'change'
+    _createLocalFileChooser(container), 'change'
   ).pipe(
     map(event => ((event.target as HTMLInputElement).files as FileList)[0]),
     map(file => _reader.readAsText(file))
   ).subscribe()
 
   return fromEvent(_reader, 'load').pipe(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     map(_event => _reader.result as string),
     map(fileContent => JSON.parse(fileContent))
   )
 }
 
 
-export { initFoldFileReader }
+export { chooseLocalFoldFile$ }
