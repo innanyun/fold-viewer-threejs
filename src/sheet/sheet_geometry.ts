@@ -52,6 +52,8 @@ function _tessellate(polygonVertices: VertexId[]): VertexId[] {
 function createSheetFacesShapeGeometries$(
   s: Sheet
 ): Observable<THREE.ShapeBufferGeometry> {
+  // TODO: non-indexed geometry -> indexed geometry for better performance?
+  // tessellation using `ShapeUtils.triangularShape()` maybe helpful
   return from(s.facesVerticesIds()).pipe(
     map(faceVertices =>
       faceVertices.map(i => new THREE.Vector2(...s.verticesLocations()[i]))

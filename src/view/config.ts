@@ -25,7 +25,7 @@ const VIEW_OPTIONS: ViewOptions = {
   far: 1000,
   // development
   debug: true,
-  axesHelper: true
+  axesHelper: false
 }
 
 
