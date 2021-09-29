@@ -4,8 +4,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 // import { specifyMotion } from 'view/mesh_motion'
 
 import { ViewOptions } from 'view/config'
-import { initDatGUI, bindSheetOptionsControllers,
-  SheetOptionsControllers } from 'system/debug'
+import { initDatGUI, bindDebugOptionsControllers,
+  DebugOptionsControllers } from 'system/debug'
 
 
 export class View {
@@ -20,7 +20,9 @@ export class View {
   // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _controls: OrbitControls
   // @ts-expect-error: no initializer & not definitely assigned in constructor
-  private _sheetOptionsControllers: SheetOptionsControllers
+  private _debugOptionsControllers: DebugOptionsControllers
+  // @ts-expect-error: no initializer & not definitely assigned in constructor
+  private _axesHelper: THREE.AxesHelper
 
   constructor(options: ViewOptions, sheetMesh: THREE.Object3D) {
     this._setupEnvironment(
@@ -76,7 +78,7 @@ export class View {
     this._resize()
     this._setupResize()
 
-    options.debug && this._initDebugAssets()
+    options.debug && this._initDebugAssets(options)
   }
 
   setMesh(sheetMesh: THREE.Object3D, debug = true): void {
@@ -89,7 +91,7 @@ export class View {
     this._scene.add(this._mesh = sheetMesh)
 
     debug &&
-      bindSheetOptionsControllers(this._sheetOptionsControllers, this._mesh)
+      bindDebugOptionsControllers(this._debugOptionsControllers, this._mesh)
   }
 
   private _setupControls() {
@@ -124,9 +126,19 @@ export class View {
     this._controls.update()
   }
 
-  private _initDebugAssets() {
-    this._sheetOptionsControllers = initDatGUI(this._scene, this._camera)
-    this._scene.add(new THREE.AxesHelper())
+  private _initDebugAssets(options: ViewOptions) {
+
+    this._axesHelper = new THREE.AxesHelper()
+    this._axesHelper.visible = options.axesHelper
+
+    this._debugOptionsControllers = initDatGUI(
+      this._scene,
+      this._camera,
+      this._axesHelper
+    )
+
+    this._scene.add(this._axesHelper)
+
   }
 
 }

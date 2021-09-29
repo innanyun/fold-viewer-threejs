@@ -6,9 +6,10 @@ import * as dat from 'dat.gui'
 import { ColorSpec } from 'types'
 import { SheetOptions, SHEET_OPTIONS } from 'sheet/config'
 import { VIEW_OPTIONS } from 'view/config'
+import { AxesHelper } from 'three'
 
 
-interface SheetOptionsControllers {
+interface DebugOptionsControllers {
   // faces
   frontColorControl: dat.GUIController
   backColorControl: dat.GUIController
@@ -22,15 +23,15 @@ interface SheetOptionsControllers {
 
 
 function initDatGUI(
-  scene: THREE.Scene, camera: THREE.PerspectiveCamera
-): SheetOptionsControllers {
+  scene: THREE.Scene, camera: THREE.PerspectiveCamera, axesHelper: AxesHelper
+): DebugOptionsControllers {
 
   const
     gui = new dat.GUI({name: 'FOLD viewer'}),
     sheetOptionsControllers = gui.addFolder('Sheet'),
     viewOptionsControllers = gui.addFolder('View')
 
-  _createAndSetViewOptions(viewOptionsControllers, scene, camera)
+  _createAndSetViewOptions(viewOptionsControllers, scene, camera, axesHelper)
 
   return _createSheetOptionsControllers(sheetOptionsControllers, SHEET_OPTIONS)
 
@@ -39,7 +40,7 @@ function initDatGUI(
 
 function _createSheetOptionsControllers(
   controllers: dat.GUI, options: SheetOptions
-): SheetOptionsControllers {
+): DebugOptionsControllers {
 
   controllers.open()
 
@@ -58,8 +59,8 @@ function _createSheetOptionsControllers(
 }
 
 
-export function bindSheetOptionsControllers(
-  sheetOptions: SheetOptionsControllers,
+function bindDebugOptionsControllers(
+  controllers: DebugOptionsControllers,
   sheetMesh: THREE.Object3D,
 ): void {
 
@@ -70,16 +71,16 @@ export function bindSheetOptionsControllers(
     updateEdgeWidth = _updateSheetEdgeWidth(sheetMesh),
     toggleWireframe = _toggleSheetWireframe(sheetMesh)
 
-  sheetOptions.frontColorControl.onChange(
+  controllers.frontColorControl.onChange(
     newColor => updateFrontFacesColor(newColor)
   )
-  sheetOptions.backColorControl.onChange(
+  controllers.backColorControl.onChange(
     newColor => updateFrontFacesColor/*TODO: updateBackFacesColor*/(newColor)
   )
-  sheetOptions.opacityControl.onChange(newOpacity => updateOpacity(newOpacity))
-  sheetOptions.edgeColorControl.onChange(newColor => updateEdgesColor(newColor))
-  sheetOptions.edgeWidthControl.onChange(newWidth => updateEdgeWidth(newWidth))
-  sheetOptions.wireframeControl.onChange(newFlag => toggleWireframe(newFlag))
+  controllers.opacityControl.onChange(newOpacity => updateOpacity(newOpacity))
+  controllers.edgeColorControl.onChange(newColor => updateEdgesColor(newColor))
+  controllers.edgeWidthControl.onChange(newWidth => updateEdgeWidth(newWidth))
+  controllers.wireframeControl.onChange(newFlag => toggleWireframe(newFlag))
 
 }
 
@@ -147,19 +148,25 @@ function _toggleSheetWireframe(sheetMesh: THREE.Object3D)/* : Function */ {
 function _createAndSetViewOptions(
   controllers: dat.GUI,
   scene: THREE.Scene,
-  camera: THREE.PerspectiveCamera
+  camera: THREE.PerspectiveCamera,
+  axesHelper: AxesHelper
 ): void {
 
   controllers.addColor(VIEW_OPTIONS, 'backgroundColor')
     .onChange(newColor => (scene.background as THREE.Color).set(newColor))
-  controllers.add(camera.position, 'z', 0, 50, 5).listen()
-  controllers.add(camera, 'fov', 25, 125, 25).listen()
+  controllers.add(camera.position, 'z', 0, 50, 5)
+    .listen()
+  controllers.add(camera, 'fov', 25, 125, 25)
+    .listen()
     .onChange(_unusedNewFov => camera.updateProjectionMatrix())
+  controllers.add(axesHelper, 'visible')
+    .name('axes helper')
+    .onChange(newFlag => axesHelper.visible = newFlag)
 
   controllers.open()
 
 }
 
 
-export type { SheetOptionsControllers }
-export { initDatGUI }
+export type { DebugOptionsControllers }
+export { initDatGUI, bindDebugOptionsControllers }
