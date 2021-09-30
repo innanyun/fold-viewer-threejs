@@ -1,6 +1,6 @@
 {
   "name": "fold-viewer-threejs",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "FOLD File Viewer (Three.js)",
   "browser": {
     "path": "build"
