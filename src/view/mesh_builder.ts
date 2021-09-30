@@ -26,8 +26,8 @@ function _createSheetGeometryModel(s: Sheet): THREE.Object3D {
 
   const
     sheetGeometry = createSheetGeometry(s),
-    sheetFrontFaceMesh = new THREE.Mesh(sheetGeometry, _frontFaceMaterial),
-    sheetBackFaceMesh = new THREE.Mesh(sheetGeometry, _backFaceMaterial),
+    sheetFrontFaceMesh = new THREE.Mesh(sheetGeometry, _materials.front),
+    sheetBackFaceMesh = new THREE.Mesh(sheetGeometry, _materials.back),
     sheetEdgesMesh = _createEdgesMesh(sheetGeometry),
     sheetMesh = [sheetFrontFaceMesh, sheetBackFaceMesh, sheetEdgesMesh]
 
@@ -43,8 +43,8 @@ function _createSheetGeometryModel(s: Sheet): THREE.Object3D {
 }
 
 
-const
-  _frontFaceMaterial = new THREE.MeshLambertMaterial({
+const _materials = {
+  front: new THREE.MeshLambertMaterial({
     color: SHEET_OPTIONS.frontColor,
     transparent: true,
     opacity: SHEET_OPTIONS.opacity,
@@ -52,7 +52,7 @@ const
     // wireframe: true,
     // wireframeLinewidth: 3,
   }),
-  _backFaceMaterial = new THREE.MeshLambertMaterial({
+  back: new THREE.MeshLambertMaterial({
     color: SHEET_OPTIONS.backColor,
     transparent: true,
     opacity: SHEET_OPTIONS.opacity,
@@ -60,13 +60,14 @@ const
     // wireframe: true,
     // wireframeLinewidth: 3,
   }),
-  _edgeMaterial = new LineMaterial({
+  edge: new LineMaterial({
     color: SHEET_OPTIONS.edgeColor as number,
     linewidth: SHEET_OPTIONS.edgeWidth,
     // dashed: false, // try `true` for dashed wireframes
     dashSize: 0.05,
     gapSize: 0.02,
   })
+}
 
 
 function _createEdgesMesh(geometry: THREE.BufferGeometry): THREE.Object3D {
@@ -78,7 +79,7 @@ function _createEdgesMesh(geometry: THREE.BufferGeometry): THREE.Object3D {
   }
 
   return new Wireframe(
-    createEdgesGeometry(geometry), _edgeMaterial
+    createEdgesGeometry(geometry), _materials.edge
   ).computeLineDistances()
 
 }
@@ -90,7 +91,8 @@ function _createEdgesMesh(geometry: THREE.BufferGeometry): THREE.Object3D {
  * @returns Mesh group for sheet faces and geometry edges
  */
 function _createSheetFacesModel(s: Sheet): THREE.Object3D {
-  const sheetFrontFaces = new THREE.Group(),
+  const
+    sheetFrontFaces = new THREE.Group(),
     sheetBackFaces = new THREE.Group(),
     sheetFacesEdges = new THREE.Group()
 
@@ -101,8 +103,8 @@ function _createSheetFacesModel(s: Sheet): THREE.Object3D {
   createSheetFacesShapeGeometries$(s).subscribe({
     next: (shapeGeometry) => {
       // assign meshes for front and back faces
-      sheetFrontFaces.add(new THREE.Mesh(shapeGeometry, _frontFaceMaterial))
-      sheetBackFaces.add(new THREE.Mesh(shapeGeometry, _backFaceMaterial))
+      sheetFrontFaces.add(new THREE.Mesh(shapeGeometry, _materials.front))
+      sheetBackFaces.add(new THREE.Mesh(shapeGeometry, _materials.back))
       sheetFacesEdges.add(_createEdgesMesh(shapeGeometry))
     },
   })
