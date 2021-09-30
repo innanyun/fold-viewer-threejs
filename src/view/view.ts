@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 // import { specifyMotion } from 'view/mesh_motion'
 
 import { ViewOptions } from 'view/config'
-import { initDatGUI, bindDebugOptionsControllersWithSheet,
+import { initDatGUI, bindDebugOptionsControllersWithModel,
   DebugOptionsControllers } from 'system/debug'
 
 
@@ -12,7 +12,7 @@ export class View {
 
   private _container: HTMLElement
   private _scene: THREE.Scene
-  private _mesh: THREE.Object3D
+  private _model: THREE.Object3D
   // @ts-expect-error: no initializer & not definitely assigned in constructor
   private _camera: THREE.PerspectiveCamera
   // @ts-expect-error: no initializer & not definitely assigned in constructor
@@ -32,7 +32,7 @@ export class View {
     )
     this._setupControls()
     this._setupView(options)
-    this.setMesh((this._mesh = sheetMesh), options.debug)
+    this.setModel((this._model = sheetMesh), options.debug)
   }
 
   private _setupEnvironment(
@@ -81,17 +81,17 @@ export class View {
     options.debug && this._initDebugAssets(options)
   }
 
-  setMesh(sheetMesh: THREE.Object3D, debug = true): void {
-    const removeMesh = (mesh: THREE.Object3D): void => {
-      // TODO: dispose `mesh`
-      this._scene.remove(mesh)
+  setModel(model: THREE.Object3D, debug = true): void {
+    const disposeModel = (model: THREE.Object3D): void => {
+      // TODO: dispose `model`
+      this._scene.remove(model)
     }
 
-    this._mesh && removeMesh(this._mesh)
-    this._scene.add(this._mesh = sheetMesh)
+    this._model && disposeModel(this._model)
+    this._scene.add(this._model = model)
 
-    debug && bindDebugOptionsControllersWithSheet(
-      this._debugOptionsControllers, this._mesh
+    debug && bindDebugOptionsControllersWithModel(
+      this._debugOptionsControllers, this._model
     )
   }
 

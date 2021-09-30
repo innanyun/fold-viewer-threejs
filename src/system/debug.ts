@@ -59,24 +59,20 @@ function _createSheetOptionsControllers(
 }
 
 
-function bindDebugOptionsControllersWithSheet(
+function bindDebugOptionsControllersWithModel(
   controllers: DebugOptionsControllers,
-  sheetMesh: THREE.Object3D,
+  sheetModel: THREE.Object3D,
 ): void {
 
   const
-    updateFrontFacesColor = _updateSheetFacesColor(sheetMesh),
-    updateOpacity = _updateSheetOpacity(sheetMesh),
-    updateEdgesColor = _updateSheetEdgesColor(sheetMesh),
-    updateEdgeWidth = _updateSheetEdgeWidth(sheetMesh),
-    toggleWireframe = _toggleSheetWireframe(sheetMesh)
+    updateFacesColor = _updateSheetFacesColor(sheetModel),
+    updateOpacity = _updateSheetOpacity(sheetModel),
+    updateEdgesColor = _updateSheetEdgesColor(sheetModel),
+    updateEdgeWidth = _updateSheetEdgeWidth(sheetModel),
+    toggleWireframe = _toggleSheetWireframe(sheetModel)
 
-  controllers.frontColorControl.onChange(
-    newColor => updateFrontFacesColor(newColor)
-  )
-  controllers.backColorControl.onChange(
-    newColor => updateFrontFacesColor/*TODO: updateBackFacesColor*/(newColor)
-  )
+  controllers.frontColorControl.onChange(newColor => updateFacesColor(newColor, 'front'))
+  controllers.backColorControl.onChange(newColor => updateFacesColor(newColor, 'back'))
   controllers.opacityControl.onChange(newOpacity => updateOpacity(newOpacity))
   controllers.edgeColorControl.onChange(newColor => updateEdgesColor(newColor))
   controllers.edgeWidthControl.onChange(newWidth => updateEdgeWidth(newWidth))
@@ -86,16 +82,16 @@ function bindDebugOptionsControllersWithSheet(
 
 
 const
-  _isEdge = (mesh: THREE.Object3D): boolean => mesh instanceof Wireframe,
-  _isFace = (mesh: THREE.Object3D): boolean => mesh instanceof THREE.Mesh &&
-    !_isEdge(mesh)
+  _isEdge = (model: THREE.Object3D): boolean => model instanceof Wireframe,
+  _isFace = (model: THREE.Object3D): boolean => model instanceof THREE.Mesh &&
+    !_isEdge(model)
 
 
-function _updateSheetFacesColor(sheetMesh: THREE.Object3D) /*: Function */ {
-  return function (newColor: ColorSpec | THREE.Color): void {
-    sheetMesh.traverse(mesh => {
-      if (_isFace(mesh)) {
-        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).color.set(
+function _updateSheetFacesColor(sheetModel: THREE.Object3D) /*: Function */ {
+  return function (newColor: ColorSpec | THREE.Color, name: string): void {
+    sheetModel.traverse(child => {
+      if (_isFace(child) && child.name == name) {
+        ((child as THREE.Mesh).material as THREE.MeshPhongMaterial).color.set(
           newColor
         )
       }
@@ -103,42 +99,42 @@ function _updateSheetFacesColor(sheetMesh: THREE.Object3D) /*: Function */ {
   }
 }
 
-function _updateSheetEdgesColor(sheetMesh: THREE.Object3D)/* : Function */ {
+function _updateSheetEdgesColor(sheetModel: THREE.Object3D)/* : Function */ {
   return function (newColor: ColorSpec | THREE.Color): void {
-    sheetMesh.traverse(mesh => {
-      if (_isEdge(mesh)) {
-        ((mesh as Wireframe).material as LineMaterial).color.set(newColor)
+    sheetModel.traverseVisible(child => {
+      if (_isEdge(child)) {
+        ((child as Wireframe).material as LineMaterial).color.set(newColor)
       }
     })
   }
 }
 
-function _updateSheetEdgeWidth(sheetMesh: THREE.Object3D)/* : Function */ {
+function _updateSheetEdgeWidth(sheetModel: THREE.Object3D)/* : Function */ {
   return function (newWidth: number): void {
-    sheetMesh.traverse(mesh => {
-      if (_isEdge(mesh)) {
-        ((mesh as Wireframe).material as LineMaterial).linewidth = newWidth
+    sheetModel.traverseVisible(child => {
+      if (_isEdge(child)) {
+        ((child as Wireframe).material as LineMaterial).linewidth = newWidth
       }
     })
   }
 }
 
-function _updateSheetOpacity(sheetMesh: THREE.Object3D)/* : Function */ {
+function _updateSheetOpacity(sheetModel: THREE.Object3D)/* : Function */ {
   return function (newOpacity: number): void {
-    sheetMesh.traverse(mesh => {
-      if (_isFace(mesh)) {
-        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).opacity =
+    sheetModel.traverseVisible(child => {
+      if (_isFace(child)) {
+        ((child as THREE.Mesh).material as THREE.MeshPhongMaterial).opacity =
           newOpacity
       }
     })
   }
 }
 
-function _toggleSheetWireframe(sheetMesh: THREE.Object3D)/* : Function */ {
+function _toggleSheetWireframe(sheetModel: THREE.Object3D)/* : Function */ {
   return function (newFlag: boolean): void {
-    sheetMesh.traverseVisible(mesh => {
-      if (_isFace(mesh)) {
-        ((mesh as THREE.Mesh).material as THREE.MeshPhongMaterial).wireframe =
+    sheetModel.traverseVisible(child => {
+      if (_isFace(child)) {
+        ((child as THREE.Mesh).material as THREE.MeshPhongMaterial).wireframe =
           newFlag
       }
     })
@@ -169,4 +165,4 @@ function _createAndSetViewOptions(
 
 
 export type { DebugOptionsControllers }
-export { initDatGUI, bindDebugOptionsControllersWithSheet }
+export { initDatGUI, bindDebugOptionsControllersWithModel }
