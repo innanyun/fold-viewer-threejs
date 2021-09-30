@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 // import { specifyMotion } from 'view/mesh_motion'
 
 import { ViewOptions } from 'view/config'
-import { initDatGUI, bindDebugOptionsControllers,
+import { initDatGUI, bindDebugOptionsControllersWithSheet,
   DebugOptionsControllers } from 'system/debug'
 
 
@@ -90,8 +90,9 @@ export class View {
     this._mesh && removeMesh(this._mesh)
     this._scene.add(this._mesh = sheetMesh)
 
-    debug &&
-      bindDebugOptionsControllers(this._debugOptionsControllers, this._mesh)
+    debug && bindDebugOptionsControllersWithSheet(
+      this._debugOptionsControllers, this._mesh
+    )
   }
 
   private _setupControls() {

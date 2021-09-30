@@ -59,7 +59,7 @@ function _createSheetOptionsControllers(
 }
 
 
-function bindDebugOptionsControllers(
+function bindDebugOptionsControllersWithSheet(
   controllers: DebugOptionsControllers,
   sheetMesh: THREE.Object3D,
 ): void {
@@ -169,4 +169,4 @@ function _createAndSetViewOptions(
 
 
 export type { DebugOptionsControllers }
-export { initDatGUI, bindDebugOptionsControllers }
+export { initDatGUI, bindDebugOptionsControllersWithSheet }
