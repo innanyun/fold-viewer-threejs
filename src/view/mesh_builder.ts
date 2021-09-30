@@ -1,18 +1,20 @@
 import * as THREE from 'three'
 import { Wireframe } from 'three/examples/jsm/lines/Wireframe'
-import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry'
+import {
+  LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry'
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial'
 
 import { Sheet } from 'sheet/sheet'
-import { createSheetGeometry, createSheetFacesShapeGeometries$ } from 'sheet/sheet_geometry'
+import { createSheetGeometry,
+  createSheetFacesShapeGeometries$ } from 'sheet/sheet_geometry'
 
 import { SHEET_OPTIONS } from 'sheet/config'
 
 
-function createSheetMesh(s: Sheet): THREE.Object3D {
+function createSheetModel(s: Sheet): THREE.Object3D {
   return s.verticesLocations().length > 0 ?
-    _createSheetFacesMesh(s) :
-    _createSheetGeometryMesh(s)
+    _createSheetFacesModel(s) :
+    _createSheetGeometryModel(s)
 }
 
 /**
@@ -20,13 +22,18 @@ function createSheetMesh(s: Sheet): THREE.Object3D {
  * @param s
  * @returns Mesh group for sheet body and geometry edges
  */
-function _createSheetGeometryMesh(s: Sheet): THREE.Object3D {
+function _createSheetGeometryModel(s: Sheet): THREE.Object3D {
 
   const
     sheetGeometry = createSheetGeometry(s),
-    sheetBodyMesh = new THREE.Mesh(sheetGeometry, _faceMaterial),
+    sheetFrontFaceMesh = new THREE.Mesh(sheetGeometry, _materials.front),
+    sheetBackFaceMesh = new THREE.Mesh(sheetGeometry, _materials.back),
     sheetEdgesMesh = _createEdgesMesh(sheetGeometry),
-    sheetMesh = [sheetBodyMesh, sheetEdgesMesh]
+    sheetMesh = [sheetFrontFaceMesh, sheetBackFaceMesh, sheetEdgesMesh]
+
+  // name meshes for front and back faces
+  sheetFrontFaceMesh.name = 'front'
+  sheetBackFaceMesh.name = 'back'
 
   sheetMesh.forEach(mesh => mesh.scale.set(
     SHEET_OPTIONS.scale, SHEET_OPTIONS.scale, SHEET_OPTIONS.scale
@@ -36,22 +43,31 @@ function _createSheetGeometryMesh(s: Sheet): THREE.Object3D {
 }
 
 
-const
-  _faceMaterial = new THREE.MeshLambertMaterial({
+const _materials = {
+  front: new THREE.MeshLambertMaterial({
     color: SHEET_OPTIONS.frontColor,
     transparent: true,
     opacity: SHEET_OPTIONS.opacity,
-    side: THREE.DoubleSide,
+    side: THREE.FrontSide,
     // wireframe: true,
-    wireframeLinewidth: 3,
+    // wireframeLinewidth: 3,
   }),
-  _edgeMaterial = new LineMaterial({
+  back: new THREE.MeshLambertMaterial({
+    color: SHEET_OPTIONS.backColor,
+    transparent: true,
+    opacity: SHEET_OPTIONS.opacity,
+    side: THREE.BackSide,
+    // wireframe: true,
+    // wireframeLinewidth: 3,
+  }),
+  edge: new LineMaterial({
     color: SHEET_OPTIONS.edgeColor as number,
     linewidth: SHEET_OPTIONS.edgeWidth,
     // dashed: false, // try `true` for dashed wireframes
     dashSize: 0.05,
     gapSize: 0.02,
   })
+}
 
 
 function _createEdgesMesh(geometry: THREE.BufferGeometry): THREE.Object3D {
@@ -63,7 +79,7 @@ function _createEdgesMesh(geometry: THREE.BufferGeometry): THREE.Object3D {
   }
 
   return new Wireframe(
-    createEdgesGeometry(geometry), _edgeMaterial
+    createEdgesGeometry(geometry), _materials.edge
   ).computeLineDistances()
 
 }
@@ -74,19 +90,28 @@ function _createEdgesMesh(geometry: THREE.BufferGeometry): THREE.Object3D {
  * @param s
  * @returns Mesh group for sheet faces and geometry edges
  */
-function _createSheetFacesMesh(s: Sheet): THREE.Object3D {
+function _createSheetFacesModel(s: Sheet): THREE.Object3D {
   const
-    sheetFaces = new THREE.Group(),
+    sheetFrontFaces = new THREE.Group(),
+    sheetBackFaces = new THREE.Group(),
     sheetFacesEdges = new THREE.Group()
 
+  // name meshes for front and back faces
+  sheetFrontFaces.name = 'front'
+  sheetBackFaces.name = 'back'
+
   createSheetFacesShapeGeometries$(s).subscribe({
-    next: shapeGeometry => {
-      sheetFaces.add(new THREE.Mesh(shapeGeometry, _faceMaterial))
+    next: (shapeGeometry) => {
+      // assign meshes for front and back faces
+      sheetFrontFaces.add(new THREE.Mesh(shapeGeometry, _materials.front))
+      sheetBackFaces.add(new THREE.Mesh(shapeGeometry, _materials.back))
       sheetFacesEdges.add(_createEdgesMesh(shapeGeometry))
     },
   })
 
-  return _centerObject(new THREE.Group().add(sheetFaces, sheetFacesEdges))
+  return _centerObject(
+    new THREE.Group().add(sheetFrontFaces, sheetBackFaces, sheetFacesEdges)
+  )
 }
 
 
@@ -101,4 +126,4 @@ function _centerObject(obj: THREE.Object3D): THREE.Object3D {
 }
 
 
-export { createSheetMesh }
+export { createSheetModel }
