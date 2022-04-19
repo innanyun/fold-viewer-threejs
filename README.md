@@ -10,7 +10,7 @@ There is a good [viewer](https://edemaine.github.io/fold/examples/foldviewer.htm
 created by Jason Ku. It's an excellent implementation. But it's written in
 CoffeeScript and I wanted a more accessible and extensible implementation that
 can be part of [the bigger growing system for origami
-simulation](http://d-origami.com) so I made the following decisions:
+simulation](https://d-origami.com) so I made the following decisions:
 
 * TypeScript as an implementation language
 * Three.js as a 3D framework
